@@ -1,0 +1,122 @@
+"use client"
+
+import { motion, HTMLMotionProps } from "framer-motion"
+import { Button } from "@/components/ui/button"
+import { 
+  IconHome, 
+  IconBuildingStore, 
+  IconBatteryCharging, 
+  IconArrowRight 
+} from "@tabler/icons-react"
+
+const services = [
+  {
+    title: "Residential Solar",
+    desc: "Custom rooftop solar systems for homes. Reduce your electricity bill by up to 95% with our end-to-end installation.",
+    icon: <IconHome size={28} />,
+    bgColor: "bg-[#22C55E]", // Green
+  },
+  {
+    title: "Commercial Solar",
+    desc: "Cost-effective solar solutions for offices, retail spaces, and commercial buildings with fast ROI.",
+    icon: <IconBuildingStore size={28} />,
+    bgColor: "bg-[#F59E0B]", // Orange
+  },
+  {
+    title: "Industrial Solar",
+    desc: "High-capacity solar plants for factories and warehouses. Turnkey EPC with guaranteed performance.",
+    icon: <IconBuildingStore size={28} />,
+    bgColor: "bg-[#06B6D4]", // Cyan
+  },
+  {
+    title: "Battery Storage",
+    desc: "Hybrid solar + battery backup systems for 24/7 uninterrupted power supply.",
+    icon: <IconBatteryCharging size={28} />,
+    bgColor: "bg-[#EC4899]", // Pink/Red
+  },
+]
+
+export default function ServicesSection() {
+  
+  // Animation Strategy: Niche se upar, persistent
+  const fadeInUp: HTMLMotionProps<"div"> = {
+    initial: { opacity: 0, y: 30 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: false, margin: "-50px" },
+    transition: { duration: 0.6, ease: "easeOut" }
+  }
+
+  return (
+    <section className="py-24 bg-white">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10">
+        
+        {/* Header Section */}
+        <div className="text-center mb-16">
+          <motion.span 
+            {...fadeInUp}
+            className="inline-block bg-[#E3F2FD] text-[#1E88E5] px-4 py-1 rounded-full text-xs font-bold mb-4 uppercase tracking-wider"
+          >
+            What We Offer
+          </motion.span>
+          <motion.h2 
+            {...fadeInUp}
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-5xl font-black text-slate-900 mb-6"
+          >
+            Our Solar <span className="text-[#1E88E5]">Services</span>
+          </motion.h2>
+          <motion.p 
+            {...fadeInUp}
+            transition={{ delay: 0.2 }}
+            className="text-slate-500 max-w-2xl mx-auto text-sm md:text-base font-medium leading-relaxed"
+          >
+            Comprehensive solar energy solutions tailored to your needs — from homes to large industrial facilities.
+          </motion.p>
+        </div>
+
+        {/* Services Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          {services.map((service, idx) => (
+            <motion.div
+              key={idx}
+              {...fadeInUp}
+              transition={{ delay: idx * 0.1, duration: 0.5 }}
+              className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-2xl hover:shadow-blue-500/5 transition-all duration-300 flex flex-col items-start h-full"
+            >
+              {/* Icon Container */}
+              <div className={`${service.bgColor} w-14 h-14 rounded-2xl flex items-center justify-center text-white mb-6 shadow-lg`}>
+                {service.icon}
+              </div>
+
+              {/* Text Content */}
+              <div className="flex-grow space-y-4">
+                <h3 className="text-xl font-bold text-slate-900">
+                  {service.title}
+                </h3>
+                <p className="text-sm text-slate-500 leading-relaxed font-medium">
+                  {service.desc}
+                </p>
+              </div>
+
+              {/* Learn More Link */}
+              <button className="mt-8 flex items-center gap-2 text-[#1E88E5] font-bold text-sm hover:gap-3 transition-all">
+                Learn More <IconArrowRight size={16} />
+              </button>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Bottom CTA Button */}
+        <motion.div 
+          {...fadeInUp}
+          className="flex justify-center"
+        >
+          <Button className="bg-linear-to-r from-[#1E88E5] to-[#6EC6FF] hover:opacity-90 h-14 px-10 rounded-xl text-white font-bold shadow-lg shadow-blue-100 flex items-center gap-2">
+            View All Services <IconArrowRight size={18} />
+          </Button>
+        </motion.div>
+
+      </div>
+    </section>
+  )
+}
