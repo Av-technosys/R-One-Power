@@ -48,16 +48,16 @@ const page = () => {
       </div>
 
       {/* Content Section */}
-      <div className="min-h-screen bg-[#efefef] px-6 py-10 lg:py-25 md:px-16  lg:px-25 text-black font-inter">
+      <div className="min-h-screen bg-[#efefef] px-6 py-10 lg:py-25 md:px-16 lg:px-25 text-black font-inter">
         <div className="max-w-6xl">
 
           {/* Heading */}
-          <h1 className="text-5xl font-bold mb-10">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-10">
             Privacy Policy
           </h1>
 
           {/* Intro */}
-          <p className="text-lg leading-8 mb-14 max-w-5xl">
+          <p className="text-sm sm:text-base md:text-lg leading-8 mb-14 max-w-5xl">
             At R-One Power, we value your privacy and are committed to
             protecting your personal information. This policy explains how we
             collect, use, and safeguard your data.
@@ -65,15 +65,15 @@ const page = () => {
 
           {/* Section 1 */}
           <section className="mb-14">
-            <h2 className="text-3xl font-bold mb-6">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6">
               1. Information We Collect
             </h2>
 
-            <p className="text-lg mb-6">
+            <p className="text-sm sm:text-base md:text-lg mb-6">
               We may collect information when you:
             </p>
 
-            <ul className="list-disc pl-8 space-y-1 text-lg mb-8">
+            <ul className="list-disc pl-8 space-y-1 text-sm sm:text-base md:text-lg mb-8">
               <li>Request a quotation or consultation</li>
               <li>Book a site inspection</li>
               <li>Contact us via phone, email, or messaging platforms</li>
@@ -81,11 +81,11 @@ const page = () => {
               <li>Subscribe to updates or newsletters</li>
             </ul>
 
-            <p className="text-lg mb-6">
+            <p className="text-sm sm:text-base md:text-lg mb-6">
               Collected data may include:
             </p>
 
-            <ul className="list-disc pl-8 space-y-1 text-lg">
+            <ul className="list-disc pl-8 space-y-1 text-sm sm:text-base md:text-lg">
               <li>Full name</li>
               <li>Email address</li>
               <li>Contact number</li>
@@ -98,17 +98,17 @@ const page = () => {
 
           {/* Section 2 */}
           <section className="mb-14">
-            <h2 className="text-3xl font-bold mb-6">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6">
               2. Purpose of Data Collection
             </h2>
 
-            <p className="text-lg leading-8 mb-6 max-w-6xl">
+            <p className="text-sm sm:text-base md:text-lg leading-8 mb-6 max-w-6xl">
               Our services are available across India for residential,
               commercial, and industrial clients. Design suitable solar
               solutions and provide accurate pricing
             </p>
 
-            <ul className="list-disc pl-8 space-y-1 text-lg">
+            <ul className="list-disc pl-8 space-y-1 text-sm sm:text-base md:text-lg">
               <li>Perform site analysis and feasibility checks</li>
               <li>Process installation requests</li>
               <li>Keep you informed about project progress</li>
@@ -121,19 +121,19 @@ const page = () => {
 
           {/* Section 3 */}
           <section className="mb-14">
-            <h2 className="text-3xl font-bold mb-6">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6">
               3. Data Sharing Policy
             </h2>
 
-            <p className="text-lg leading-8 mb-6 max-w-6xl">
+            <p className="text-sm sm:text-base md:text-lg leading-8 mb-6 max-w-6xl">
               We respect your privacy and do not sell your data.
             </p>
 
-            <p className="text-lg mb-6">
+            <p className="text-sm sm:text-base md:text-lg mb-6">
               Your information may be shared with:
             </p>
 
-            <ul className="list-disc pl-8 space-y-1 text-lg">
+            <ul className="list-disc pl-8 space-y-1 text-sm sm:text-base md:text-lg">
               <li>Government Bodies: For approvals, net metering, and subsidy processing</li>
               <li>Service Providers: Vendors, logistics teams, and installation partners</li>
               <li>Financial Partners: If you apply for loans or financing options</li>
@@ -143,15 +143,15 @@ const page = () => {
 
           {/* Section 4 */}
           <section className="mb-14">
-            <h2 className="text-3xl font-bold mb-6">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6">
               4. Data Protection Measures
             </h2>
 
-            <p className="text-lg mb-6">
+            <p className="text-sm sm:text-base md:text-lg mb-6">
               We take appropriate steps to secure your information, including:
             </p>
 
-            <ul className="list-disc pl-8 space-y-1 text-lg">
+            <ul className="list-disc pl-8 space-y-1 text-sm sm:text-base md:text-lg">
               <li>Encrypted communication channels</li>
               <li>Secure data storage systems</li>
               <li>Restricted access to sensitive information</li>
@@ -160,15 +160,15 @@ const page = () => {
 
           {/* Section 5 */}
           <section className="mb-14">
-            <h2 className="text-3xl font-bold mb-6">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6">
               5. Data Retention
             </h2>
 
-            <p className="text-lg mb-6">
+            <p className="text-sm sm:text-base md:text-lg mb-6">
               Your information is stored only as long as required to:
             </p>
 
-            <ul className="list-disc pl-8 space-y-1 text-lg">
+            <ul className="list-disc pl-8 space-y-1 text-sm sm:text-base md:text-lg">
               <li>Complete your project</li>
               <li>Maintain warranty and service records</li>
               <li>Comply with legal requirements</li>
@@ -177,15 +177,15 @@ const page = () => {
 
           {/* Section 6 */}
           <section className="mb-14">
-            <h2 className="text-3xl font-bold mb-6">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6">
               6. Your Rights
             </h2>
 
-            <p className="text-lg mb-6">
+            <p className="text-sm sm:text-base md:text-lg mb-6">
               You have the right to:
             </p>
 
-            <ul className="list-disc pl-8 space-y-1 text-lg mb-8">
+            <ul className="list-disc pl-8 space-y-1 text-sm sm:text-base md:text-lg mb-8">
               <li>Access your stored personal data</li>
               <li>Request updates or corrections</li>
               <li>Ask for deletion (subject to legal limits)</li>
@@ -193,39 +193,39 @@ const page = () => {
               <li>Withdraw consent for specific data usage</li>
             </ul>
 
-            <p className="text-lg">
+            <p className="text-sm sm:text-base md:text-lg">
               To exercise your rights, contact us using the details below.
             </p>
           </section>
 
           {/* Section 7 */}
           <section className="mb-14">
-            <h2 className="text-3xl font-bold mb-6">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6">
               7. Cookies & Tracking Technologies
             </h2>
 
-            <p className="text-lg mb-6">
+            <p className="text-sm sm:text-base md:text-lg mb-6">
               Our website may use cookies to:
             </p>
 
-            <ul className="list-disc pl-8 space-y-1 text-lg mb-8">
+            <ul className="list-disc pl-8 space-y-1 text-sm sm:text-base md:text-lg mb-8">
               <li>Improve user experience</li>
               <li>Analyze website performance</li>
               <li>Personalize content</li>
             </ul>
 
-            <p className="text-lg">
+            <p className="text-sm sm:text-base md:text-lg">
               You can manage or disable cookies through your browser settings.
             </p>
           </section>
 
           {/* Section 8 */}
           <section className="mb-14">
-            <h2 className="text-3xl font-bold mb-6">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6">
               8. External Links
             </h2>
 
-            <p className="text-lg leading-8">
+            <p className="text-sm sm:text-base md:text-lg leading-8">
               Our website may include links to third-party platforms. We are
               not responsible for their privacy practices, so please review
               their policies separately.
@@ -234,11 +234,11 @@ const page = () => {
 
           {/* Section 9 */}
           <section className="mb-14">
-            <h2 className="text-3xl font-bold mb-6">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6">
               9. Children’s Privacy
             </h2>
 
-            <p className="text-lg leading-8">
+            <p className="text-sm sm:text-base md:text-lg leading-8">
               Our services are not intended for individuals below 18 years of
               age. We do not knowingly collect data from minors.
             </p>
@@ -246,11 +246,11 @@ const page = () => {
 
           {/* Section 10 */}
           <section className="mb-14">
-            <h2 className="text-3xl font-bold mb-6">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6">
               10. Policy Updates
             </h2>
 
-            <p className="text-lg leading-8">
+            <p className="text-sm sm:text-base md:text-lg leading-8">
               This Privacy Policy may be revised periodically. Changes will be
               reflected with an updated date at the top of this page.
             </p>
