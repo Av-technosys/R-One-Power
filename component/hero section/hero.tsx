@@ -1,7 +1,9 @@
-// components/HeroSection.tsx
+"use client"
+
 import React from "react"
 import Image, { StaticImageData } from "next/image"
 import { IconSunFilled } from "@tabler/icons-react"
+import { motion } from "framer-motion"
 
 type HeroSectionProps = {
   image: StaticImageData
@@ -55,7 +57,10 @@ const overlayClass =
       <div className="relative text-white min-h-[360px] pt-10 flex flex-col gap-10 items-center text-center">
 
         {/* Badge */}
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false }}
           className={`${badgeClass} w-fit px-5 border-2 rounded-full font-bold p-3 flex items-center justify-center gap-2`}
         >
           <IconSunFilled
@@ -65,21 +70,33 @@ const overlayClass =
           />
 
           {badgeText}
-        </div>
+        </motion.div>
 
         {/* Heading */}
         <div className="relative text-white flex flex-col gap-4 items-center text-center">
 
-        <div className="max-w-5xl px-4">
-        <h1 className="text-5xl md:text-7xl font-poppins font-bold leading-tight text-center break-words">
-            {heading}
-        </h1>
-        </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ delay: 0.1 }}
+            className="max-w-5xl px-4"
+          >
+            <h1 className="text-5xl md:text-7xl font-poppins font-bold leading-tight text-center break-words">
+              {heading}
+            </h1>
+          </motion.div>
 
           {subtitle && (
-            <p className="text-xl p-4 md:p-6 font-poppins max-w-4xl">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{ delay: 0.2 }}
+              className="text-xl p-4 md:p-6 font-poppins max-w-4xl"
+            >
               {subtitle}
-            </p>
+            </motion.p>
           )}
         </div>
       </div>
