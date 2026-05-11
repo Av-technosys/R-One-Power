@@ -18,7 +18,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className={`fixed max-w-7xl mx-auto top-0 left-0 right-0 font-inter z-50 flex items-center justify-between px-4 md:px-10 py-1 transition-all duration-300 ${scrolled ? "bg-white/70  backdrop-blur-md text-[#1E88E5] shadow-sm" : "bg-transparent text-white"}`}>
+    <header className={`fixed  mx-auto top-0 left-0 right-0 font-inter z-50 flex items-center justify-between px-4 md:px-10 py-1 2xl:py-2 transition-all duration-300 ${scrolled ? "bg-white/70  backdrop-blur-md text-[#1E88E5] shadow-sm" : "bg-transparent text-white"}`}>
       
       {/* Logo Section - Alignment Fixed */}
       <div className="flex items-center shrink-0">

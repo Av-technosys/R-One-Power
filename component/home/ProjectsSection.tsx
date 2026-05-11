@@ -25,7 +25,7 @@ export default function ProjectsSection() {
   }
 
   return (
-    <section className="bg-[#18202F] md:py-15 py-8 text-white overflow-hidden">
+    <section className="bg-[#18202F] md:py-15 py-8 text-white overflow-hidden font-inter">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
@@ -34,7 +34,7 @@ export default function ProjectsSection() {
             
             className="lg:col-span-4 md:space-y-7"
           >
-            <div >
+            <div className="font-poppins" >
               <h2 className="text-3xl font-bold">Real Project.</h2>
               <h2 className="text-4xl font-bold text-[#1E88E5]">Real Impact.</h2>
             </div>
