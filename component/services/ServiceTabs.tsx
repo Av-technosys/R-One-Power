@@ -1,19 +1,15 @@
 "use client"
-
+import QuoteForm from "@/component/Quote/Quote"
 import React, { useState } from "react"
 import { motion, AnimatePresence, HTMLMotionProps } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { 
   IconHome, 
   IconBuildingCommunity, 
-  IconBatteryCharging, 
-  IconTools, 
-  IconSettingsAutomation,
   IconCircleCheckFilled,
   IconArrowRight
 } from "@tabler/icons-react"
 
-// Data Structure (Wahi jo aapne diya)
 const servicesData = [
   {
     id: "residential",
@@ -141,11 +137,11 @@ const servicesData = [
       { label: "CO2 Reduced", value: "10k Tons" }
     ]
   },
-  // ... baki data ko main touch nahi kar raha
 ]
 
 export default function ServiceTabs() {
   const [activeTab, setActiveTab] = useState(servicesData[0])
+  const [showQuoteForm, setShowQuoteForm] = useState(false)
 
   const fadeInUp: HTMLMotionProps<"div"> = {
     initial: { opacity: 0, y: 20 },
@@ -156,16 +152,13 @@ export default function ServiceTabs() {
 
   return (
     <section className="pt-12 md:pt-20 bg-white font-inter">
-      {/* Container padding mobile pe kam kiya h taaki side space mile */}
       <div className="max-w-7xl mx-auto px-5 md:px-10">
         
-        {/* Tabs Bar - Mobile pe scrollable kiya h aur padding hide ki h */}
         <div className="flex overflow-x-auto no-scrollbar md:flex-wrap md:justify-center gap-3 mb-10 pb-2">
           {servicesData.map((item) => (
             <button
               key={item.id}
               onClick={() => setActiveTab(item)}
-              // whitespace-nowrap mobile scroll ke liye zaroori h
               className={`flex items-center shrink-0 gap-2 px-5 py-3 rounded-xl font-bold text-xs transition-all duration-300 whitespace-nowrap ${
                 activeTab.id === item.id 
                 ? "bg-[#1E88E5] text-white shadow-lg shadow-blue-200" 
@@ -185,9 +178,7 @@ export default function ServiceTabs() {
             className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-start"
           >
             
-            {/* Left Side: Visuals, Title & Description */}
             <div className="space-y-8 md:space-y-10">
-              {/* Image height mobile pe thodi kam ki h */}
               <div className="relative h-[250px] md:h-[350px] rounded-[24px] md:rounded-[32px] overflow-hidden shadow-2xl">
                 <img 
                   src={activeTab.image} 
@@ -197,7 +188,6 @@ export default function ServiceTabs() {
               </div>
 
               <div className="space-y-4">
-                {/* Heading size mobile pe adjust kiya h */}
                 <h2 className="text-3xl md:text-2xl font-black text-slate-900 font-poppins tracking-tight leading-tight">
                   {activeTab.title}
                 </h2>
@@ -206,7 +196,6 @@ export default function ServiceTabs() {
                 </p>
               </div>
 
-              {/* Stats Grid - Mobile pe scrollable ya wrap hoke clear dikhega */}
               <div className="grid grid-cols-3 gap-2 md:gap-4">
                 {activeTab.stats.map((stat, i) => (
                   <div key={i} className="bg-[#E3F2FD] p-3 md:p-6 rounded-[16px] md:rounded-[24px] text-center space-y-1">
@@ -217,10 +206,8 @@ export default function ServiceTabs() {
               </div>
             </div>
 
-            {/* Right Side: Features & CTA */}
             <div className="lg:pt-2 space-y-10">
               
-              {/* Features List */}
               <div className="space-y-6">
                 <h5 className="font-black text-slate-900 font-poppins uppercase tracking-[0.15em] text-sm">Key Features</h5>
                 <div className="space-y-4">
@@ -235,7 +222,6 @@ export default function ServiceTabs() {
                 </div>
               </div>
 
-              {/* Contact Box */}
               <div className="pt-8 border-t border-slate-100 space-y-6 pb-10 md:pb-0">
                 <div>
                   <h4 className="text-xl font-black text-slate-900 font-poppins">Need a custom solution?</h4>
@@ -244,7 +230,10 @@ export default function ServiceTabs() {
                   </p>
                 </div>
                 
-                <Button className="w-full md:w-auto h-12 px-8 bg-[#1E88E5] hover:bg-blue-600 text-white rounded-md font-bold text-xs gap-3 transition-all">
+                <Button
+                  onClick={() => setShowQuoteForm(true)}
+                  className="w-full md:w-auto h-12 px-8 bg-[#1E88E5] hover:bg-blue-600 text-white rounded-md font-bold text-xs gap-3 transition-all"
+                >
                   Request Quote <IconArrowRight size={16} />
                 </Button>
               </div>
@@ -255,6 +244,10 @@ export default function ServiceTabs() {
         </AnimatePresence>
 
       </div>
+
+      {showQuoteForm && (
+        <QuoteForm onClose={() => setShowQuoteForm(false)} />
+      )}
     </section>
   )
 }
