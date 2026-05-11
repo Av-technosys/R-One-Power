@@ -8,6 +8,7 @@ import {
   IconBatteryCharging, 
   IconArrowRight 
 } from "@tabler/icons-react"
+import Link from "next/link"
 
 const services = [
   {
@@ -48,7 +49,7 @@ export default function ServicesSection() {
 
   return (
     <section className="py-24 bg-[#F9FAFB]">
-      <div className="max-w-7xl mx-auto px-6 lg:px-10">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10 font-inter">
         
         {/* Header Section */}
         <div className="text-center mb-16">
@@ -61,14 +62,14 @@ export default function ServicesSection() {
           <motion.h2 
             {...fadeInUp}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl font-black text-slate-900 mb-6"
+            className="text-4xl md:text-5xl font-black text-slate-900 mb-6 font-poppins"
           >
             Our Solar <span className="text-[#1E88E5]">Services</span>
           </motion.h2>
           <motion.p 
             {...fadeInUp}
             transition={{ delay: 0.2 }}
-            className="text-slate-500 max-w-2xl mx-auto text-sm md:text-base font-medium leading-relaxed"
+            className="text-slate-500 max-w-2xl mx-auto text-sm md:text-base font-medium leading-relaxed font-inter"
           >
             Comprehensive solar energy solutions tailored to your needs — from homes to large industrial facilities.
           </motion.p>
@@ -90,7 +91,7 @@ export default function ServicesSection() {
 
               {/* Text Content */}
               <div className="flex-grow space-y-4">
-                <h3 className="text-xl font-bold text-slate-900">
+                <h3 className="text-xl font-bold text-slate-900 font-poppins">
                   {service.title}
                 </h3>
                 <p className="text-sm text-slate-500 leading-relaxed font-medium">
@@ -111,9 +112,11 @@ export default function ServicesSection() {
           {...fadeInUp}
           className="flex justify-center"
         >
-          <Button className="bg-linear-to-r from-[#1E88E5] to-[#6EC6FF] hover:opacity-90 h-14 px-10 rounded-xl text-white font-bold shadow-lg shadow-blue-100 flex items-center gap-2">
-            View All Services <IconArrowRight size={18} />
-          </Button>
+          <Link href="/services" className="w-full md:w-auto">
+            <Button className="bg-linear-to-r from-[#1E88E5] to-[#6EC6FF] w-full hover:opacity-90 h-14 px-10 rounded-xl text-white font-bold shadow-lg shadow-blue-100 flex items-center gap-2">
+              View All Services <IconArrowRight size={18} />
+            </Button>
+          </Link>
         </motion.div>
 
       </div>

@@ -77,7 +77,7 @@ const page = () => {
           badgeText="MNRE Certified Solar EPC Partner"
           heading={
             <>
-              Powering <span className="text-[#1E88E5]">Rajasthan </span>with Clean <span className="text-[#FDEA00]">Energy</span>
+              Powering <span className="text-[#1E88E5]">Rajasthan </span>with <br/> Clean <span className="text-[#FDEA00]">Energy</span>
             </>
           }
           subtitle="End-to-end solar EPC solutions with guaranteed performance, transparent pricing, and 25-year warranty. Cut your electricity bill by up to 80%."
@@ -261,7 +261,7 @@ const page = () => {
 
       {/*Core Values*/}
       <div>
-        <section className="w-full bg-white px-4 sm:px-6 md:px-16 lg:px-24 py-14 md:py-20 font-inter">
+        <section className="w-full  bg-white px-4 sm:px-6 md:px-16 lg:px-24 py-14 md:py-20 font-inter">
           <div className="text-center mb-10 md:mb-14">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -343,7 +343,7 @@ const page = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
               transition={{ delay: 0.1 }}
-              className="text-3xl sm:text-4xl md:text-6xl font-bold font-poppins text-[#1D2433] leading-tight"
+              className="text-3xl sm:text-4xl md:text-5xl font-bold font-poppins text-[#1D2433] leading-tight"
             >
               Meet Our Leadership Team
             </motion.h2>

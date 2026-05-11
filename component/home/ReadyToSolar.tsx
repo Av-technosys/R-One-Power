@@ -48,7 +48,7 @@ export default function ReadyToSolar() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
             {/* Primary Button */}
             <Button 
-              className="h-14 px-10  bg-white text-[#1E88E5] hover:bg-slate-100 rounded-md font-bold text-sm shadow-xl transition-all hover:scale-105"
+              className="h-14 px-10  font-inter bg-white text-[#1E88E5] hover:bg-slate-100 rounded-md font-bold text-sm shadow-xl transition-all hover:scale-105"
             >
               Book Free Site Survey
             </Button>
@@ -56,7 +56,7 @@ export default function ReadyToSolar() {
             {/* Ghost/Glass Button */}
             <Button 
               variant="outline"
-              className="h-14 px-10  border-white/40 bg-white/10 backdrop-blur-md text-white hover:bg-white/20 rounded-md font-bold text-sm gap-3 transition-all"
+              className="h-14 px-10 font-inter  border-white/40 bg-white/10 backdrop-blur-md text-white hover:bg-white/20 rounded-md font-bold text-sm gap-3 transition-all"
             >
               <IconPhoneFilled size={18} />
               +91 95213 73117

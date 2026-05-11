@@ -28,7 +28,7 @@ const page = () => {
           </div>
 
           <div className="relative text-white flex flex-col gap-4 items-center text-center ">
-            <p className="text-5xl md:text-7xl font-poppins font-bold mb-2">
+            <p className="text-5xl md:text-5xl font-poppins font-bold mb-2">
               Terms & <span className="text-[#FDEA00]">Conditions</span>
             </p>
             <p className="text-xl p-6 font-poppins">

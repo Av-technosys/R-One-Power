@@ -4,6 +4,7 @@ import Image from "next/image"
 import { motion, HTMLMotionProps } from "framer-motion" // HTMLMotionProps add kiya
 import { Button } from "@/components/ui/button"
 import { IconRosetteFilled } from "@tabler/icons-react"
+import Link from "next/link"
 
 export default function AboutSection() {
   
@@ -46,12 +47,16 @@ export default function AboutSection() {
             </div>
 
             <div className="mt-10 flex md:flex-row flex-col gap-4">
-              <Button className="bg-linear-to-r from-[#1E88E5] to-[#6EC6FF] hover:bg-[#45a7e4] h-14 md:px-8 rounded-md text-white font-bold shadow-lg shadow-blue-200 transition-all">
+              <Link href="/about" className="w-full md:w-auto">    
+              <Button className="bg-linear-to-r from-[#1E88E5] to-[#6EC6FF] hover:bg-[#45a7e4] w-full h-14 md:px-8 rounded-md text-white font-bold shadow-lg shadow-blue-200 transition-all">
                 Learn More About Us
               </Button>
-              <Button variant="outline" className="border-[#1E88E5] text-[#1E88E5] hover:bg-blue-50 h-14 px-15 rounded-md font-bold">
-                Contact Us
-              </Button>
+              </Link>
+              <Link href="/contact">
+              <Button variant="outline" className="border-[#1E88E5] text-[#1E88E5] hover:bg-blue-50 w-full h-14 px-15 rounded-md font-bold">
+                  Contact Us
+                </Button>
+              </Link>
             </div>
           </motion.div>
 

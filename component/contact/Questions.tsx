@@ -4,7 +4,7 @@ import { IconBrandWhatsapp, IconPhoneFilled } from "@tabler/icons-react";
 function Questions() {
   return (
     <div className="w-full px-4 py-10">
-      <div className="max-w-8xl mx-0 md:mx-25 bg-[#1E88E526] border border-blue-100 rounded-md p-8 text-center">
+      <div className="max-w-7xl mx-auto bg-[#1E88E526] border border-blue-100 rounded-md p-8 text-center">
         
         {/* Heading */}
         <h2 className="text-2xl md:text-3xl font-semibold text-[#1E88E5] font-poppins">

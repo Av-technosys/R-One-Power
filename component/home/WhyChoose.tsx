@@ -76,7 +76,7 @@ export default function WhyChoose() {
             transition={{ delay: 0.2 }}
             className="text-[#80807F] max-w-2xl mx-auto text-sm md:text-base font-medium"
           >
-            We don't just install panels — we engineer long-term energy independence for you.
+            We don&apos;t just install panels — we engineer long-term energy independence for you.
           </motion.p>
         </div>
 

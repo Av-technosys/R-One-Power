@@ -25,7 +25,7 @@ export default function ContactSection() {
             {...fadeInUp}
             className="text-4xl md:text-5xl font-black text-slate-900 mb-4 font-poppins"
           >
-            Let's Start Your <span className="text-[#1E88E5]">Solar Journey</span>
+            Let&apos;s Start Your <span className="text-[#1E88E5]">Solar Journey</span>
           </motion.h2>
           <motion.p 
             {...fadeInUp}
@@ -76,7 +76,7 @@ export default function ContactSection() {
               </Button>
               
               <p className="text-center text-[11px] text-slate-400 font-medium">
-                We'll get back to you within 24 hours
+                We&apos;ll get back to you within 24 hours
               </p>
             </form>
           </motion.div>

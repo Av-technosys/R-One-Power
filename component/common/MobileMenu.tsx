@@ -22,8 +22,8 @@ export default function MobileMenu() {
           </div>
 
           {/* Nav Links */}
-          <nav className="flex flex-col p-6 gap-4">
-            {["Home", "About Us", "Services", "Gallery", "Contact"].map((item) => (
+          <nav className="flex flex-col p-6 gap-4 font-inter">
+            {["Home", "About", "Services", "Gallery", "Contact"].map((item) => (
               <Link 
                 key={item} 
                 href={item === "Home" ? "/" : `/${item.toLowerCase().replace(" ", "-")}`}

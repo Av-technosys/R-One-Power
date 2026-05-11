@@ -97,7 +97,7 @@ const QuoteForm = () => {
 
           {/* Bottom Text */}
           <p className="text-center text-gray-500 text-xs md:text-sm">
-            We'll get back to you within 24 hours
+            We&apos;ll get back to you within 24 hours
           </p>
         
         </form>

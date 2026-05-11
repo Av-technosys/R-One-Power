@@ -24,7 +24,7 @@ export default function LogoStrap() {
   return (
     <section className="py-12 bg-white overflow-hidden border-b border-[#BDCABA4D]">
       <div className="container mx-auto px-4 mb-16">
-        <h2 className="text-center text-xs md:text-sm font-bold tracking-[0.2em] text-[#80807F] uppercase">
+        <h2 className="text-center text-xs md:text-sm font-poppins font-bold tracking-[0.2em] text-[#80807F] uppercase">
           Partnered with Global Energy Leaders
         </h2>
       </div>

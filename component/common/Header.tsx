@@ -33,7 +33,7 @@ export default function Header() {
 
       {/* Desktop Navigation - Pure Centered Alignment */}
       <nav className="hidden md:flex items-center gap-6 lg:gap-10 text-sm font-semibold  mt-2">
-        {["Home", "About Us", "Services", "Gallery", "Contact"].map((item) => (
+        {["Home", "About", "Services", "Gallery", "Contact"].map((item) => (
           <Link 
             key={item}
             href={item === "Home" ? "/" : `/${item.toLowerCase().replace(" ", "-")}`} 

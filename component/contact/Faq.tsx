@@ -14,7 +14,7 @@ import {
 
 function Faq() {
   return (
-    <div className="p-6 md:p-20">
+    <div className="p-6 md:p-1">
       
       {/*Headings*/}
       <div>
@@ -22,7 +22,7 @@ function Faq() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false }}
-          className="text-4xl md:text-5xl font-poppins font-bold mb-6 text-center"
+          className="text-3xl md:text-4xl font-poppins font-bold mb-3 text-center"
         >
           Frequently Asked <span className="text-[#1E88E5]">Questions</span>
         </motion.p>
@@ -40,7 +40,7 @@ function Faq() {
 
       <div>
         {/* FAQ Section */}
-        <div className="max-w-8xl mx-auto lg:mx-6 px-4 py-16">
+        <div className="max-w-7xl mx-auto pt-16 px-10">
           <div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-10 items-start">
             
             {/* Left - Image */}
@@ -120,7 +120,7 @@ function Faq() {
                     </AccordionTrigger>
 
                     <AccordionContent className="text-gray-500 text-base md:text-lg leading-relaxed pb-6 font-inter">
-                      Net-metering is available in most states across India. Contact us with your location and we'll confirm eligibility.
+                      Net-metering is available in most states across India. Contact us with your location and we&apos;ll confirm eligibility.
                     </AccordionContent>
                   </AccordionItem>
                 </motion.div>

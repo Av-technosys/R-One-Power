@@ -39,7 +39,7 @@ const overlayClass =
       : "bg-yellow-500/10 border-[#FDEA00] text-[#FDEA00]"
 
   return (
-    <div className="relative w-full min-h-[600px] flex flex-col justify-center p-8 overflow-hidden">
+    <div className="relative w-full py-28 flex flex-col justify-center p-8 overflow-hidden">
 
       {/* Background Image */}
       <Image
@@ -54,7 +54,7 @@ const overlayClass =
       <div className={`absolute inset-0 ${overlayClass}`}></div>
 
       {/* Content */}
-      <div className="relative text-white min-h-[360px] pt-10 flex flex-col gap-10 items-center text-center">
+      <div className="relative text-white  pt-10 flex flex-col gap-10 items-center text-center">
 
         {/* Badge */}
         <motion.div
@@ -82,7 +82,7 @@ const overlayClass =
             transition={{ delay: 0.1 }}
             className="max-w-5xl px-4"
           >
-            <h1 className="text-5xl md:text-7xl font-poppins font-bold leading-tight text-center break-words">
+            <h1 className="text-5xl md:text-5xl font-poppins font-bold leading-tight text-center break-words">
               {heading}
             </h1>
           </motion.div>
@@ -93,7 +93,7 @@ const overlayClass =
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
               transition={{ delay: 0.2 }}
-              className="text-xl p-4 md:p-6 font-poppins max-w-4xl"
+              className="text-xl p-4 md:p-6 font-poppins max-w-3xl"
             >
               {subtitle}
             </motion.p>

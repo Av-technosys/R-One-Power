@@ -50,7 +50,7 @@ const Page = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
               transition={{ delay: 0.1 }}
-              className="text-5xl md:text-7xl font-poppins font-bold mb-2"
+              className="text-5xl md:text-5xl font-poppins font-bold mb-2"
             >
               Get in <span className="text-[#FDEA00]">Touch</span>
             </motion.p>

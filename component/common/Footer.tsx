@@ -41,6 +41,18 @@ const certifications = [
   "ISO 9001:2015"
 ]
 
+const socialLinks = [
+  { icon: IconBrandFacebook, href: "https://www.facebook.com/ronepowerindia/" },
+
+  { icon: IconBrandX, href: "#" },
+
+  { icon: IconBrandInstagram, href: "https://www.instagram.com/ronepowerindia/" },
+
+  { icon: IconBrandLinkedin, href: "https://in.linkedin.com/company/r-one-power" },
+
+  { icon: IconBrandYoutube, href: "https://www.youtube.com/channel/UCqEsmZmBqd_NCX5NqF8CGXg" },
+]
+
 export default function Footer() {
   return (
     <footer className="bg-gradient-to-r from-[#111827] via-[#1F2937] to-[#111827] text-gray-400 font-inter pt-10">
@@ -60,13 +72,19 @@ export default function Footer() {
               Powering homes and businesses with clean, affordable solar energy. 
               MNRE-certified EPC partner with 25-year performance guarantee.
             </p>
-            <div className="flex items-center gap-3">
-              {[IconBrandFacebook, IconBrandX, IconBrandInstagram, IconBrandLinkedin, IconBrandYoutube].map((Icon, idx) => (
-                <Link key={idx} href="#" className="h-10 w-10 rounded-lg bg-white/5 flex items-center justify-center hover:bg-[#1E88E5] hover:text-white transition-all">
-                  <Icon size={18} />
-                </Link>
-              ))}
-            </div>
+         <div className="flex items-center gap-3">
+  {socialLinks.map((social, idx) => (
+    <Link
+      key={idx}
+      href={social.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="h-10 w-10 rounded-lg bg-white/5 flex items-center justify-center hover:bg-[#1E88E5] hover:text-white transition-all"
+    >
+      <social.icon size={18} />
+    </Link>
+  ))}
+</div>
           </div>
 
           {/* Column 2: Quick Links */}
@@ -137,7 +155,7 @@ export default function Footer() {
           <p>© 2026 R-ONE Power Solutions. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <Link href="privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="terms-of-service" className="hover:text-white transition-colors">Terms of Service</Link>
+            <Link href="terms-and-conditions" className="hover:text-white transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>

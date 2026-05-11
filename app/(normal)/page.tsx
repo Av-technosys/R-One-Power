@@ -1,4 +1,6 @@
 import ContactSection from '@/component/common/ContactSection'
+import Faq from '@/component/contact/Faq'
+import Questions from '@/component/contact/Questions'
 import AboutSection from '@/component/home/AboutSection'
 import BrandsSection from '@/component/home/BrandsSection'
 import HeroBanner from '@/component/home/HeroBanner'
@@ -29,8 +31,10 @@ const page = () => {
       <IndustrialSolutions/>
       <SolarCalculator/>
       <SolarBenefits/>
-      <BrandsSection/>
       <RajasthanNetwork/>
+      <Faq/>
+      <Questions/>
+      <BrandsSection/>
       <ContactSection/>
       <ReadyToSolar />
 

@@ -35,7 +35,7 @@ export default function ServiceBanner({
   }
 
   return (
-    <section className="relative w-full h-[60vh] md:h-[75vh] flex items-center justify-center overflow-hidden">
+    <section className="relative w-full h-[60vh] md:h-[70vh] flex items-center justify-center overflow-hidden">
       
       {/* Background Image Layer */}
       <div className="absolute inset-0 z-0">

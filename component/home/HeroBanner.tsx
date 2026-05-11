@@ -4,6 +4,7 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import {  IconSunFilled } from "@tabler/icons-react"
+import Link from "next/link"
 
 const stats = [
   { label: "Installations", value: "800+" },
@@ -14,7 +15,7 @@ const stats = [
 
 export default function HeroBanner() {
   return (
-    <section className="relative  font-inter overflow-hidden bg-gradient-to-b from-blue-50 to-white">
+    <section className="relative  font-inter overflow-hidden bg-gradient-to-b from-blue-50 py-24 to-white">
       {/* Background Graphic elements matching image */}
       <div className="absolute bottom-0 right-0 w-full h-full z-0">
          {/* Replace with your actual solar panel image path */}
@@ -67,13 +68,16 @@ export default function HeroBanner() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
           className="mt-8 flex flex-col md:flex-row gap-4 justify-center"
-        >
+        ><Link href="/contact" className="w-full md:w-auto">
           <Button size="lg" className="bg-linear-to-r from-[#1E88E5] to-[#6EC6FF] py-6 border border-[#1E88E5] hover:bg-blue-700 md:px-8 px-25 text-md rounded-md">
             Get Free Site Survey
           </Button>
-          <Button size="lg" variant="outline" className="py-6 px-8 text-md rounded-md  border border-[#1E88E5] bg-linear-to-r from-[#1E88E5] to-[#157DC0]  bg-clip-text text-transparent hover:text-blue-50">
-            Explore Services
-          </Button>
+          </Link>
+          <Link href="/services" className="w-full md:w-auto">
+            <Button size="lg" variant="outline" className="py-6 md:px-8  w-full  text-md rounded-md  border border-[#1E88E5] bg-linear-to-r from-[#1E88E5] to-[#157DC0]  bg-clip-text text-transparent hover:text-blue-50">
+              Explore Services
+            </Button>
+          </Link>
         </motion.div>
 
         {/* Stats Grid - Glassmorphism */}

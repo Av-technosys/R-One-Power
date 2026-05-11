@@ -58,7 +58,7 @@ export default function BrandsSection() {
             transition={{ delay: 0.1 }}
             className="text-sm md:text-base text-gray-300 font-medium max-w-xl mx-auto"
           >
-            We partner with the world's most trusted solar equipment manufacturers
+            We partner with the world&apos;s most trusted solar equipment manufacturers
           </motion.p>
           <motion.h4 
             {...fadeInUp}
