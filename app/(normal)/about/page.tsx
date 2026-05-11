@@ -20,6 +20,7 @@ import tab from "../../../public/tab_bgd.jpeg"
 import mobile from "../../../public/mobile_bgd.jpeg"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { motion } from "framer-motion"
+import QuoteForm from "@/component/Quote/Quote"
 
 const page = () => {
   const values = [
@@ -393,6 +394,7 @@ const page = () => {
 
       <div>
         {/*<QuoteForm/>*/}
+
       </div>
     </div>
   )
