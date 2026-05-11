@@ -53,7 +53,7 @@ export default function WhyChoose() {
   }
 
   return (
-    <section className="md:py-20 py-15 bg-gray-50/50">
+    <section className="md:py-20 py-15 bg-gray-50/50 font-inter">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         
         {/* Header Section */}
@@ -67,7 +67,7 @@ export default function WhyChoose() {
           <motion.h2 
             {...fadeInUp}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl font-black text-slate-900 mb-6"
+            className="text-4xl md:text-5xl font-black text-slate-900 mb-6 font-poppins " 
           >
             Why Choose <span className="text-[#1E88E5]">R-One Power</span>
           </motion.h2>
@@ -97,7 +97,7 @@ export default function WhyChoose() {
 
               {/* Text Content */}
               <div className="space-y-2">
-                <h3 className="text-xl font-bold text-slate-900 group-hover:text-[#1E88E5] transition-colors">
+                <h3 className="text-xl font-poppins font-bold text-slate-900 group-hover:text-[#1E88E5] transition-colors">
                   {item.title}
                 </h3>
                 <p className="text-sm text-slate-500 leading-relaxed font-medium">

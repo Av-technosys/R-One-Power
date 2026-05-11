@@ -14,7 +14,7 @@ const stats = [
 
 export default function HeroBanner() {
   return (
-    <section className="relative min-h-screen font-inter overflow-hidden bg-gradient-to-b from-blue-50 to-white">
+    <section className="relative  font-inter overflow-hidden bg-gradient-to-b from-blue-50 to-white">
       {/* Background Graphic elements matching image */}
       <div className="absolute bottom-0 right-0 w-full h-full z-0">
          {/* Replace with your actual solar panel image path */}

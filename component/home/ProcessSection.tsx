@@ -66,7 +66,7 @@ export default function ProcessSection() {
   }
 
   return (
-    <section className="relative pt-15 bg-slate-50 overflow-hidden">
+    <section className="relative pt-15 bg-slate-50 overflow-hidden font-inter ">
       {/* Background Solar Pattern Overlay */}
       <div className="absolute inset-0 ">
         <img src="/process-bg.png" alt="pattern" className="w-full h-full object-cover" />
@@ -83,7 +83,7 @@ export default function ProcessSection() {
             </span>
           </motion.div>
           
-          <motion.h2 {...fadeInUp} transition={{ delay: 0.1 }} className="text-4xl md:text-5xl font-black text-slate-900 mb-6">
+          <motion.h2 {...fadeInUp} transition={{ delay: 0.1 }} className="text-4xl font-poppins md:text-5xl font-black text-slate-900 mb-6">
             Simple 4-Step <span className="text-[#1E88E5]">Pro</span><span className="text-yellow-500">cess</span>
           </motion.h2>
           

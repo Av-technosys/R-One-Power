@@ -16,7 +16,7 @@ export default function AboutSection() {
   }
 
   return (
-    <section className="py-15 md:py-20 bg-white overflow-hidden">
+    <section className="py-15 md:py-20 bg-white overflow-hidden font-inter">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           
@@ -26,7 +26,7 @@ export default function AboutSection() {
               About R-One Power
             </span>
             
-            <h2 className="text-4xl md:text-5xl font-black text-slate-900 leading-tight">
+            <h2 className="text-4xl md:text-4xl font-black text-slate-900 font-poppins leading-tight">
               Engineering Excellence <br className="md:block hidden" />
               <span className="text-[#1E88E5]">Meets Solar Innovation</span>
             </h2>
