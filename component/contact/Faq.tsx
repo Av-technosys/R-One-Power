@@ -4,7 +4,6 @@ import React from 'react'
 import Image from 'next/image'
 import Solar from '../../public/Solar_Faq.jpg'
 import { motion } from "framer-motion"
-
 import {
   Accordion,
   AccordionContent,
@@ -168,5 +167,6 @@ function Faq() {
     </div>
   )
 }
+
 
 export default Faq
