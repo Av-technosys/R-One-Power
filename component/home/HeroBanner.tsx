@@ -7,10 +7,10 @@ import {  IconSunFilled } from "@tabler/icons-react"
 import Link from "next/link"
 
 const stats = [
-  { label: "Installations", value: "800+" },
-  { label: "Capacity Deployed", value: "50MW+" },
-  { label: "Performance Warranty", value: "25 Yrs" },
-  { label: "Bill Reduction", value: "80%" },
+  { label: "Projects Executed", value: "40+ MW" },
+  { label: "States & UT Coverage", value: "18+" },
+  { label: "Industry Experience", value: "8+ Years" },
+  { label: "Energy Savings", value: "Up to 90%" },
 ]
 
 export default function HeroBanner() {
@@ -37,7 +37,7 @@ export default function HeroBanner() {
           animate={{ opacity: 1, y: 0 }}
           className="bg-[#1E88E526] text-[#1E88E5] border border-[#4ADE8066] font-inter px-4 py-1.5 rounded-full text-xs font-semibold mb-4"
         >
-          <IconSunFilled className="inline-block mr-2 text-[#FBBF24]" /> MNRE Certified Solar EPC Partner
+          <IconSunFilled className="inline-block mr-2 text-[#FBBF24]" /> MNRE Empanelled Solar EPC & I&C Company
         </motion.div>
 
         {/* Heading */}
@@ -47,8 +47,8 @@ export default function HeroBanner() {
           transition={{ delay: 0.1 }}
           className="text-3xl md:text-5xl font-poppins font-extrabold text-slate-900 leading-tight tracking-tight"
         >
-          Clean Energy for <br />
-          <span className="text-[#1E88E5]">Every Home</span> & <span className="bg-linear-to-r from-[#FDEA00] to-[#FFC300] bg-clip-text text-transparent">Business</span>
+          Cleaner Future<br />
+          <span className="text-[#1E88E5]">Homes & </span> <span className="bg-linear-to-r from-[#FDEA00] to-[#FFC300] bg-clip-text text-transparent">Industries</span>
         </motion.h1>
 
         {/* Subtext */}
@@ -58,8 +58,9 @@ export default function HeroBanner() {
           transition={{ delay: 0.2 }}
           className="mt-5 text-lg text-[#616161] max-w-2xl"
         >
-          End-to-end solar EPC solutions with guaranteed performance, transparent pricing, and 
-          25-year warranty. Cut your electricity bill by up to 80%.
+          Delivering end-to-end solar EPC, I&C, and renewable energy solutions across India since 2016. 
+From residential rooftops to large-scale industrial projects, we provide reliable solar systems 
+designed for long-term performance, maximum savings, and sustainable growth.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -70,12 +71,13 @@ export default function HeroBanner() {
           className="mt-8 flex flex-col md:flex-row gap-4 justify-center"
         ><Link href="/contact" className="w-full md:w-auto">
           <Button size="lg" className="bg-linear-to-r from-[#1E88E5] to-[#6EC6FF] py-6 border border-[#1E88E5] hover:bg-blue-700 md:px-8 px-25 text-md rounded-md">
-            Get Free Site Survey
+            Get Free Consultation
           </Button>
           </Link>
           <Link href="/services" className="w-full md:w-auto">
             <Button size="lg" variant="outline" className="py-6 md:px-8  w-full  text-md rounded-md  border border-[#1E88E5] bg-linear-to-r from-[#1E88E5] to-[#157DC0]  bg-clip-text text-transparent hover:text-blue-50">
-              Explore Services
+              {/* CTA Button 2 */}
+            View Our Services
             </Button>
           </Link>
         </motion.div>

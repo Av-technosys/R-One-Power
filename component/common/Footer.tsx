@@ -25,12 +25,12 @@ const quickLinks = [
 ]
 
 const services = [
-  "Residential Solar",
-  "Commercial Solar",
-  "Industrial Solar",
-  "Solar Maintenance",
-  "Battery Storage",
-  "Net Metering",
+ { name: "Residential Solar" , href: "/services" },
+  { name: "Commercial Solar" , href: "/services" },
+  { name: "Industrial Solar" , href: "/services" },
+  { name: "Solar Maintenance" , href: "/services" },
+  { name: "Battery Storage" , href: "/services" },
+  { name: "Net Metering" , href: "/services" },
 ]
 
 const certifications = [
@@ -105,14 +105,23 @@ export default function Footer() {
           {/* Column 3: Services */}
           <div className="space-y-6">
             <h4 className="text-white font-bold font-poppins text-lg">Our Services</h4>
-            <ul className="space-y-4">
-              {services.map((service) => (
-                <li key={service} className="flex items-center gap-2 text-sm hover:text-[#1E88E5] cursor-pointer transition-colors group">
-                  <IconChevronRight size={14} className="text-[#1E88E5] group-hover:translate-x-1 transition-transform" />
-                  {service}
-                </li>
-              ))}
-            </ul>
+           <ul className="space-y-4">
+  {services.map((service) => (
+    <li key={service.name}>
+      <Link
+        href={service.href}
+        className="flex items-center gap-2 text-sm text-[#9CA3AF] hover:text-[#1E88E5] transition-colors group"
+      >
+        <IconChevronRight
+          size={14}
+          className="text-[#1E88E5] group-hover:translate-x-1 transition-transform"
+        />
+
+        {service.name}
+      </Link>
+    </li>
+  ))}
+</ul>
           </div>
 
           {/* Column 4: Contact Info */}

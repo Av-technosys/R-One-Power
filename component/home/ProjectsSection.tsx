@@ -35,24 +35,24 @@ export default function ProjectsSection() {
             className="lg:col-span-4 md:space-y-7"
           >
             <div className="font-poppins" >
-              <h2 className="text-3xl font-bold">Real Project.</h2>
-              <h2 className="text-4xl font-bold text-[#1E88E5]">Real Impact.</h2>
+              <h2 className="text-2xl font-bold">Trusted Solar Projects.</h2>
+              <h2 className="text-3xl font-bold text-[#1E88E5]">Proven Performance.</h2>
             </div>
 
             <div className="flex flex-wrap gap-5 pt-6">
               <div className="space-y-1">
-                <h3 className="text-2xl font-bold">25MW+</h3>
-                <p className="text-xs text-gray-400 uppercase tracking-wider leading-tight">Total Installed <br/> Capacity</p>
+                <h3 className="text-xl font-bold">40+ MW</h3>
+                <p className="text-[10px] text-gray-400 uppercase tracking-wider leading-tight">Solar Capacity <br/> Executed</p>
               </div>
               <div className="w-px h-16 bg-gray-700 hidden sm:block" />
               <div className="space-y-1">
-                <h3 className="text-2xl font-bold">75+</h3>
-                <p className="text-xs text-gray-400 uppercase tracking-wider leading-tight">Cities in <br/> Rajasthan</p>
+                <h3 className="text-xl font-bold">18+</h3>
+                <p className="text-[10px] text-gray-400 uppercase tracking-wider leading-tight">States & UTs <br/> Served</p>
               </div>
               <div className="w-px h-16 bg-gray-700 hidden sm:block" />
               <div className="space-y-1">
-                <h3 className="text-2xl font-bold">5000+</h3>
-                <p className="text-xs text-gray-400 uppercase tracking-wider leading-tight">Happy <br/> Customers</p>
+                <h3 className="text-xl font-bold">8+ Years</h3>
+                <p className="text-[10px] text-gray-400 uppercase tracking-wider leading-tight"> Solar Industry <br/> Experience</p>
               </div>
             </div>
           </motion.div>

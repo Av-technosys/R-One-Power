@@ -17,32 +17,32 @@ import {
 const steps = [
   {
     id: "01",
-    title: "Free Site Survey",
-    desc: "Our experts visit your site, assess roof structure, and calculate solar potential.",
-    img: "/step-1.png", // Replace with your image
+    title: "Site Assessment",
+    desc: "Our experts analyze your roof space, electricity consumption, and project requirements to identify the most efficient solar solution.",
+    img: "/step-1.png",
     color: "#1E88E5",
     icon: <IconSearch size={20} />,
   },
   {
     id: "02",
-    title: "Custom Design",
-    desc: "We design a system tailored to your energy needs and budget with maximum efficiency.",
+    title: "System Design & Planning",
+    desc: "We create a customized solar system design focused on maximum performance, safety standards, and long-term energy savings.",
     img: "/step-2.png",
     color: "#FBC02D",
     icon: <IconLayoutDashboard size={20} />,
   },
   {
     id: "03",
-    title: "Installation",
-    desc: "Professional installation by certified engineers with  monitoring in 7-10 days.",
+    title: "Professional Installation",
+    desc: "Our trained technical team installs the complete solar system using high-quality components and industry-best installation practices.",
     img: "/step-3.png",
     color: "#1E88E5",
     icon: <IconTools size={20} />,
   },
   {
     id: "04",
-    title: "Commissioning",
-    desc: "System testing, net metering setup, and handover with full documentation.",
+    title: "Testing & Commissioning",
+    desc: "We complete system testing, net metering support, and final commissioning to ensure smooth and reliable solar power generation.",
     img: "/step-4.png",
     color: "#FBC02D",
     icon: <IconClipboardCheck size={20} />,
@@ -50,10 +50,26 @@ const steps = [
 ]
 
 const bottomStats = [
-  { label: "100% Satisfaction", sub: "We ensure complete customer satisfaction.", icon: <IconCircleCheck className="text-white" /> },
-  { label: "Certified Experts", sub: "Trained & certified installation team.", icon: <IconCertificate className="text-white" /> },
-  { label: "Quality Assured", sub: "Premium products with long-term warranty.", icon: <IconShieldCheck className="text-white" /> },
-  { label: "After-Sales Support", sub: "Dedicated support even after installation.", icon: <IconHeadset className="text-white" /> },
+  {
+    label: "Reliable Project Execution",
+    sub: "Focused on quality workmanship and timely delivery.",
+    icon: <IconCircleCheck className="text-white" />,
+  },
+  {
+    label: "Experienced Technical Team",
+    sub: "Skilled professionals with strong solar EPC expertise.",
+    icon: <IconCertificate className="text-white" />,
+  },
+  {
+    label: "Tier-1 Quality Products",
+    sub: "High-performance components built for long-term reliability.",
+    icon: <IconShieldCheck className="text-white" />,
+  },
+  {
+    label: "Dedicated Support Services",
+    sub: "Complete assistance before, during, and after installation.",
+    icon: <IconHeadset className="text-white" />,
+  },
 ]
 
 export default function ProcessSection() {
@@ -84,11 +100,12 @@ export default function ProcessSection() {
           </motion.div>
           
           <motion.h2 {...fadeInUp} transition={{ delay: 0.1 }} className="text-4xl font-poppins md:text-5xl font-black text-slate-900 mb-6">
-            Simple 4-Step <span className="text-[#1E88E5]">Pro</span><span className="text-yellow-500">cess</span>
+            Simple 4-Step <span className="text-[#1E88E5]">Solar</span> <span className="text-yellow-500">Process</span>
           </motion.h2>
           
           <motion.p {...fadeInUp} transition={{ delay: 0.2 }} className="text-[#4B5563] max-w-xl mx-auto font-medium">
-            From your first call to going solar — we make it effortless.
+           {/* Subheading */}
+From consultation to commissioning, our team manages the complete solar installation process with quality execution and reliable support at every stage.
           </motion.p>
           
           <motion.div {...fadeInUp} transition={{ delay: 0.3 }} className="mt-8 flex justify-center items-center gap-4">

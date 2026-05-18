@@ -2,55 +2,55 @@
 
 import Image from "next/image"
 import { motion, HTMLMotionProps } from "framer-motion"
-import { 
-  IconHome, 
-  IconBuildingSkyscraper, 
-  IconBolt, 
-  IconBatteryAutomotive, 
+import {
+  IconHome,
+  IconBuildingSkyscraper,
+  IconBolt,
+  IconBatteryAutomotive,
   IconSettings,
-  IconArrowRight, 
+  IconArrowRight,
   IconBuildingFactory
 } from "@tabler/icons-react"
 
 const solutions = [
   {
     title: "Residential Rooftop Solar",
-    desc: "Custom solar solutions for homes, reducing electricity bills by 80-95%.",
+    desc: "Efficient rooftop solar systems designed for homes to reduce electricity costs and support long-term energy savings.",
     img: "/solution-1.png",
     icon: <IconHome size={24} />,
     color: "bg-linear-to-r from-[#3B82F6] to-[#06B6D4]",
   },
   {
-    title: "Commercial Solar",
-    desc: "Cost-effective solar installations for offices and commercial buildings.",
+    title: "Commercial Solar Solutions",
+    desc: "Customized solar installations for offices, institutions, and commercial properties focused on operational efficiency and cost reduction.",
     img: "/solution-2.png",
     icon: <IconBuildingSkyscraper size={24} />,
     color: "bg-linear-to-r from-[#22C55E] to-[#10B981]",
   },
   {
-    title: "Industrial Solar",
-    desc: "High-capacity solar systems for manufacturing and industrial facilities.",
+    title: "Industrial Solar EPC",
+    desc: "Large-scale industrial solar projects with complete EPC services, quality engineering, and dependable performance.",
     img: "/solution-3.png",
     icon: <IconBuildingFactory size={24} />,
     color: "bg-linear-to-r from-[#A855F7] to-[#EC4899]",
   },
   {
-    title: "On-Grid / Hybrid Systems",
-    desc: "Flexible grid-tied and battery backup solar solutions.",
+    title: "On-Grid & Hybrid Systems",
+    desc: "Flexible solar solutions with grid connectivity and hybrid configurations designed for reliable energy management.",
     img: "/solution-4.png",
     icon: <IconBolt size={24} />,
     color: "bg-linear-to-r from-[#F59E0B] to-[#F97316]",
   },
   {
-    title: "Hybrid Solar Systems",
-    desc: "Solar with battery backup for 24/7 power supply.",
+    title: "Solar Battery Backup",
+    desc: "Advanced battery-integrated solar systems for uninterrupted power supply and enhanced energy reliability.",
     img: "/solution-5.png",
     icon: <IconBatteryAutomotive size={24} />,
     color: "bg-linear-to-r from-[#14B8A6] to-[#06B6D4]",
   },
   {
-    title: "Annual Maintenance (AMC)",
-    desc: "Comprehensive maintenance contracts for optimal system performance.",
+    title: "Operation & Maintenance",
+    desc: "Comprehensive maintenance and support services to ensure optimal solar system efficiency and long-term performance.",
     img: "/solution-6.png",
     icon: <IconSettings size={24} />,
     color: "bg-linear-to-r from-[#6366F1] to-[#A855F7]",
@@ -68,31 +68,32 @@ export default function IndustrialSolutions() {
   return (
     <section className="md:py-15 py-8 bg-white font-inter">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        
+
         {/* Header */}
         <div className="text-center mb-16 space-y-4">
-          <motion.span 
+          <motion.span
             {...fadeInUp}
             className="inline-block bg-[#E3F2FD] text-[#1E88E5] px-6 py-1.5 rounded-full text-xs font-bold border border-blue-100 uppercase tracking-wider"
           >
             What We Offer
           </motion.span>
-          
-          <motion.h2 
+
+          <motion.h2
             {...fadeInUp}
             transition={{ delay: 0.1 }}
             className="text-4xl md:text-5xl font-black text-slate-900 font-poppins"
           >
-            Industrial Solar <span className="text-[#1E88E5]">Solutions</span>
+            Complete Solar <span className="text-[#1E88E5]">Energy Solutions</span>
           </motion.h2>
-          
-          <motion.div 
+
+          <motion.div
             {...fadeInUp}
             transition={{ delay: 0.2 }}
             className="text-slate-500 max-w-2xl mx-auto text-sm font-medium leading-relaxed"
           >
-            <p>Engineered for Industries / Factories / Businesses. Built for Performance.</p>
-            <p>Designed for Profitability.</p>
+            <p>{/* Subheading */}
+              Reliable and performance-driven solar solutions for residential, commercial, and industrial energy requirements with complete EPC execution and long-term support.</p>
+
           </motion.div>
         </div>
 
@@ -107,8 +108,8 @@ export default function IndustrialSolutions() {
             >
               {/* Image Container */}
               <div className="relative h-56 w-full overflow-hidden">
-                <Image 
-                  src={item.img} 
+                <Image
+                  src={item.img}
                   alt={item.title}
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-700"

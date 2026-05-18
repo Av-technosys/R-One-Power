@@ -48,16 +48,26 @@ export default function Header() {
       {/* Action Buttons & Mobile Menu */}
       <div className="flex items-center gap-3 lg:gap-5 mt-2">
         {/* WhatsApp - Only visible on Large Screens */}
-        <Link href="#" className={`hidden xl:flex items-center gap-2 text-sm font-medium  hover:text-green-600 transition-colors ${scrolled ? "text-[#1E88E5]" : "text-white"}`}>
-          <IconBrandWhatsapp size={22} className="text-green-500" />
-          <span>Chat on WhatsApp</span>
-        </Link>
+      <Link
+  href="https://wa.me/919660077814?text=Hello%20R-One%20Power,%20I%20want%20to%20know%20more%20about%20your%20solar%20services."
+  target="_blank"
+  className={`hidden xl:flex items-center gap-2 text-sm font-medium hover:text-green-600 transition-colors ${
+    scrolled ? "text-[#1E88E5]" : "text-white"
+  }`}
+>
+  <IconBrandWhatsapp size={22} className="text-green-500" />
+  <span>Chat on WhatsApp</span>
+</Link>
 
         {/* Call Button - Hidden on very small screens, visible from sm up */}
-        <Button className="hidden sm:flex bg-[#1E88E5] bg-linear-to-r from-[#1E88E5] to-[#157DC0] rounded-md flex gap-2 items-center px-5 py-4 shadow-md shadow-blue-500/20 transition-all active:scale-95">
-          <IconPhone size={18} />
-          <span className=" md:block hidden font-bold">+91 8585858585</span>
-        </Button>
+      <a href="tel:+919660077814">
+  <Button className="hidden sm:flex bg-[#1E88E5] bg-linear-to-r from-[#1E88E5] to-[#157DC0] rounded-md gap-2 items-center px-5 py-4 shadow-md shadow-blue-500/20 transition-all active:scale-95">
+    <IconPhone size={18} />
+    <span className="md:block hidden font-bold">
+      +91 96600 77814
+    </span>
+  </Button>
+</a>
 
         {/* The Mobile Drawer Trigger */}
         <MobileMenu />

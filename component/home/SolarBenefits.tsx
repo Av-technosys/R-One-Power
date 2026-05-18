@@ -13,29 +13,29 @@ import {
 
 const topBenefits = [
   {
-    title: "Up to 80% Cost Savings",
-    desc: "Significantly lower your monthly electricity expenses",
+    title: "Reduce Electricity Costs",
+    desc: "Lower your monthly electricity expenses with efficient and reliable solar power generation.",
     icon: <IconTrendingDown size={32} stroke={1.5} />,
     color: "bg-linear-to-r from-[#3B82F6] to-[#06B6D4]",
     shadow: "shadow-blue-200"
   },
   {
-    title: "Fast ROI (3-5 Years)",
-    desc: "Quick payback period with long-term savings",
+    title: "Long-Term Financial Savings",
+    desc: "Solar systems offer strong long-term returns with minimal operational and maintenance costs.",
     icon: <IconCurrencyRupee size={32} stroke={1.5} />,
     color: "bg-linear-to-r from-[#22C55E] to-[#10B981]",
-    shadow: "shadow-emerald-200"            
+    shadow: "shadow-emerald-200"
   },
   {
-    title: "Enhanced Valuation",
-    desc: "₹78,000 subsidy available in Rajasthan",
+    title: "Government Subsidy Support",
+    desc: "Eligible residential projects can benefit from government-backed solar subsidy programs.",
     icon: <IconHomeDollar size={32} stroke={1.5} />,
-    color: "bg-linear-to-r from-[#F59E0B] to-[#F97316]  ",
+    color: "bg-linear-to-r from-[#F59E0B] to-[#F97316]",
     shadow: "shadow-amber-200"
   },
   {
-    title: "Flexible Financing",
-    desc: "CAPEX, OPEX, or PPA models tailored to your requirements",
+    title: "Flexible Solar Solutions",
+    desc: "Customized solar systems and financing options designed around your energy requirements.",
     icon: <IconWallet size={32} stroke={1.5} />,
     color: "bg-linear-to-r from-[#A855F7] to-[#EC4899]",
     shadow: "shadow-purple-200"
@@ -75,7 +75,8 @@ export default function SolarBenefits() {
             transition={{ delay: 0.2 }}
             className="text-slate-500 font-medium max-w-lg mx-auto"
           >
-            Why switching to solar makes financial sense
+           {/* Subheading */}
+Smart solar investments designed to reduce energy costs, improve long-term savings, and support a more sustainable future.
           </motion.p>
         </div>
 
@@ -112,9 +113,9 @@ export default function SolarBenefits() {
               <IconLeaf size={30} className="text-emerald-600" />
             </div>
             <div className="space-y-3">
-              <h3 className="text-xl font-bold text-slate-900 font-poppins">Environmental Impact</h3>
+              <h3 className="text-xl font-bold text-slate-900 font-poppins">Sustainable Energy Impact</h3>
               <p className="text-sm text-[#717A75] leading-relaxed font-medium">
-                Each kW of solar reduces 1.5 tons of CO₂ emissions annually. Help create a cleaner future for the next generation.
+               Solar energy helps reduce carbon emissions, supports cleaner power generation, and contributes toward a more sustainable environment for future generations.
               </p>
             </div>
           </motion.div>
@@ -130,14 +131,13 @@ export default function SolarBenefits() {
               <IconBolt size={30} className="text-amber-600" />
             </div>
             <div className="space-y-3">
-              <h3 className="text-xl font-bold text-slate-900 font-poppins">Energy Independence</h3>
+              <h3 className="text-xl font-bold text-slate-900 font-poppins">  Greater Energy Independence</h3>
               <p className="text-sm text-[#717A75] leading-relaxed font-medium">
-                Protect yourself from rising electricity tariffs. Generate your own clean power and gain energy security.
+                Generate your own electricity, reduce dependency on conventional power sources, and protect against rising electricity tariffs over time.
               </p>
             </div>
           </motion.div>
-        </div>
-
+        </div>  
       </div>
     </section>
   )

@@ -37,12 +37,13 @@ export default function ReadyToSolar() {
         <motion.div {...fadeInUp} className="space-y-6">
           
           <h2 className="text-3xl md:text-4xl font-black text-white font-poppins tracking-tight">
-            Ready to Go Solar?
+             Ready to Switch to Solar?
           </h2>
 
           <p className="text-white/90 text-sm md:text-md font-medium font-inter max-w-2xl mx-auto leading-relaxed">
-            Get a free site survey and customized quote today. Our experts will help you 
-            choose the right system and maximize your savings.
+            Join Rajasthan&apos;s trusted solar EPC company with 50+ MW installed capacity 
+            and 5000+ satisfied customers. Get a free site survey, subsidy assistance, 
+            and a customized solar solution for your home, business, or industry.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
@@ -59,7 +60,7 @@ export default function ReadyToSolar() {
               className="h-14 px-10 font-inter  border-white/40 bg-white/10 backdrop-blur-md text-white hover:bg-white/20 rounded-md font-bold text-sm gap-3 transition-all"
             >
               <IconPhoneFilled size={18} />
-              +91 95213 73117
+              ++91 96600 77814
             </Button>
           </div>
 

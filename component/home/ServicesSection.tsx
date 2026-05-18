@@ -12,31 +12,30 @@ import Link from "next/link"
 
 const services = [
   {
-    title: "Residential Solar",
-    desc: "Custom rooftop solar systems for homes. Reduce your electricity bill by up to 95% with our end-to-end installation.",
+    title: "Residential Solar Solutions",
+    desc: "Efficient rooftop solar systems for homes designed to reduce electricity costs, improve energy independence, and support sustainable living.",
     icon: <IconHome size={28} />,
-    bgColor: "bg-[#22C55E]", // Green
+    bgColor: "bg-[#22C55E]",
   },
   {
-    title: "Commercial Solar",
-    desc: "Cost-effective solar solutions for offices, retail spaces, and commercial buildings with fast ROI.",
+    title: "Commercial Solar Projects",
+    desc: "Customized solar solutions for offices, institutions, and commercial spaces focused on operational savings and long-term energy efficiency.",
     icon: <IconBuildingStore size={28} />,
-    bgColor: "bg-[#F59E0B]", // Orange
+    bgColor: "bg-[#F59E0B]",
   },
   {
-    title: "Industrial Solar",
-    desc: "High-capacity solar plants for factories and warehouses. Turnkey EPC with guaranteed performance.",
+    title: "Industrial Solar EPC",
+    desc: "High-capacity industrial solar projects with complete EPC execution, quality engineering, and dependable system performance.",
     icon: <IconBuildingStore size={28} />,
-    bgColor: "bg-[#06B6D4]", // Cyan
+    bgColor: "bg-[#06B6D4]",
   },
   {
-    title: "Battery Storage",
-    desc: "Hybrid solar + battery backup systems for 24/7 uninterrupted power supply.",
+    title: "Hybrid & Backup Systems",
+    desc: "Advanced hybrid solar and battery backup solutions for uninterrupted power supply and improved energy reliability.",
     icon: <IconBatteryCharging size={28} />,
-    bgColor: "bg-[#EC4899]", // Pink/Red
+    bgColor: "bg-[#EC4899]",
   },
 ]
-
 export default function ServicesSection() {
   
   // Animation Strategy: Niche se upar, persistent
@@ -71,7 +70,8 @@ export default function ServicesSection() {
             transition={{ delay: 0.2 }}
             className="text-slate-500 max-w-2xl mx-auto text-sm md:text-base font-medium leading-relaxed font-inter"
           >
-            Comprehensive solar energy solutions tailored to your needs — from homes to large industrial facilities.
+            {/* Subheading */}
+Comprehensive renewable energy solutions designed for residential, commercial, and industrial energy requirements with reliable execution and long-term performance.
           </motion.p>
         </div>
 

@@ -28,33 +28,36 @@ export default function AboutSection() {
             </span>
             
             <h2 className="text-4xl md:text-4xl font-black text-slate-900 font-poppins leading-tight">
-              Engineering Excellence <br className="md:block hidden" />
-              <span className="text-[#1E88E5]">Meets Solar Innovation</span>
+              Solar Solutions <br className="md:block hidden" />
+              <span className="text-[#1E88E5]">Across India</span>
             </h2>
 
             <div className="mt-8 space-y-5 text-[#80807F] leading-relaxed max-w-xl">
               <p>
-                R-One Power Energy Solutions is a leading MNRE-certified solar EPC
-                company serving residential, commercial, and industrial clients across
-                Rajasthan. We deliver turnkey solar installations from feasibility study to
-                commissioning and ongoing maintenance.
+                {/* Paragraph 1 */}
+R-One Power is a trusted Solar EPC and I&C company delivering end-to-end renewable energy solutions since 2016. 
+We specialize in residential, commercial, and industrial solar projects with a strong focus on quality execution, 
+engineering excellence, and long-term energy savings.
               </p>
               <p>
-                With 800+ successful installations and 50MW+ of deployed capacity, we bring
-                engineering-grade reliability and customer-first service to every project. Our
-                transparent pricing and subsidy assistance make solar accessible to everyone.
+                {/* Paragraph 2 */}
+With successful project execution across multiple states and union territories, our team provides complete support 
+from project planning and installation to commissioning and maintenance. We are committed to delivering reliable, 
+high-performance solar systems using Tier-1 quality components and industry-best practices.
               </p>
             </div>
 
             <div className="mt-10 flex md:flex-row flex-col gap-4">
               <Link href="/about" className="w-full md:w-auto">    
               <Button className="bg-linear-to-r from-[#1E88E5] to-[#6EC6FF] hover:bg-[#45a7e4] w-full h-14 md:px-8 rounded-md text-white font-bold shadow-lg shadow-blue-200 transition-all">
-                Learn More About Us
+                {/* Primary CTA */}
+Learn More About
               </Button>
               </Link>
               <Link href="/contact">
               <Button variant="outline" className="border-[#1E88E5] text-[#1E88E5] hover:bg-blue-50 w-full h-14 px-15 rounded-md font-bold">
-                  Contact Us
+                  {/* Secondary CTA */}
+Get in Touch
                 </Button>
               </Link>
             </div>
@@ -84,8 +87,8 @@ export default function AboutSection() {
               transition={{ delay: 0.3, duration: 0.5 }}
               className="absolute -top-6 -right-4 md:right-12 bg-[#56B8F5] text-white p-3 rounded-3xl shadow-xl px-5 text-center border-4 border-white"
             >
-              <h4 className="text-3xl md:text-4xl font-black">800+</h4>
-              <p className="text-xs md:text-sm font-medium opacity-90">Happy Clients</p>
+              <h4 className="text-3xl md:text-4xl font-black">40+ MW</h4>
+              <p className="text-xs md:text-sm font-medium opacity-90">Projects Executed</p>
             </motion.div>
 
             {/* Floating Card 2: MNRE Certified */}
@@ -100,8 +103,8 @@ export default function AboutSection() {
                 <IconRosetteFilled size={32} />
               </div>
               <div>
-                <p className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Certified by</p>
-                <h5 className="text-lg font-black text-slate-900">MNRE India</h5>
+                <p className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Empanelled Vendor</p>
+                <h5 className="text-lg font-black text-slate-900">PM Surya Ghar</h5>
               </div>
             </motion.div>
           </motion.div>

@@ -12,33 +12,33 @@ import {
 
 const features = [
   {
-    title: "MNRE Certified",
-    desc: "Government-approved solar EPC partner with certified engineers.",
+    title: "Trusted Solar EPC Expertise",
+    desc: "Delivering end-to-end solar EPC and I&C solutions since 2016 with proven experience across residential, commercial, and industrial projects.",
     icon: <IconRosetteFilled className="text-[#1E88E5]" size={28} />,
   },
   {
-    title: "25-Year Warranty",
-    desc: "Industry-leading performance guarantee on all panel installations.",
+    title: "PM Surya Ghar Empanelled",
+    desc: "Authorized vendor for government-backed residential solar projects with complete support for subsidy processing and documentation.",
     icon: <IconShieldCheck className="text-[#1E88E5]" size={28} />,
   },
   {
-    title: "24/7 Support",
-    desc: "Round-the-clock monitoring and rapid response maintenance team.",
+    title: "Dedicated Technical Support",
+    desc: "Our experienced team ensures smooth project execution, responsive assistance, and reliable post-installation support.",
     icon: <IconHeadset className="text-[#1E88E5]" size={28} />,
   },
   {
-    title: "Transparent Pricing",
-    desc: "No hidden costs. Clear breakdown with subsidy assistance included.",
+    title: "Transparent Project Planning",
+    desc: "Clear project estimates, honest consultation, and optimized solar solutions designed around your energy requirements.",
     icon: <IconCurrencyRupee className="text-[#1E88E5]" size={28} />,
   },
   {
-    title: "End-to-End EPC",
-    desc: "From site survey to commissioning — we handle everything for you.",
+    title: "Complete Turnkey Solutions",
+    desc: "From site assessment and system design to installation, commissioning, and maintenance — we handle the entire process.",
     icon: <IconSettings className="text-[#1E88E5]" size={28} />,
   },
   {
-    title: "Eco Commitment",
-    desc: "Each kW installed reduces 1.5 tons of CO₂ emissions annually.",
+    title: "Focused on Sustainable Impact",
+    desc: "Our solar systems help reduce electricity costs, lower carbon emissions, and support a cleaner, more sustainable future.",
     icon: <IconLeaf className="text-[#1E88E5]" size={28} />,
   },
 ]
@@ -76,7 +76,8 @@ export default function WhyChoose() {
             transition={{ delay: 0.2 }}
             className="text-[#80807F] max-w-2xl mx-auto text-sm md:text-base font-medium"
           >
-            We don&apos;t just install panels — we engineer long-term energy independence for you.
+            {/* Subheading */}
+Delivering dependable solar solutions through quality engineering, trusted execution, and long-term energy performance across residential, commercial, and industrial sectors.
           </motion.p>
         </div>
 

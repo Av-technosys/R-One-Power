@@ -15,132 +15,149 @@ const servicesData = [
     id: "pm-surya-ghar",
     tabLabel: "Residential Solar",
     icon: <IconHome size={18} />,
-    title: "PM Surya Ghar Residential Solar Power Plant",
-    image: "/service-bg.jpg",
+    title: "Residential Rooftop Solar Solutions",
+    image: "/services/residential",
     description:
-      "R-One Power provides residential rooftop solar power plant solutions under PM Surya Ghar Yojna with complete support for installation, subsidy assistance and long-term savings.",
+      "R-ONE Power delivers residential rooftop solar systems with complete EPC support, subsidy guidance, premium Tier-1 components and long-term energy savings for homeowners across Rajasthan.",
+
     features: [
-      "Residential rooftop solar power plant",
-      "PM Surya Ghar Yojna support",
-      "Government subsidy assistance",
-      "Net metering support",
-      "Long-term electricity bill savings",
-      "Reliable service and maintenance",
+      "Residential rooftop solar installation",
+      "PM Surya Ghar subsidy assistance",
+      "Net metering approval support",
+      "Tier-1 solar panels & inverters",
+      "Lower monthly electricity bills",
+      "Complete installation & maintenance support",
     ],
+
     stats: [
-      { label: "Bill Reduction", value: "Up to 90%" },
-      { label: "System Life", value: "25+ Years" },
-      { label: "Maintenance", value: "Low" },
+      { label: "Savings", value: "Up to 90%" },
+      { label: "Warranty", value: "25 Years" },
+      { label: "Subsidy", value: "Available" },
     ],
   },
+
   {
     id: "commercial-industrial",
     tabLabel: "Commercial Solar",
     icon: <IconBuildingCommunity size={18} />,
-    title: "Industrial and Commercial Solar Power Projects",
-    image: "/commercial-solar.jpg",
+    title: "Commercial & Industrial Solar Power Projects",
+    image: "/services/comercial",
     description:
-      "We deliver industrial and commercial solar power projects designed to reduce electricity costs, improve energy efficiency and provide long-term value for businesses.",
+      "We provide high-performance commercial solar power solutions for offices, hotels, schools, hospitals and industrial facilities designed to reduce operational electricity costs and improve energy efficiency.",
+
     features: [
-      "Industrial solar power projects",
       "Commercial rooftop solar systems",
-      "High-performance solar solutions",
-      "Tier-1 quality products",
-      "Project financing support",
-      "Timely project execution",
+      "Industrial solar EPC solutions",
+      "Customized project engineering",
+      "High-efficiency Tier-1 equipment",
+      "Fast project execution",
+      "Long-term operational savings",
     ],
+
     stats: [
-      { label: "Segments", value: "Industrial" },
-      { label: "Savings", value: "High" },
-      { label: "Products", value: "Tier-1" },
+      { label: "Project Type", value: "Commercial" },
+      { label: "Savings", value: "High ROI" },
+      { label: "Execution", value: "Fast" },
     ],
   },
+
   {
     id: "pm-kusum",
-    tabLabel: "PM Kusum",
+    tabLabel: "Industrial Solar",
     icon: <IconBuildingCommunity size={18} />,
-    title: "PM Kusum Yojna Based Solar Power Plant",
-    image: "/commercial-solar.jpg",
+    title: "Industrial Solar & PM Kusum Projects",
+    image: "/services/industry",
     description:
-      "R-One Power executes PM Kusum Yojna based solar power plant projects with complete planning, installation and project support for agricultural and renewable energy applications.",
+      "R-ONE Power executes large-scale industrial solar and PM Kusum projects with complete planning, installation, commissioning and long-term technical support for reliable clean energy generation.",
+
     features: [
-      "PM Kusum solar power plants",
-      "Government scheme based projects",
-      "Solar project planning",
-      "Installation and commissioning",
-      "Quality workmanship",
-      "Long-term project support",
+      "PM Kusum solar project solutions",
+      "Industrial solar power plants",
+      "Ground-mounted solar systems",
+      "Project planning & commissioning",
+      "Government scheme support",
+      "Reliable after-sales service",
     ],
+
     stats: [
-      { label: "Project Type", value: "PM Kusum" },
+      { label: "Capacity", value: "Large Scale" },
       { label: "Support", value: "End-to-End" },
-      { label: "Energy", value: "Clean" },
+      { label: "Energy", value: "Clean Power" },
     ],
   },
+
   {
     id: "hybrid-off-grid",
-    tabLabel: "Hybrid & Off Grid",
+    tabLabel: "Battery Storage",
     icon: <IconBuildingCommunity size={18} />,
-    title: "Hybrid and Off Grid Solar Projects",
-    image: "/commercial-solar.jpg",
+    title: "Hybrid Solar & Battery Storage Systems",
+    image: "/services/battery",
     description:
-      "We provide hybrid and off-grid solar project solutions for reliable clean energy where grid power is limited, unstable or unavailable.",
+      "We offer hybrid and battery storage solutions designed for uninterrupted power backup, energy independence and reliable solar performance in residential, commercial and remote applications.",
+
     features: [
-      "Hybrid solar projects",
-      "Off-grid solar solutions",
-      "Battery backup support",
-      "Reliable power supply",
-      "Remote area applications",
-      "Customized solar system design",
+      "Hybrid solar system solutions",
+      "Advanced battery backup systems",
+      "Off-grid solar applications",
+      "24/7 power availability",
+      "Custom energy storage design",
+      "Reliable backup during outages",
     ],
+
     stats: [
-      { label: "Power Type", value: "Hybrid" },
-      { label: "Backup", value: "Available" },
-      { label: "Use Case", value: "Remote Areas" },
+      { label: "Backup", value: "24/7" },
+      { label: "System", value: "Hybrid" },
+      { label: "Application", value: "All Sectors" },
     ],
   },
+
   {
     id: "open-access-resco",
-    tabLabel: "Open Access",
+    tabLabel: "Solar AMC",
     icon: <IconBuildingCommunity size={18} />,
-    title: "Open Access and IPP Based RESCO Projects",
-    image: "/commercial-solar.jpg",
+    title: "Solar AMC & Operation Maintenance Services",
+    image: "/services/amc",
     description:
-      "R-One Power provides open access and IPP based RESCO solar project solutions for industrial users looking for clean energy with flexible investment models.",
+      "Our AMC and operation maintenance services ensure maximum solar plant efficiency, reduced downtime and long-term performance through preventive inspections and expert technical support.",
+
     features: [
-      "Open access solar projects",
-      "IPP based RESCO projects",
-      "Industrial user solutions",
-      "Clean energy procurement",
-      "Flexible solar investment model",
-      "Large-scale solar project support",
+      "Annual maintenance contracts",
+      "Preventive system inspection",
+      "Performance monitoring support",
+      "Panel cleaning & servicing",
+      "Fault diagnosis & repair",
+      "Long-term operational efficiency",
     ],
+
     stats: [
-      { label: "Model", value: "RESCO" },
-      { label: "Users", value: "Industrial" },
-      { label: "Scale", value: "Large" },
+      { label: "Service", value: "AMC" },
+      { label: "Monitoring", value: "24/7" },
+      { label: "Performance", value: "Optimized" },
     ],
   },
+
   {
     id: "om-consultancy",
-    tabLabel: "O&M / Consultancy",
+    tabLabel: "Net Metering",
     icon: <IconBuildingCommunity size={18} />,
-    title: "Design, Consultancy, Operation and Maintenance",
-    image: "/commercial-solar.jpg",
+    title: "Net Metering & Solar Consultancy Services",
+    image: "/services/matering",
     description:
-      "We offer solar project design, consultancy and operation & maintenance services to ensure reliable performance, better efficiency and long-term system life.",
+      "We provide complete net metering assistance, solar consultancy and technical support services to simplify approvals, improve system performance and maximize long-term savings.",
+
     features: [
-      "Solar project design",
-      "Solar consultancy services",
-      "Operation and maintenance work",
-      "Performance monitoring",
-      "Preventive maintenance",
-      "Long-term reliability support",
+      "Net metering documentation support",
+      "DISCOM approval assistance",
+      "Solar project consultancy",
+      "Technical feasibility analysis",
+      "System performance optimization",
+      "Long-term expert guidance",
     ],
+
     stats: [
-      { label: "Service", value: "O&M" },
-      { label: "Support", value: "Long-Term" },
-      { label: "Focus", value: "Performance" },
+      { label: "Approvals", value: "Fast" },
+      { label: "Consultancy", value: "Expert" },
+      { label: "Support", value: "Complete" },
     ],
   },
 ]
@@ -204,7 +221,7 @@ export default function ServiceTabs() {
 
               <div className="grid grid-cols-3 gap-2 md:gap-4">
                 {activeTab.stats.map((stat, i) => (
-                  <div key={i} className="bg-[#E3F2FD] p-3 md:p-6 rounded-[16px] md:rounded-[24px] text-center space-y-1">
+                  <div key={i} className="bg-[#E3F2FD] p-3 md:p-8 mx-auto rounded-[16px] md:rounded-[24px] text-center space-y-1">
                     <h4 className="text-lg md:text-2xl font-black text-[#1E88E5] font-poppins">{stat.value}</h4>
                     <p className="text-[9px] md:text-[11px] font-bold text-slate-500 uppercase tracking-tighter md:tracking-widest">{stat.label}</p>
                   </div>

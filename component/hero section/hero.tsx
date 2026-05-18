@@ -80,7 +80,7 @@ const overlayClass =
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false }}
             transition={{ delay: 0.1 }}
-            className="max-w-5xl px-4"
+            className="max-w-7xl px-4"
           >
             <h1 className="text-4xl sm:text-5xl md:text-7xl font-poppins font-bold leading-tight text-center break-words">
               {heading}

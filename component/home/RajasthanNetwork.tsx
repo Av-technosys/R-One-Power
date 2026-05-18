@@ -8,17 +8,22 @@ import { IconMapPinFilled, IconPhoneFilled } from "@tabler/icons-react"
 
 // Content from official layout
 const hubs = [
-  "JAIPUR", "JODHPUR", "UDAIPUR",
-  "KOTA", "AJMER", "RAJSAMAND",
-  "BIKANER", "BHILWARA", "+10 MORE"
+  "JAIPUR",
+  "JODHPUR",
+  "UDAIPUR",
+  "KOTA",
+  "AJMER",
+  "BIKANER",
+  "BHILWARA",
+  "ALWAR",
+  "+ MORE CITIES"
 ]
 
 const stats = [
-  { label: "of Projects", value: "50+ MW" },
-  { label: "Installations", value: "50+" },
-  { label: "Experience", value: "2 Years" },
+  { label: "Installed Capacity", value: "50+ MW" },
+  { label: "Completed Projects", value: "500+" },
+  { label: "Industry Experience", value: "10+ Years" },
 ]
-
 export default function RajasthanNetwork() {
   // Using HTMLMotionProps to fix the "Red Alert" TypeScript errors
   const fadeInUp: HTMLMotionProps<"div"> = {
@@ -38,15 +43,14 @@ export default function RajasthanNetwork() {
           <div className="lg:w-1/2 w-full space-y-8">
             <motion.div {...fadeInUp} className="space-y-3">
               <span className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-400">
-                EXPANDING NETWORK
+                EXPANDING SOLAR REACH
               </span>
               <h2 className="text-4xl md:text-3xl font-black text-slate-900 font-poppins leading-[1.1] tracking-tight">
-                Serving 16+ Districts <br /> 
-                Everywhere Across Rajasthan
+               Serving Multiple Districts <br />
+Across Rajasthan
               </h2>
               <p className="text-slate-500 font-medium text-sm max-w-md leading-relaxed">
-                Expanding rapidly to cover the entire region with next-gen solar power infrastructure.
-              </p>
+Delivering reliable solar EPC solutions across Rajasthan with dedicated project execution, installation support, and long-term service coverage.              </p>
             </motion.div>
 
             {/* Map Container - No extra text, just your image */}
@@ -78,9 +82,9 @@ export default function RajasthanNetwork() {
                 <IconMapPinFilled size={28} className="text-white" />
               </div>
               <div>
-                <h4 className="text-xl font-black text-slate-900 font-poppins">Entire Rajasthan</h4>
+                <h4 className="text-xl font-black text-slate-900 font-poppins">  Strong Regional Presence</h4>
                 <p className="text-sm text-slate-400 font-medium leading-tight">
-                  Our maintenance and deployment teams cover all major districts.
+                Our installation and support teams operate across major cities and industrial regions of Rajasthan.
                 </p>
               </div>
             </motion.div>
@@ -88,18 +92,18 @@ export default function RajasthanNetwork() {
             {/* Buttons */}
             <motion.div {...fadeInUp} className="flex flex-wrap gap-4">
               <Button className="h-14 px-8 bg-[#1E88E5] hover:bg-blue-600 rounded-md font-bold gap-3 text-sm">
-                <IconPhoneFilled size={18} /> Call Now: +91-XXXXX-XXXXX
+                <IconPhoneFilled size={18} />  Contact Our Team
               </Button>
               <Button variant="outline" className="h-14 px-8 border-slate-200 text-[#1E88E5] hover:bg-slate-50 rounded-md font-bold text-sm">
-                Request in Your Area
+              Request a Consultation
               </Button>
             </motion.div>
 
             {/* Hubs Grid */}
             <div className="space-y-6">
                <div className="flex justify-between items-center">
-                  <h3 className="text-xl font-black text-slate-900 font-poppins tracking-tight">Operational Hubs</h3>
-                  <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest">STRATEGIC LOCATIONS</span>
+                  <h3 className="text-xl font-black text-slate-900 font-poppins tracking-tight">Operational Presence</h3>
+                  <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest">SERVICE LOCATIONS</span>
                </div>
                <div className="grid grid-cols-3 gap-3">
                  {hubs.map((hub, i) => (
