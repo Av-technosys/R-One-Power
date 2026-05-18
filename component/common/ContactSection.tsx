@@ -224,7 +224,7 @@ export default function ContactSection() {
               </p>
 
               <Button className="bg-[#1E88E5] hover:bg-[#1565C0] h-14 px-8 rounded-xl text-white font-bold flex items-center gap-3 shadow-md transition-all">
-                <IconPhone size={20} /> +91 141 234 5678
+                <IconPhone size={20} /> +91 96600 77814
               </Button>
             </motion.div>
           </div>

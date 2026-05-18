@@ -26,23 +26,23 @@ const page = () => {
   const values = [
     {
       icon: Shield,
-      title: "Integrity",
-      desc: "We operate with complete transparency in pricing, timelines, and system performance.",
+      title: "Trust & Professionalism",
+      desc: "We build long-term client relationships through honesty, transparency and professional project execution.",
     },
     {
       icon: Bulb,
-      title: "Innovation",
-      desc: "Constantly adopting the latest solar technology to deliver maximum efficiency.",
+      title: "Technology Innovation",
+      desc: "We adopt advanced solar technologies like remote monitoring, solar trackers and smart maintenance solutions.",
     },
     {
       icon: heart,
-      title: "Customer First",
-      desc: "Every decision is made with our customers' long-term satisfaction in mind.",
+      title: "Safety & Quality",
+      desc: "Safety and quality remain our top priorities during installation, operation, maintenance and cleaning.",
     },
     {
       icon: leaf,
       title: "Sustainability",
-      desc: "Committed to reducing carbon footprint and promoting clean energy adoption.",
+      desc: "We are committed to clean energy adoption, carbon reduction and a greener future for every customer.",
     },
   ]
 
@@ -78,7 +78,7 @@ const page = () => {
           badgeText="MNRE Certified Solar EPC Partner"
           heading={
             <>
-              Powering <span className="text-[#1E88E5]">Rajasthan </span>with <br/> Clean <span className="text-[#FDEA00]">Energy</span>
+              Powering <span className="text-[#1E88E5]">India </span>with <br/>Reliable Solar <span className="text-[#FDEA00]">Energy Solutions</span>
             </>
           }
           subtitle="End-to-end solar EPC solutions with guaranteed performance, transparent pricing, and 25-year warranty. Cut your electricity bill by up to 80%."
@@ -88,8 +88,9 @@ const page = () => {
       </div>
 
       {/*Our Story*/}
-      <div>
-        <section className="w-full bg-white px-4 sm:px-6 md:px-16 lg:px-30 py-14 md:py-20 font-inter">
+      <div className="max-w-7xl mx-auto">
+        <div>
+        <section className="w-full bg-white px-4 sm:px-6 md:px-16 lg:px-10 py-14 md:py-20 font-inter">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12 items-center">
 
             <motion.div
@@ -113,7 +114,7 @@ const page = () => {
                 transition={{ delay: 0.1 }}
                 className="text-3xl sm:text-4xl md:text-5xl font-poppins font-bold text-gray-900 leading-tight mb-5"
               >
-                From a Small Startup to Rajasthan&apos;s Trusted Solar Partner
+                Our Journey Towards Building a Sustainable Solar Future
               </motion.h2>
 
               <motion.div
@@ -170,6 +171,7 @@ const page = () => {
           </div>
         </section>
       </div>
+    </div>
 
       {/*Our Vision*/}
       <div>
@@ -260,9 +262,10 @@ const page = () => {
         </div>
       </div>
 
+    <div className="max-w-7xl mx-auto">
       {/*Core Values*/}
       <div>
-        <section className="w-full  bg-white px-4 sm:px-6 md:px-16 lg:px-24 py-14 md:py-20 font-inter">
+        <section className="w-full  bg-white px-4 sm:px-6 md:px-16 lg:px-10 py-14 md:py-20 font-inter">
           <div className="text-center mb-10 md:mb-14">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -296,8 +299,8 @@ const page = () => {
                   viewport={{ once: false }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <Card className="rounded-xl border border-gray-100/50 shadow-none min-h-[200px] md:min-h-[220px] flex flex-col items-center text-center px-5 md:px-6 py-7 md:py-8">
-                    <CardHeader className="p-0 flex flex-col items-center">
+                  <Card className="rounded-xl border border-gray-100/50 shadow-none min-h-[200px] md:min-h-[400px] flex flex-col items-center text-center px-5 md:px-6 py-7 md:py-8">
+                    <CardHeader className="p-0 flex flex-col items-center mx-auto">
                       <div className="w-12 h-12 md:w-14 md:h-14 rounded-lg bg-blue-100 flex items-center justify-center mb-4 md:mb-5">
                         <Image
                           src={Icon}
@@ -328,7 +331,7 @@ const page = () => {
 
       {/*Leadership Team*/}
       <div>
-        <section className="w-full bg-white px-4 sm:px-6 md:px-16 lg:px-24 py-14 md:py-24 font-inter">
+        <section className="w-full bg-white px-4 sm:px-6 md:px-16 lg:px-10 py-14 md:py-24 font-inter">
           <div className="text-center mb-12 md:mb-20">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -396,6 +399,7 @@ const page = () => {
         {/*<QuoteForm/>*/}
 
       </div>
+    </div>
     </div>
   )
 }

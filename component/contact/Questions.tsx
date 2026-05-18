@@ -20,16 +20,24 @@ function Questions() {
         <div className="flex flex-col md:flex-row items-center justify-center gap-5 mt-6">
           
           {/* WhatsApp Button */}
-          <button className="w-full md:w-auto flex items-center justify-center font-inter gap-2 bg-gradient-to-r from-green-600 to-green-500 hover:bg-green-600 text-white font-medium px-20 py-4 rounded-sm transition">
-            <IconBrandWhatsapp size={20} />
-            Chat on WhatsApp
-          </button>
+        <a
+          href="https://wa.me/919660077814?text=Hello%20R-One%20Power,%20I%20want%20to%20know%20more%20about%20your%20solar%20solutions."
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full md:w-auto flex items-center justify-center font-inter gap-2 bg-gradient-to-r from-green-600 to-green-500 hover:bg-green-600 text-white font-medium px-20 py-4 rounded-sm transition"
+        >
+          <IconBrandWhatsapp size={20} />
+          Chat on WhatsApp
+        </a>
 
           {/* Call Button */}
-          <button className="w-full md:w-auto flex items-center justify-center font-inter gap-2 border border-blue-500 text-blue-600 bg-[white] hover:bg-blue-50 font-medium px-20 py-4 rounded-sm transition">
+          <a
+            href="tel:+919660077814"
+            className="w-full md:w-auto flex items-center justify-center font-inter gap-2 border border-blue-500 text-blue-600 bg-[white] hover:bg-blue-50 font-medium px-20 py-4 rounded-sm transition"
+          >
             <IconPhoneFilled size={20} className="text-[gray]" />
-            Call: +91 95213 73117
-          </button>
+            Call: +91 96600 77814
+          </a>
 
         </div>
       </div>

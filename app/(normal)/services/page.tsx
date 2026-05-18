@@ -1,16 +1,27 @@
-import ServiceBanner from '@/component/services/ServiceBanner'
+import HeroSection from '@/component/hero section/hero'
 import ServiceGrid from '@/component/services/ServiceGrid'
 import ServiceTabs from '@/component/services/ServiceTabs'
+import service_bg from '@/public/service-bg.jpg'
 import React from 'react'
 
 const page = () => {
   return (
     <div>
-      <ServiceBanner 
-  title={<>Comprehensive <span className="text-yellow-400">Solar</span> <br className="hidden md:block" /> Solutions</>}
-  description="End-to-end solar services from design and installation to maintenance."
-  bgImage="/service-bg.jpg"
-/>
+      <div>
+        <HeroSection
+          image={service_bg}
+          badgeText="End-to-End Renewable Energy Solutions"
+          heading={
+            <>
+              Reliable <span className="text-[#FDEA00]">Solar Solutions </span>for Homes, Businesses & Industries
+            </>
+          }
+          subtitle="End-to-end solar services from design and installation to maintenance and monitoring."
+          overlay="blue"
+          badgeVariant="yellow"
+        />
+      </div>
+
       <ServiceTabs/>
       <ServiceGrid/>
     </div>

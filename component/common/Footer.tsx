@@ -116,38 +116,63 @@ export default function Footer() {
           </div>
 
           {/* Column 4: Contact Info */}
-          <div className="space-y-6">
-            <h4 className="text-white font-bold font-poppins text-lg">Contact Us</h4>
-            <div className="space-y-5">
-              <div className="flex items-start gap-4">
-                <div className="h-10 w-10 rounded-lg bg-blue-500/10 flex items-center justify-center shrink-0 text-[#1E88E5]">
-                  <IconMapPin size={20} />
-                </div>
-                <p className="text-sm leading-snug">57, Arihant Nagar, Kalwar Road,<br/>Jaipur, Rajasthan – 302012</p>
-              </div>
-              
-              <div className="flex items-center gap-4">
-                <div className="h-10 w-10 rounded-lg bg-blue-500/10 flex items-center justify-center shrink-0 text-[#1E88E5]">
-                  <IconPhone size={20} />
-                </div>
-                <p className="text-sm font-bold ">+91 95213 73117</p>
-              </div>
+<div className="space-y-6">
+  <h4 className="text-white font-bold font-poppins text-lg">Contact Us</h4>
 
-              <div className="flex items-center gap-4">
-                <div className="h-10 w-10 rounded-lg bg-blue-500/10 flex items-center justify-center shrink-0 text-[#1E88E5]">
-                  <IconMail size={20} />
-                </div>
-                <p className="text-sm hover:text-[#1E88E5] cursor-pointer transition-colors">info@R-One Power.com</p>
-              </div>
+  <div className="space-y-5">
+    
+    <div className="flex items-start gap-4">
+      <div className="h-10 w-10 rounded-lg bg-blue-500/10 flex items-center justify-center shrink-0 text-[#1E88E5]">
+        <IconMapPin size={20} />
+      </div>
 
-              <div className="flex items-center gap-4">
-                <div className="h-10 w-10 rounded-lg bg-blue-500/10 flex items-center justify-center shrink-0 text-[#1E88E5]">
-                  <IconClock size={20} />
-                </div>
-                <p className="text-sm font-medium">Mon-Sat: 9 AM – 7 PM</p>
-              </div>
-            </div>
-          </div>
+      <p className="text-sm leading-snug">
+        C-86, Gautam Marg, Behind Reliance Trends,
+        <br />
+        Near Vaishali Circle, Vaishali Nagar,
+        <br />
+        Jaipur – 302021
+      </p>
+    </div>
+
+    <div className="flex items-center gap-4">
+      <div className="h-10 w-10 rounded-lg bg-blue-500/10 flex items-center justify-center shrink-0 text-[#1E88E5]">
+        <IconPhone size={20} />
+      </div>
+
+      <a
+        href="tel:+919660077814"
+        className="text-sm font-bold hover:text-[#1E88E5] transition-colors"
+      >
+        +91 96600 77814
+      </a>
+    </div>
+
+    <div className="flex items-center gap-4">
+      <div className="h-10 w-10 rounded-lg bg-blue-500/10 flex items-center justify-center shrink-0 text-[#1E88E5]">
+        <IconMail size={20} />
+      </div>
+
+      <a
+        href="mailto:sales@r1power.com"
+        className="text-sm hover:text-[#1E88E5] cursor-pointer transition-colors"
+      >
+        sales@r1power.com
+      </a>
+    </div>
+
+    <div className="flex items-center gap-4">
+      <div className="h-10 w-10 rounded-lg bg-blue-500/10 flex items-center justify-center shrink-0 text-[#1E88E5]">
+        <IconClock size={20} />
+      </div>
+
+      <p className="text-sm font-medium">
+        Mon - Sat : 9 AM – 6 PM
+      </p>
+    </div>
+
+  </div>
+</div>
         </div>
 
         {/* Footer Bottom: Copyright & Links */}
@@ -177,7 +202,15 @@ export default function Footer() {
       {/* Credit Bar */}
       <div className="bg-[#030712] py-4 text-center">
         <p className="text-[10px] text-gray-600 font-medium">
-          Built with excellence by <span className="text-blue-500">AV Digi Solution</span>
+          Built with excellence by{" "}
+          <a
+            href="https://avtechnosys.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 hover:underline"
+          >
+            AV Technosys
+          </a>
         </p>
       </div>
     </footer>

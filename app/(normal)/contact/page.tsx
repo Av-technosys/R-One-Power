@@ -20,7 +20,7 @@ const Page = () => {
     <div>
 
       {/*Hero section */}
-      <div className="relative w-full min-h-[600px] flex flex-col justify-center p-8 overflow-hidden">
+      <div className="relative w-full min-h-[600px] h-[70vh] flex flex-col justify-center p-6 md:p-8 overflow-hidden">
         {/*Background Image*/}
         <div>
           <Image 
@@ -50,7 +50,7 @@ const Page = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
               transition={{ delay: 0.1 }}
-              className="text-5xl md:text-5xl font-poppins font-bold mb-2"
+              className="text-[38px] sm:text-5xl md:text-7xl font-poppins font-bold mb-2 leading-tight"
             >
               Get in <span className="text-[#FDEA00]">Touch</span>
             </motion.p>
@@ -60,7 +60,7 @@ const Page = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
               transition={{ delay: 0.2 }}
-              className="text-xl p-4 font-poppins"
+              className="text-base sm:text-lg md:text-xl p-3 sm:p-4 font-poppins max-w-2xl"
             >
               Ready to switch to solar? Reach out for a free consultation and site survey.
             </motion.p>
@@ -75,30 +75,30 @@ const Page = () => {
           {[
             {
               icon: <IconMapPin size={24} stroke={2} className="text-blue-500" />,
-              title: "Visit Us",
-              line1: "45 Solar Park, Malviya Nagar",
-              line2: "Jaipur, Rajasthan 302017",
+              title: "Corporate Office",
+              line1: "C-86, Gautam Marg, Behind Reliance Trends",
+              line2: "Near Vaishali Circle, Vaishali Nagar, Jaipur 302021",
               breakClass: "break-words"
             },
             {
               icon: <IconPhone size={24} stroke={2} className="text-blue-500" />,
               title: "Call Us",
-              line1: "+91 141 234 5678",
-              line2: "+91 98765 43210",
+              line1: "+91 96600 77814",
+              line2: "",
               breakClass: ""
             },
             {
               icon: <IconMail size={24} stroke={2} className="text-blue-500" />,
               title: "Email Us",
-              line1: "info@R-OnePower.in",
-              line2: "sales@R-OnePower.in",
+              line1: "sales@r1power.com",
+              line2: "",
               breakClass: "break-all"
             },
             {
               icon: <IconClock size={24} stroke={2} className="text-blue-500" />,
-              title: "Working Hours",
-              line1: "Mon - Sat: 9:00 AM - 6:00 PM",
-              line2: "Sunday: Closed",
+              title: "Working Presence",
+              line1: "Operating Across 18 States & 5 UTs",
+              line2: "Jaipur • Mumbai • Guwahati",
               breakClass: ""
             }
           ].map((item, idx) => (
@@ -109,7 +109,7 @@ const Page = () => {
               viewport={{ once: false }}
               transition={{ delay: idx * 0.1 }}
             >
-              <Card className="rounded-xl shadow-lg min-h-[200px] md:min-h-[270px] p-3 md:p-4">
+              <Card className="rounded-xl shadow-lg min-h-[200px] md:min-h-[310px] p-3 md:p-4">
                 <CardHeader className="pb-3 md:pb-4 p-3 md:p-4">
                   <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl bg-blue-100 flex items-center justify-center mb-2">
                     {item.icon}

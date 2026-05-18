@@ -2,6 +2,8 @@ import React from 'react'
 import Image from 'next/image'
 import Solar_services from '../../../public/Solar_services.jpg'
 import { IconSunFilled } from '@tabler/icons-react'
+import HeroSection from '@/component/hero section/hero'
+
 
 
 const page = () => {
@@ -9,47 +11,25 @@ const page = () => {
     <div>
 
       {/*Hero section*/}
-      <div className="relative w-full min-h-[600px] flex flex-col justify-center p-8 overflow-hidden">
+            <div>
+              <HeroSection
+                image={Solar_services}
+                badgeText="Services"
+                heading={
+                  <>
+                    Privacy <span className="text-[#FDEA00]">Policy</span>
+                  </>
+                }
+                subtitle="Last Updated: April 2026"
+                overlay="blue"
+                badgeVariant="yellow"
+              />
+            </div>
 
-        {/*Background Image*/}
-        <div>
-          <Image
-            src={Solar_services}
-            alt="Privacy Policy Background"
-            fill
-            className="object-cover"
-          />
-        </div>
-
-        {/* Dark Overlay*/}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#1E88E580]/75 to-[#114B7F80]/100"></div>
-
-        {/* Main Heading and Subheading */}
-        <div className="relative text-white min-h-[360px] pt-10 flex flex-col gap-10 items-center text-center ">
-          
-          <div className="bg-yellow-500/10 w-fit px-5 border-2 border-[#FDEA00] text-[#FDEA00] rounded-full font-bold p-3 flex items-center justify-center gap-2 ">
-            <IconSunFilled
-              size={20}
-              stroke={1.5}
-              className="text-[#FBBF24] font-inter"
-            />
-            Services
-          </div>
-
-          <div className="relative text-white flex flex-col gap-4 items-center text-center ">
-            <p className="text-5xl md:text-5xl font-poppins font-bold mb-2">
-              Privacy <span className="text-[#FDEA00]">Policy</span>
-            </p>
-            <p className="text-xl p-6 font-poppins">
-              Last Updated: April 2026
-            </p>
-          </div>
-
-        </div>
-      </div>
+  
 
       {/* Content Section */}
-      <div className="min-h-screen bg-[#efefef] px-6 py-10 lg:py-25 md:px-16 lg:px-25 text-black font-inter">
+      <div className="min-h-screen w-7xl mx-auto bg-[#ffffff] px-6 py-10 lg:py-25 md:px-16 lg:px-10 text-black font-inter">
         <div className="max-w-6xl">
 
           {/* Heading */}
