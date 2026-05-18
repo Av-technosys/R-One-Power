@@ -1,5 +1,7 @@
 import ProjectGrid from '@/component/gallery/ProjectGrid';
-import ServiceBanner from '@/component/services/ServiceBanner'
+import HeroSection from '@/component/hero section/hero';
+import gallery_bg from '@/public/gallery-bg.png'
+
 import React from 'react'
 type ServiceBannerProps = {
   badgeText: string;
@@ -10,12 +12,21 @@ type ServiceBannerProps = {
 const page = () => {
   return (
     <div>
-      <ServiceBanner 
-      badgeText='MNRE Certified Solar EPC Partner'
-       title={<> <span className="text-yellow-400">Project</span>  Gallery</>}
-       description= { <p className='max-w-md'> A glimpse of our solar installations across homes, businesses and large-scale plants.</p> }
-       bgImage="/gallery-bg.png"
-/>
+            <div>
+        <HeroSection
+          image={gallery_bg}
+          badgeText="MNRE Certified Solar EPC Partner"
+          heading={
+            <>
+              <span className="text-[#FDEA00]">Project </span>Gallery
+            </>
+          }
+          subtitle="A glimpse of our solar installations across homes, businesses and large-scale plants."
+          overlay="dark"
+          badgeVariant="yellow"
+        />
+      </div>
+
 <ProjectGrid />
     </div>
   )

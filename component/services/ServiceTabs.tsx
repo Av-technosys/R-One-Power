@@ -12,130 +12,136 @@ import {
 
 const servicesData = [
   {
-    id: "residential",
+    id: "pm-surya-ghar",
     tabLabel: "Residential Solar",
     icon: <IconHome size={18} />,
-    title: "Residential Solar",
-    image: "/service-bg.jpg", 
-    description: "Transform your home into a power-generating asset with our custom residential solar solutions. We design systems that match your energy consumption, roof space, and budget.",
+    title: "PM Surya Ghar Residential Solar Power Plant",
+    image: "/service-bg.jpg",
+    description:
+      "R-One Power provides residential rooftop solar power plant solutions under PM Surya Ghar Yojna with complete support for installation, subsidy assistance and long-term savings.",
     features: [
-      "Custom rooftop solar design",
-      "3kW to 10kW system options",
+      "Residential rooftop solar power plant",
+      "PM Surya Ghar Yojna support",
       "Government subsidy assistance",
-      "Net metering setup",
-      "25-year panel warranty",
-      "Mobile app monitoring"
+      "Net metering support",
+      "Long-term electricity bill savings",
+      "Reliable service and maintenance",
     ],
     stats: [
-      { label: "Homes Powered", value: "600+" },
-      { label: "Bill Reduction", value: "80%" },
-      { label: "Payback Period", value: "4-5 yrs" }
-    ]
+      { label: "Bill Reduction", value: "Up to 90%" },
+      { label: "System Life", value: "25+ Years" },
+      { label: "Maintenance", value: "Low" },
+    ],
   },
   {
-    id: "commercial",
+    id: "commercial-industrial",
     tabLabel: "Commercial Solar",
     icon: <IconBuildingCommunity size={18} />,
-    title: "Commercial Solar",
+    title: "Industrial and Commercial Solar Power Projects",
     image: "/commercial-solar.jpg",
-    description: "Reduce operational costs and improve your bottom line with solar power for your business. We handle everything from large-scale installations to complex grid integrations.",
+    description:
+      "We deliver industrial and commercial solar power projects designed to reduce electricity costs, improve energy efficiency and provide long-term value for businesses.",
     features: [
-      "MW scale capability",
-      "Tax depreciation benefits",
-      "Zero-investment PPA models",
-      "High-efficiency panels",
-      "Real-time performance tracking",
-      "Dedicated account manager"
+      "Industrial solar power projects",
+      "Commercial rooftop solar systems",
+      "High-performance solar solutions",
+      "Tier-1 quality products",
+      "Project financing support",
+      "Timely project execution",
     ],
     stats: [
-      { label: "Projects Done", value: "150+" },
-      { label: "Avg. ROI", value: "3.5 yrs" },
-      { label: "CO2 Reduced", value: "10k Tons" }
-    ]
+      { label: "Segments", value: "Industrial" },
+      { label: "Savings", value: "High" },
+      { label: "Products", value: "Tier-1" },
+    ],
   },
   {
-    id: "Industrial",
-    tabLabel: "Industrial Solar",
+    id: "pm-kusum",
+    tabLabel: "PM Kusum",
     icon: <IconBuildingCommunity size={18} />,
-    title: "Commercial Solar",
+    title: "PM Kusum Yojna Based Solar Power Plant",
     image: "/commercial-solar.jpg",
-    description: "Reduce operational costs and improve your bottom line with solar power for your business. We handle everything from large-scale installations to complex grid integrations.",
+    description:
+      "R-One Power executes PM Kusum Yojna based solar power plant projects with complete planning, installation and project support for agricultural and renewable energy applications.",
     features: [
-      "MW scale capability",
-      "Tax depreciation benefits",
-      "Zero-investment PPA models",
-      "High-efficiency panels",
-      "Real-time performance tracking",
-      "Dedicated account manager"
+      "PM Kusum solar power plants",
+      "Government scheme based projects",
+      "Solar project planning",
+      "Installation and commissioning",
+      "Quality workmanship",
+      "Long-term project support",
     ],
     stats: [
-      { label: "Projects Done", value: "150+" },
-      { label: "Avg. ROI", value: "3.5 yrs" },
-      { label: "CO2 Reduced", value: "10k Tons" }
-    ]
+      { label: "Project Type", value: "PM Kusum" },
+      { label: "Support", value: "End-to-End" },
+      { label: "Energy", value: "Clean" },
+    ],
   },
   {
-    id: "Battery",
-    tabLabel: "Battery Storage",
+    id: "hybrid-off-grid",
+    tabLabel: "Hybrid & Off Grid",
     icon: <IconBuildingCommunity size={18} />,
-    title: "Commercial Solar",
+    title: "Hybrid and Off Grid Solar Projects",
     image: "/commercial-solar.jpg",
-    description: "Reduce operational costs and improve your bottom line with solar power for your business. We handle everything from large-scale installations to complex grid integrations.",
+    description:
+      "We provide hybrid and off-grid solar project solutions for reliable clean energy where grid power is limited, unstable or unavailable.",
     features: [
-      "MW scale capability",
-      "Tax depreciation benefits",
-      "Zero-investment PPA models",
-      "High-efficiency panels",
-      "Real-time performance tracking",
-      "Dedicated account manager"
+      "Hybrid solar projects",
+      "Off-grid solar solutions",
+      "Battery backup support",
+      "Reliable power supply",
+      "Remote area applications",
+      "Customized solar system design",
     ],
     stats: [
-      { label: "Projects Done", value: "150+" },
-      { label: "Avg. ROI", value: "3.5 yrs" },
-      { label: "CO2 Reduced", value: "10k Tons" }
-    ]
+      { label: "Power Type", value: "Hybrid" },
+      { label: "Backup", value: "Available" },
+      { label: "Use Case", value: "Remote Areas" },
+    ],
   },
   {
-    id: "Solar",
-    tabLabel: "Solar AMC",
+    id: "open-access-resco",
+    tabLabel: "Open Access",
     icon: <IconBuildingCommunity size={18} />,
-    title: "Commercial Solar",
+    title: "Open Access and IPP Based RESCO Projects",
     image: "/commercial-solar.jpg",
-    description: "Reduce operational costs and improve your bottom line with solar power for your business. We handle everything from large-scale installations to complex grid integrations.",
+    description:
+      "R-One Power provides open access and IPP based RESCO solar project solutions for industrial users looking for clean energy with flexible investment models.",
     features: [
-      "MW scale capability",
-      "Tax depreciation benefits",
-      "Zero-investment PPA models",
-      "High-efficiency panels",
-      "Real-time performance tracking",
-      "Dedicated account manager"
+      "Open access solar projects",
+      "IPP based RESCO projects",
+      "Industrial user solutions",
+      "Clean energy procurement",
+      "Flexible solar investment model",
+      "Large-scale solar project support",
     ],
     stats: [
-      { label: "Projects Done", value: "150+" },
-      { label: "Avg. ROI", value: "3.5 yrs" },
-      { label: "CO2 Reduced", value: "10k Tons" }
-    ]
+      { label: "Model", value: "RESCO" },
+      { label: "Users", value: "Industrial" },
+      { label: "Scale", value: "Large" },
+    ],
   },
   {
-    id: "Net",
-    tabLabel: "Net Metering",
+    id: "om-consultancy",
+    tabLabel: "O&M / Consultancy",
     icon: <IconBuildingCommunity size={18} />,
-    title: "Commercial Solar",
+    title: "Design, Consultancy, Operation and Maintenance",
     image: "/commercial-solar.jpg",
-    description: "Reduce operational costs and improve your bottom line with solar power for your business. We handle everything from large-scale installations to complex grid integrations.",
+    description:
+      "We offer solar project design, consultancy and operation & maintenance services to ensure reliable performance, better efficiency and long-term system life.",
     features: [
-      "MW scale capability",
-      "Tax depreciation benefits",
-      "Zero-investment PPA models",
-      "High-efficiency panels",
-      "Real-time performance tracking",
-      "Dedicated account manager"
+      "Solar project design",
+      "Solar consultancy services",
+      "Operation and maintenance work",
+      "Performance monitoring",
+      "Preventive maintenance",
+      "Long-term reliability support",
     ],
     stats: [
-      { label: "Projects Done", value: "150+" },
-      { label: "Avg. ROI", value: "3.5 yrs" },
-      { label: "CO2 Reduced", value: "10k Tons" }
-    ]
+      { label: "Service", value: "O&M" },
+      { label: "Support", value: "Long-Term" },
+      { label: "Focus", value: "Performance" },
+    ],
   },
 ]
 

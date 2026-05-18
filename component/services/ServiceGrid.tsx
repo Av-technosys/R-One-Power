@@ -12,33 +12,33 @@ import {
 
 const services = [
   {
-    title: "Residential Solar",
-    description: "Rooftop solar for homes",
+    title: "PM Surya Ghar Residential Solar",
+    description: "Residential rooftop solar power plant solutions",
     icon: <IconHome size={24} className="text-[#1E88E5]" />,
   },
   {
-    title: "Commercial Solar",
-    description: "Office & retail solar",
+    title: "Commercial Solar Projects",
+    description: "Solar solutions for offices and commercial spaces",
     icon: <IconBuildingCommunity size={24} className="text-[#1E88E5]" />,
   },
   {
-    title: "Industrial Solar",
-    description: "Factory & warehouse solar",
+    title: "Industrial Solar Projects",
+    description: "High-performance solar systems for industries",
     icon: <IconBuildingCommunity size={24} className="text-[#1E88E5]" />,
   },
   {
-    title: "Battery Storage",
-    description: "Energy storage systems",
+    title: "Hybrid & Off Grid Solar",
+    description: "Reliable hybrid and off-grid solar solutions",
     icon: <IconBatteryCharging size={24} className="text-[#1E88E5]" />,
   },
   {
-    title: "Solar AMC",
-    description: "Maintenance contracts",
+    title: "Operation & Maintenance",
+    description: "Solar O&M and long-term maintenance services",
     icon: <IconTools size={24} className="text-[#1E88E5]" />,
   },
   {
-    title: "Net Metering",
-    description: "Grid connection setup",
+    title: "Open Access & RESCO",
+    description: "Open access and IPP based solar projects",
     icon: <IconSettingsAutomation size={24} className="text-[#1E88E5]" />,
   },
 ]
