@@ -100,9 +100,11 @@ Comprehensive renewable energy solutions designed for residential, commercial, a
               </div>
 
               {/* Learn More Link */}
-              <button className="mt-8 flex items-center gap-2 text-[#1E88E5] font-bold text-sm hover:gap-3 transition-all">
-                Learn More <IconArrowRight size={16} />
-              </button>
+              <Link href="/services">
+                <button className="mt-8 flex items-center gap-2 text-[#1E88E5] font-bold text-sm hover:gap-3 transition-all">
+                  Learn More <IconArrowRight size={16} />
+                </button>
+              </Link>
             </motion.div>
           ))}
         </div>

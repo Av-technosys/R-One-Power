@@ -102,7 +102,7 @@ export default function BrandsSection() {
             {duplicatedLogos.map((brand, idx) => (
               <div
                 key={idx}
-                className="w-[220px] h-[140px] shrink-0 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 flex items-center justify-center p-6 hover:bg-white/10 transition-all duration-300"
+                className="w-[220px] h-[140px] shrink-0   rounded-2xl  flex items-center justify-center p-6 hover:bg-white/10 transition-all duration-300"
               >
                 <div className="relative w-full h-full">
                   <img

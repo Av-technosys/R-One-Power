@@ -7,14 +7,15 @@ import {
   IconHeadset, 
   IconCurrencyRupee, 
   IconSettings, 
-  IconLeaf 
+  IconLeaf ,
+  IconRosetteAsterisk
 } from "@tabler/icons-react"
 
 const features = [
   {
     title: "Trusted Solar EPC Expertise",
     desc: "Delivering end-to-end solar EPC and I&C solutions since 2016 with proven experience across residential, commercial, and industrial projects.",
-    icon: <IconRosetteFilled className="text-[#1E88E5]" size={28} />,
+    icon: <IconRosetteAsterisk className="text-[#1E88E5]" size={28} />,
   },
   {
     title: "PM Surya Ghar Empanelled",

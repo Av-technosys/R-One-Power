@@ -221,10 +221,37 @@ export default function ServiceTabs() {
 
               <div className="grid grid-cols-3 gap-2 md:gap-4">
                 {activeTab.stats.map((stat, i) => (
-                  <div key={i} className="bg-[#E3F2FD] p-3 md:p-8 mx-auto rounded-[16px] md:rounded-[24px] text-center space-y-1">
-                    <h4 className="text-lg md:text-2xl font-black text-[#1E88E5] font-poppins">{stat.value}</h4>
-                    <p className="text-[9px] md:text-[11px] font-bold text-slate-500 uppercase tracking-tighter md:tracking-widest">{stat.label}</p>
-                  </div>
+                <div
+  key={i}
+  className="
+    bg-[#E3F2FD]
+    rounded-[16px] md:rounded-[24px]
+    px-3 py-4 md:px-6 md:py-8
+    text-center
+    flex flex-col justify-center items-center
+    min-h-[90px] md:min-h-[140px]
+    w-full
+  "
+>
+  <h4 className="text-base sm:text-lg md:text-2xl font-black text-[#1E88E5] font-poppins leading-tight break-words">
+    {stat.value}
+  </h4>
+
+  <p
+    className="
+      text-[9px] sm:text-[10px] md:text-xs
+      font-bold
+      text-slate-500
+      uppercase
+      tracking-normal md:tracking-widest
+      leading-tight
+      mt-1
+      break-words
+    "
+  >
+    {stat.label}
+  </p>
+</div>
                 ))}
               </div>
             </div>
