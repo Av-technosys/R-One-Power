@@ -4,7 +4,7 @@ import { useState } from "react"
 import { motion, HTMLMotionProps } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { IconSend, IconPhone, IconExternalLink } from "@tabler/icons-react"
+import { IconSend, IconPhone, IconExternalLink, IconCheck } from "@tabler/icons-react"
 import { Textarea } from "@/components/ui/textarea"
 
 export default function ContactSection() {
@@ -17,6 +17,7 @@ export default function ContactSection() {
   })
 
   const [loading, setLoading] = useState(false)
+  const [showPopup, setShowPopup] = useState(false) // Popup toggle karne ke liye state
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -29,6 +30,14 @@ export default function ContactSection() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    const phoneRegex = /^[0-9]{10,12}$/
+
+    if (!phoneRegex.test(formData.phone.trim())) {
+      alert("Phone number must be between 10 to 12 digits")
+      return
+    }
+
     setLoading(true)
 
     try {
@@ -41,7 +50,7 @@ export default function ContactSection() {
       })
 
       const data = await res.json()
-
+      alert("Form submitted successfully!")
 
       if (data.success) {
         setFormData({
@@ -51,6 +60,7 @@ export default function ContactSection() {
           city: "",
           requirement: "",
         })
+        setShowPopup(true) // Backend success response dete hi popup dikhega
       }
     } catch (error) {
       console.error(error)
@@ -68,7 +78,7 @@ export default function ContactSection() {
   }
 
   return (
-    <section className="py-24 bg-white font-inter">
+    <section className="py-24 bg-white font-inter relative">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         {/* Top Header */}
         <div className="text-center mb-16">
@@ -76,7 +86,7 @@ export default function ContactSection() {
             {...fadeInUp}
             className="text-4xl md:text-5xl font-black text-slate-900 mb-4 font-poppins"
           >
-            Let&apos;s Start Your <span className="text-[#1E88E5]">Solar Journey</span>
+            Let's Start Your <span className="text-[#1E88E5]">Solar Journey</span>
           </motion.h2>
 
           <motion.p
@@ -108,6 +118,7 @@ export default function ContactSection() {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Enter your full name"
+                  required
                   className="h-12 bg-slate-50 border-gray-100 rounded-xl focus-visible:ring-[#1E88E5]"
                 />
               </div>
@@ -122,6 +133,7 @@ export default function ContactSection() {
                   onChange={handleChange}
                   type="email"
                   placeholder="Enter your email"
+                  required
                   className="h-12 bg-slate-50 border-gray-100 rounded-xl focus-visible:ring-[#1E88E5]"
                 />
               </div>
@@ -135,6 +147,7 @@ export default function ContactSection() {
                   value={formData.phone}
                   onChange={handleChange}
                   placeholder="Enter your phone number"
+                  required
                   className="h-12 bg-slate-50 border-gray-100 rounded-xl focus-visible:ring-[#1E88E5]"
                 />
               </div>
@@ -148,6 +161,7 @@ export default function ContactSection() {
                   value={formData.city}
                   onChange={handleChange}
                   placeholder="e.g., Jaipur"
+                  required
                   className="h-12 bg-slate-50 border-gray-100 rounded-xl focus-visible:ring-[#1E88E5]"
                 />
               </div>
@@ -175,7 +189,7 @@ export default function ContactSection() {
               </Button>
 
               <p className="text-center text-[11px] text-slate-400 font-medium">
-                We&apos;ll get back to you within 24 hours
+                We'll get back to you within 24 hours
               </p>
             </form>
           </motion.div>
@@ -218,18 +232,50 @@ export default function ContactSection() {
               <h4 className="text-lg font-black text-slate-900 mb-2 font-poppins">
                 Quick Call
               </h4>
-
+             
               <p className="text-sm text-slate-500 mb-6 font-medium">
                 Prefer to talk? Call us directly for immediate assistance.
               </p>
-
+             
+               <a href="tel:+919660077814">
               <Button className="bg-[#1E88E5] hover:bg-[#1565C0] h-14 px-8 rounded-xl text-white font-bold flex items-center gap-3 shadow-md transition-all">
                 <IconPhone size={20} /> +91 96600 77814
               </Button>
+              </a>
             </motion.div>
           </div>
         </div>
       </div>
+
+      {/* --- POPUP HTML ONLY --- */}
+      {showPopup && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-white max-w-md w-full p-8 rounded-3xl border border-gray-100 shadow-2xl text-center font-inter"
+          >
+            <div className="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-5 text-emerald-500">
+              <IconCheck size={32} stroke={2.5} />
+            </div>
+            
+            <h3 className="text-2xl font-black text-slate-900 mb-2 font-poppins">
+              Submit Successful!
+            </h3>
+            
+            <p className="text-slate-500 text-sm font-medium mb-6 leading-relaxed">
+              Thank you for reaching out. Your request has been received, and our team will get back to you within 24 hours.
+            </p>
+            
+            <Button
+              onClick={() => setShowPopup(false)}
+              className="w-full h-12 bg-[#1E88E5] hover:bg-[#1565C0] text-white font-bold rounded-xl transition-all"
+            >
+              Close
+            </Button>
+          </motion.div>
+        </div>
+      )}
     </section>
   )
 }

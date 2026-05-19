@@ -160,7 +160,7 @@ From consultation to commissioning, our team manages the complete solar installa
         {/* Bottom Stats Banner */}
         <motion.div 
           {...fadeInUp}
-          className="bg-white rounded-t-md shadow-xl border border-slate-100 lg:divide-x lg:divide-[#E5E7EB] pr-2  p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          className="bg-white rounded-t-md shadow-xl border border-slate-100  pr-2  p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
         >
           {bottomStats.map((stat, i) => (
             <div key={i} className="flex items-center gap-4 group ">

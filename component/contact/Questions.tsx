@@ -17,29 +17,29 @@ function Questions() {
         </p>
 
         {/* Buttons */}
-        <div className="flex flex-col md:flex-row items-center justify-center gap-5 mt-6">
-          
-          {/* WhatsApp Button */}
-        <a
-          href="https://wa.me/919660077814?text=Hello%20R-One%20Power,%20I%20want%20to%20know%20more%20about%20your%20solar%20solutions."
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-full md:w-auto flex items-center justify-center font-inter gap-2 bg-gradient-to-r from-green-600 to-green-500 hover:bg-green-600 text-white font-medium px-20 py-4 rounded-sm transition"
-        >
-          <IconBrandWhatsapp size={20} />
-          Chat on WhatsApp
-        </a>
+      <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-5 mt-6">
 
-          {/* Call Button */}
-          <a
-            href="tel:+919660077814"
-            className="w-full md:w-auto flex items-center justify-center font-inter gap-2 border border-blue-500 text-blue-600 bg-[white] hover:bg-blue-50 font-medium px-20 py-4 rounded-sm transition"
-          >
-            <IconPhoneFilled size={20} className="text-[gray]" />
-            Call: +91 96600 77814
-          </a>
+  {/* WhatsApp Button */}
+  <a
+    href="https://wa.me/919660077814?text=Hello%20R-One%20Power,%20I%20want%20to%20know%20more%20about%20your%20solar%20solutions."
+    target="_blank"
+    rel="noopener noreferrer"
+    className="w-full sm:w-auto min-w-[280px] flex items-center justify-center whitespace-nowrap font-inter gap-2 bg-gradient-to-r from-green-600 to-green-500 hover:bg-green-600 text-white font-medium px-6 sm:px-10 md:px-20 py-4 rounded-sm transition"
+  >
+    <IconBrandWhatsapp size={20} />
+    Chat on WhatsApp
+  </a>
 
-        </div>
+  {/* Call Button */}
+  <a
+    href="tel:+919660077814"
+    className="w-full sm:w-auto min-w-[280px] flex items-center justify-center whitespace-nowrap font-inter gap-2 border border-blue-500 text-blue-600 bg-[white] hover:bg-blue-50 font-medium px-6 sm:px-10 md:px-20 py-4 rounded-sm transition"
+  >
+    <IconPhoneFilled size={20} className="text-[gray]" />
+    Call: +91 96600 77814
+  </a>
+
+</div>
       </div>
     </div>
   )

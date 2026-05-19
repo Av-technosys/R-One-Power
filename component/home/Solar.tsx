@@ -18,18 +18,16 @@ import {
   IconCalculator,
 } from "@tabler/icons-react";
 
-const SOLAR_PRICING: Record<number, number> = {
-  1: 70000,
-  2: 130000,
-  3: 195000,
-  4: 240000,
-  5: 285000,
-  6: 330000,
-  8: 420000,
-  10: 520000,
-};
+interface EstimateData {
+  recommendedKW: number;
+  monthlySavings: number;
+  yearlySavings: number;
+  finalPrice: number;
+  subsidy: number;
+  phase: string;
+}
 
-export default function SolarCalculator() {
+export default function Solar() {
   const fadeInUp: HTMLMotionProps<"div"> = {
     initial: { opacity: 0, y: 40 },
     whileInView: { opacity: 1, y: 0 },
@@ -37,60 +35,66 @@ export default function SolarCalculator() {
     transition: { duration: 0.6, ease: "easeOut" },
   };
 
-  const [sanctionLoad, setSanctionLoad] = React.useState("3");
-  const [phase, setPhase] = React.useState("three");
-  const [monthlyUnits, setMonthlyUnits] = React.useState(650);
-  const [monthlyBill, setMonthlyBill] = React.useState(4200);
+  const [load, setLoad] = React.useState("3");
+  const [phase, setPhase] = React.useState("single");
+  const [units, setUnits] = React.useState("650");
+  const [bill, setBill] = React.useState("4200");
 
-  // Recommended System Size Logic
-  const recommendedKW = React.useMemo(() => {
-    const kw = Math.ceil(monthlyUnits / 130);
+  const [estimate, setEstimate] = React.useState<EstimateData | null>(null);
 
-    if (kw <= 1) return 1;
-    if (kw <= 2) return 2;
-    if (kw <= 3) return 3;
-    if (kw <= 4) return 4;
-    if (kw <= 5) return 5;
-    if (kw <= 6) return 6;
-    if (kw <= 8) return 8;
+  // Pricing Data
+  const pricing: Record<number, number> = {
+    3: 195000,
+    5: 300000,
+    6: 360000,
+    8: 480000,
+    10: 580000,
+  };
+
+  // Subsidy Logic
+  const getSubsidy = (kw: number) => {
+    if (kw <= 1) return 30000;
+    if (kw <= 2) return 60000;
+    if (kw <= 3) return 78000;
+
+    return 78000;
+  };
+
+  // Recommended KW Logic
+  const getRecommendedKW = (unitValue: number) => {
+    if (unitValue <= 450) return 3;
+    if (unitValue <= 750) return 5;
+    if (unitValue <= 950) return 6;
+    if (unitValue <= 1200) return 8;
 
     return 10;
-  }, [monthlyUnits]);
+  };
 
-  // Auto phase suggestion
-  const recommendedPhase = recommendedKW <= 5 ? "Single Phase" : "Three Phase";
+  const calculateSavings = () => {
+    const monthlyUnits = Number(units);
+    const monthlyBill = Number(bill);
 
-  // Pricing
-  const systemPrice = SOLAR_PRICING[recommendedKW] || 0;
+    const recommendedKW = getRecommendedKW(monthlyUnits);
 
-  // Subsidy Logic (PM Surya Ghar)
-  const subsidy = React.useMemo(() => {
-    if (recommendedKW === 1) return 30000;
-    if (recommendedKW === 2) return 60000;
-    if (recommendedKW >= 3) return 78000;
+    const systemPrice = pricing[recommendedKW];
 
-    return 0;
-  }, [recommendedKW]);
+    const subsidy = getSubsidy(recommendedKW);
 
-  const finalPrice = systemPrice - subsidy;
+    const finalPrice = systemPrice - subsidy;
 
-  // Solar Generation Logic
-  const monthlyGeneration = recommendedKW * 130;
+    const monthlySavings = Math.round(monthlyBill * 0.9);
 
-  // Savings Logic
-  const estimatedMonthlySavings = Math.min(
-    monthlyBill,
-    Math.round(monthlyGeneration * 7)
-  );
+    const yearlySavings = monthlySavings * 12;
 
-  const yearlySavings = estimatedMonthlySavings * 12;
-
-  // ROI
-  const paybackYears =
-    yearlySavings > 0 ? (finalPrice / yearlySavings).toFixed(1) : 0;
-
-  // 25 Year Savings
-  const lifetimeSavings = yearlySavings * 25;
+    setEstimate({
+      recommendedKW,
+      monthlySavings,
+      yearlySavings,
+      finalPrice,
+      subsidy,
+      phase,
+    });
+  };
 
   return (
     <section className="py-24 bg-linear-to-b from-[#F9FCFA] to-[#F4F9F6] font-inter">
@@ -126,30 +130,26 @@ export default function SolarCalculator() {
           {...fadeInUp}
           className="max-w-5xl mx-auto bg-[#F0FDF44D] rounded-xl overflow-hidden shadow-xl shadow-blue-900/5 flex flex-col lg:flex-row border border-slate-100"
         >
-          {/* Left Side */}
+          {/* LEFT SIDE */}
           <div className="flex-1 p-8 md:p-12 space-y-8">
             <h3 className="text-2xl font-black text-slate-900 font-poppins">
               Your Details
             </h3>
 
             <div className="space-y-6">
-              {/* Sanction Load */}
+
+              {/* Load */}
               <div className="space-y-2">
                 <label className="text-sm font-bold text-slate-700">
                   Current Sanction Load
                 </label>
 
-                <Select
-                  value={sanctionLoad}
-                  onValueChange={setSanctionLoad}
-                >
+                <Select value={load} onValueChange={setLoad}>
                   <SelectTrigger className="py-6 w-full bg-white border-slate-200 rounded-xl">
-                    <SelectValue />
+                    <SelectValue placeholder="Select Load" />
                   </SelectTrigger>
 
                   <SelectContent>
-                    <SelectItem value="1">1 KW</SelectItem>
-                    <SelectItem value="2">2 KW</SelectItem>
                     <SelectItem value="3">3 KW</SelectItem>
                     <SelectItem value="5">5 KW</SelectItem>
                     <SelectItem value="6">6 KW</SelectItem>
@@ -167,12 +167,17 @@ export default function SolarCalculator() {
 
                 <Select value={phase} onValueChange={setPhase}>
                   <SelectTrigger className="py-6 w-full bg-white border-slate-200 rounded-xl">
-                    <SelectValue />
+                    <SelectValue placeholder="Select Phase" />
                   </SelectTrigger>
 
                   <SelectContent>
-                    <SelectItem value="single">Single Phase</SelectItem>
-                    <SelectItem value="three">Three Phase</SelectItem>
+                    <SelectItem value="Single Phase">
+                      Single Phase
+                    </SelectItem>
+
+                    <SelectItem value="Three Phase">
+                      Three Phase
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -180,15 +185,13 @@ export default function SolarCalculator() {
               {/* Units */}
               <div className="space-y-2">
                 <label className="text-sm font-bold text-slate-700">
-                  Avg Units Consumed (Monthly)
+                  Avg Units Consumed (last 12 months per month)
                 </label>
 
                 <Input
                   type="number"
-                  value={monthlyUnits}
-                  onChange={(e) =>
-                    setMonthlyUnits(Number(e.target.value))
-                  }
+                  value={units}
+                  onChange={(e) => setUnits(e.target.value)}
                   className="h-14 border-slate-200 rounded-xl focus-visible:ring-[#1E88E5]"
                 />
               </div>
@@ -196,121 +199,138 @@ export default function SolarCalculator() {
               {/* Bill */}
               <div className="space-y-2">
                 <label className="text-sm font-bold text-slate-700">
-                  Avg Bill Amount ₹
+                  Avg Bill Amount (last 12 months per month) ₹
                 </label>
 
                 <Input
                   type="number"
-                  value={monthlyBill}
-                  onChange={(e) =>
-                    setMonthlyBill(Number(e.target.value))
-                  }
+                  value={bill}
+                  onChange={(e) => setBill(e.target.value)}
                   className="h-14 border-slate-200 rounded-xl focus-visible:ring-[#1E88E5]"
                 />
               </div>
 
-              <Button className="w-full h-14 bg-[#90CAF9] hover:bg-[#64B5F6] text-white font-black text-lg rounded-xl shadow-lg transition-all mt-4">
+              {/* Button */}
+              <Button
+                onClick={calculateSavings}
+                className="w-full h-14 bg-[#1E88E5] hover:bg-[#1976D2] text-white font-black text-lg rounded-xl shadow-lg transition-all mt-4"
+              >
                 Calculate Savings
               </Button>
             </div>
           </div>
 
-          {/* Right Side */}
-          <div className="lg:w-[50%] bg-linear-to-r from-[#1E88E5] to-[#6EC6FF] p-8 md:p-12 text-white flex flex-col justify-between">
-            <div>
-              <h3 className="text-2xl font-black font-poppins mb-10">
-                Your Estimate
-              </h3>
+          {/* RIGHT SIDE */}
+          <div className="lg:w-[50%] bg-linear-to-r from-[#1E88E5] to-[#42A5F5] p-8 md:p-12 text-white flex flex-col justify-between">
+            <h3 className="text-2xl font-black font-poppins mb-10">
+              Your Estimate
+            </h3>
 
-              <div className="space-y-6">
-                {/* Recommendation */}
+            {!estimate ? (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="flex-1 flex items-center justify-center text-center"
+              >
+                <div>
+                  <IconCalculator
+                    size={70}
+                    className="mx-auto mb-4 text-white/70"
+                  />
+
+                  <p className="text-lg text-white/80 font-medium">
+                    Fill in your details to see your personalized estimate
+                  </p>
+                </div>
+              </motion.div>
+            ) : (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="space-y-6"
+              >
+                {/* Recommendation Card */}
                 <div className="flex">
                   <div className="w-[60px] rounded-md bg-white/10 flex items-center justify-center shrink-0 mr-3">
                     <IconBolt size={34} className="text-white" />
                   </div>
 
-                  <div className="flex-1 rounded-md bg-white/10 px-6 py-5">
+                  <div className="flex-1 rounded-md bg-white/10 px-6 py-5 backdrop-blur-sm">
                     <p className="text-sm font-semibold text-white/80">
                       We Recommend
                     </p>
 
                     <h4 className="text-3xl font-black text-white leading-tight mt-1">
-                      {recommendedKW} KW {recommendedPhase}
+                      {estimate.recommendedKW} KW {estimate.phase}
                     </h4>
 
                     <p className="text-sm mt-3 text-white">
-                      Estimated Generation:
-                      <span className="font-bold text-yellow-300">
-                        {" "}
-                        {monthlyGeneration} Units / Month
+                      To reduce your monthly bill to{" "}
+                      <span className="text-yellow-300 font-bold">
+                        Net Zero
                       </span>
                     </p>
                   </div>
                 </div>
 
-                {/* Savings */}
+                {/* Savings Card */}
                 <div className="flex">
                   <div className="w-[60px] rounded-md bg-white/10 flex items-center justify-center shrink-0 mr-3">
                     <IconTrendingDown size={28} className="text-white" />
                   </div>
 
-                  <div className="flex-1 rounded-md bg-white/10 px-6 py-5">
+                  <div className="flex-1 rounded-md bg-white/10 px-6 py-5 backdrop-blur-sm">
                     <p className="text-xs font-bold opacity-80">
                       Monthly Savings
                     </p>
 
                     <h4 className="text-3xl font-black">
-                      ₹{estimatedMonthlySavings.toLocaleString()}
+                      ₹{estimate.monthlySavings.toLocaleString()}
                     </h4>
 
                     <p className="text-xs font-bold mt-1 opacity-90">
-                      ₹{yearlySavings.toLocaleString()} per year
-                    </p>
-
-                    <p className="text-xs mt-2 opacity-80">
-                      Payback in ~{paybackYears} Years
+                      ₹{estimate.yearlySavings.toLocaleString()} per year
                     </p>
                   </div>
                 </div>
 
-                {/* Pricing */}
+                {/* Price Card */}
                 <div className="flex">
                   <div className="w-[60px] rounded-md bg-white/10 flex items-center justify-center shrink-0 mr-3">
-                    <IconCurrencyRupee size={28} className="text-white" />
+                    <IconCurrencyRupee
+                      size={28}
+                      className="text-white"
+                    />
                   </div>
 
-                  <div className="flex-1 rounded-md bg-white/10 px-6 py-5">
+                  <div className="flex-1 rounded-md bg-white/10 px-6 py-5 backdrop-blur-sm">
                     <p className="text-xs font-bold opacity-80">
-                      Estimated Price
+                      Starting Price
                     </p>
 
                     <h4 className="text-3xl font-black">
-                      ₹{finalPrice.toLocaleString()}
+                      ₹{estimate.finalPrice.toLocaleString()}
                     </h4>
 
                     <p className="text-xs font-bold mt-1 opacity-90">
-                      Incl. ₹{subsidy.toLocaleString()} Govt. Subsidy
-                    </p>
-
-                    <p className="text-xs mt-2 opacity-80">
-                      25 Year Savings:
-                      ₹{lifetimeSavings.toLocaleString()}
+                      With ₹{estimate.subsidy.toLocaleString()} Govt.
+                      Subsidy (DCR)
                     </p>
                   </div>
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            )}
 
             <Button
               variant="secondary"
-              className="w-full h-14 bg-white text-[#1E88E5] hover:bg-slate-50 text-lg rounded-xl mt-10"
+              className="w-full h-14 bg-white text-[#1E88E5] hover:bg-slate-50 text-lg rounded-xl mt-10 font-black"
             >
               Get Detailed Proposal
             </Button>
           </div>
         </motion.div>
 
-        {/* Bottom */}
+        {/* Bottom Trust Indicators */}
         <div className="flex flex-wrap justify-center gap-8 mt-12 text-[13px] font-bold text-[#717A75]">
           <div className="flex items-center gap-2">
             <div className="h-2 w-2 rounded-full bg-[#1E88E5]" />
