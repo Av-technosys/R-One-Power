@@ -50,7 +50,7 @@ const Page = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
               transition={{ delay: 0.1 }}
-              className="text-3xl sm:text-5xl md:text-6xl font-poppins font-bold mb-2 leading-tight"
+              className="text-3xl sm:text-5xl md:text-6xl font-bold mb-2 leading-tight font-poppins"
             >
               Get in <span className="text-[#FDEA00]">Touch</span>
             </motion.p>
@@ -60,7 +60,7 @@ const Page = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
               transition={{ delay: 0.2 }}
-              className="text-base text-xl md:text-xl p-3 sm:p-4 font-poppins max-w-2xl"
+              className="text-base text-xl md:text-xl p-3 sm:p-4 max-w-2xl font-inter"
             >
               Ready to switch to solar? Reach out for a free consultation and site survey.
             </motion.p>

@@ -102,7 +102,7 @@ const HeroSection = ({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
               transition={{ delay: 0.2 }}
-              className="text-xl p-4 md:p-6 font-poppins max-w-3xl"
+              className="text-xl p-4 md:p-6 max-w-3xl font-inter"
             >
               {subtitle}
             </motion.p>

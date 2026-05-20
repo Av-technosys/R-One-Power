@@ -246,7 +246,7 @@ const page = () => {
             shadow-xl
           "
         >
-          <h2 className="text-[#1E88E5] text-xl font-bold mb-3">
+          <h2 className="text-[#1E88E5] text-xl font-poppins font-bold mb-3">
             VISION
           </h2>
 
@@ -280,7 +280,7 @@ const page = () => {
             text-right
           "
         >
-          <h2 className="text-[#FDEA00] text-xl font-bold mb-6">
+          <h2 className="text-[#FDEA00] text-xl font-poppins font-bold mb-6">
             MISSION
           </h2>
 
@@ -302,23 +302,23 @@ const page = () => {
 <div className="md:hidden block px-4 py-10 space-y-5">
 
     <div className="bg-white/70 backdrop-blur-md rounded-3xl p-5 shadow-lg">
-      <h2 className="text-[#1E88E5] text-2xl font-bold mb-3">
+      <h2 className="text-[#1E88E5] text-2xl font-bold mb-3 font-poppins">
         VISION
       </h2>
 
-      <p className="text-gray-700 leading-7">
+      <p className="text-gray-700 leading-7 font-inter">
         A future where clean, renewable energy powers every home and
         business, reducing dependence on fossil fuels and lowering
         environmental impact.
       </p>
     </div>
 
-    <div className="bg-white/70 backdrop-blur-md rounded-3xl p-5 shadow-lg">
+    <div className="bg-white/70 backdrop-blur-md rounded-3xl p-5 shadow-lg font-poppins">
       <h2 className="text-[#FDEA00] text-2xl font-bold mb-3">
         MISSION
       </h2>
 
-      <p className="text-gray-700 leading-7">
+      <p className="text-gray-700 leading-7 font-inter">
         A future where clean, renewable energy powers every home and
         business, reducing dependence on fossil fuels and lowering
         environmental impact.
