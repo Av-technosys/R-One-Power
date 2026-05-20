@@ -1,11 +1,12 @@
 "use client"
 import QuoteForm from "@/component/Quote/Quote"
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
+import { useSearchParams } from "next/navigation"
 import { motion, AnimatePresence, HTMLMotionProps } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { 
-  IconHome, 
-  IconBuildingCommunity, 
+import {
+  IconHome,
+  IconBuildingCommunity,
   IconCircleCheckFilled,
   IconArrowRight
 } from "@tabler/icons-react"
@@ -163,7 +164,32 @@ const servicesData = [
 ]
 
 export default function ServiceTabs() {
+
+  const searchParams = useSearchParams()
+
   const [activeTab, setActiveTab] = useState(servicesData[0])
+  const [isReady, setIsReady] = useState(false)
+
+  useEffect(() => {
+    const tab = searchParams.get("tab")
+
+    if (tab) {
+      const matchedTab = servicesData.find(
+        (item) => item.id === tab
+      )
+
+      if (matchedTab) {
+        setActiveTab(matchedTab)
+      }
+    }
+
+    setIsReady(true)
+  }, [searchParams])
+
+
+
+
+
   const [showQuoteForm, setShowQuoteForm] = useState(false)
 
   const fadeInUp: HTMLMotionProps<"div"> = {
@@ -172,21 +198,20 @@ export default function ServiceTabs() {
     exit: { opacity: 0, y: -20 },
     transition: { duration: 0.4, ease: "easeOut" }
   }
-
+  if (!isReady) return null
   return (
-    <section className="pt-12 md:pt-20 bg-white font-inter">
+    <section id="services-section" className="pt-12 md:pt-20 bg-white font-inter">
       <div className="max-w-7xl mx-auto px-5 md:px-10">
-        
+
         <div className="flex overflow-x-auto no-scrollbar md:flex-wrap md:justify-center gap-3 mb-10 pb-2">
           {servicesData.map((item) => (
             <button
               key={item.id}
               onClick={() => setActiveTab(item)}
-              className={`flex items-center shrink-0 gap-2 px-5 py-3 rounded-xl font-bold text-xs transition-all duration-300 whitespace-nowrap ${
-                activeTab.id === item.id 
-                ? "bg-[#1E88E5] text-white shadow-lg shadow-blue-200" 
-                : "bg-slate-50 text-slate-500 hover:bg-slate-100"
-              }`}
+              className={`flex items-center shrink-0 gap-2 px-5 py-3 rounded-xl font-bold text-xs transition-all duration-300 whitespace-nowrap ${activeTab.id === item.id
+                  ? "bg-[#1E88E5] text-white shadow-lg shadow-blue-200"
+                  : "bg-slate-50 text-slate-500 hover:bg-slate-100"
+                }`}
             >
               {item.icon}
               {item.tabLabel}
@@ -195,16 +220,16 @@ export default function ServiceTabs() {
         </div>
 
         <AnimatePresence mode="wait">
-          <motion.div 
+          <motion.div
             key={activeTab.id}
             {...fadeInUp}
             className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-start"
           >
-            
+
             <div className="space-y-8 md:space-y-10">
               <div className="relative h-[250px] md:h-[350px] rounded-[24px] md:rounded-[32px] overflow-hidden shadow-2xl">
-                <img 
-                  src={activeTab.image} 
+                <img
+                  src={activeTab.image}
                   alt={activeTab.title}
                   className="w-full h-full object-cover"
                 />
@@ -221,24 +246,24 @@ export default function ServiceTabs() {
 
               <div className="grid grid-cols-3 gap-2 md:gap-4">
                 {activeTab.stats.map((stat, i) => (
-                <div
-  key={i}
-  className="
+                  <div
+                    key={i}
+                    className="
     bg-[#E3F2FD]
     rounded-[16px] md:rounded-[24px]
     px-3 py-4 md:px-6 md:py-8
     text-center
     flex flex-col justify-center items-center
-    min-h-[90px] md:min-h-[140px]
+   
     w-full
   "
->
-  <h4 className="text-base sm:text-lg md:text-2xl font-black text-[#1E88E5] font-poppins leading-tight break-words">
-    {stat.value}
-  </h4>
+                  >
+                    <h4 className="text-base sm:text-lg md:text-sm  font-black text-[#1E88E5] font-poppins">
+                      {stat.value}
+                    </h4>
 
-  <p
-    className="
+                    <p
+                      className="
       text-[9px] sm:text-[10px] md:text-xs
       font-bold
       text-slate-500
@@ -248,16 +273,16 @@ export default function ServiceTabs() {
       mt-1
       break-words
     "
-  >
-    {stat.label}
-  </p>
-</div>
+                    >
+                      {stat.label}
+                    </p>
+                  </div>
                 ))}
               </div>
             </div>
 
             <div className="lg:pt-2 space-y-10">
-              
+
               <div className="space-y-6">
                 <h5 className="font-black text-slate-900 font-poppins uppercase tracking-[0.15em] text-sm">Key Features</h5>
                 <div className="space-y-4">
@@ -279,7 +304,7 @@ export default function ServiceTabs() {
                     Every project is unique. Contact us for a free consultation and custom solar system design.
                   </p>
                 </div>
-                
+
                 <Button
                   onClick={() => setShowQuoteForm(true)}
                   className="w-full md:w-auto h-12 px-8 bg-[#1E88E5] hover:bg-blue-600 text-white rounded-md font-bold text-xs gap-3 transition-all"

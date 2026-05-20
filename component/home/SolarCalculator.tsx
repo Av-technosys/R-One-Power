@@ -39,7 +39,7 @@ export default function SolarCalculator() {
 
   const [sanctionLoad, setSanctionLoad] = React.useState("3");
   const [phase, setPhase] = React.useState("three");
-  const [monthlyUnits, setMonthlyUnits] = React.useState(650);
+  const [monthlyUnits, setMonthlyUnits] = React.useState(200);
   const [monthlyBill, setMonthlyBill] = React.useState(4200);
 
   // Recommended System Size Logic
@@ -91,6 +91,17 @@ export default function SolarCalculator() {
 
   // 25 Year Savings
   const lifetimeSavings = yearlySavings * 25;
+
+  const handleProposalClick = () => {
+    const message =
+      "Hi, I'm interested in a solar installation. Please share a detailed proposal for the recommended system."
+
+    const whatsappUrl = `https://wa.me/919660077814?text=${encodeURIComponent(
+      message
+    )}`
+
+    window.location.href = whatsappUrl
+  }
 
   return (
     <section className="py-24 bg-linear-to-b from-[#F9FCFA] to-[#F4F9F6] font-inter">
@@ -302,8 +313,10 @@ export default function SolarCalculator() {
             </div>
 
             <Button
-              variant="secondary"
-              className="w-full h-14 bg-white text-[#1E88E5] hover:bg-slate-50 text-lg rounded-xl mt-10"
+              type="button"
+           
+              onClick={handleProposalClick}
+              className="w-full h-14 bg-white text-[#1E88E5] hover:bg-slate-50 text-lg rounded-xl mt-10 font-bold transition-all"
             >
               Get Detailed Proposal
             </Button>

@@ -68,7 +68,7 @@ function Faq() {
 
       <div>
         {/* FAQ Section */}
-        <div className="max-w-7xl mx-auto pt-16 px-6 md:px-10">
+        <div className="max-w-7xl mx-auto pt-16 px-2 md:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-10 items-start">
             
             {/* Left - Image */}

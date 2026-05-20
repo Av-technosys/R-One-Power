@@ -63,6 +63,7 @@ export default function LogoStrap() {
                   alt={brand.name}
                   fill
                  className="object-contain opacity-80"
+                 sizes="120px"
                 />
               </div>
             </div>

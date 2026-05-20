@@ -77,7 +77,7 @@ const Page = () => {
               icon: <IconMapPin size={30} stroke={2} className="text-blue-500" />,
               title: "Corporate Office",
               line1: "C-86, Gautam Marg, Behind Reliance Trends",
-              line2: "Near Vaishali Circle, Vaishali Nagar, Jaipur 302021",
+              line2: "",
               breakClass: "break-words"
             },
             {
@@ -96,7 +96,7 @@ const Page = () => {
             },
             {
               icon: <IconClock size={30} stroke={2} className="text-blue-500" />,
-              title: "Working Presence",
+              title: "Working",
               line1: "Operating Across 18 States & 5 UTs",
               line2: "Jaipur • Mumbai • Guwahati",
               breakClass: ""

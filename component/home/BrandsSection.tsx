@@ -44,7 +44,7 @@ export default function BrandsSection() {
           alt="Solar Background"
           fill
           className="object-cover"
-          quality={100}
+         sizes="120px"
         />
 
         <div className="absolute inset-0 bg-black/60" />
@@ -178,7 +178,7 @@ export default function BrandsSection() {
         <motion.p
           {...fadeInUp}
           transition={{ delay: 1 }}
-          className="text-center text-sm text-white font-medium mt-16 leading-relaxed px-6"
+          className="text-center text-sm text-white font-medium mt-16 leading-relaxed px-6 md:block hidden"
         >
           All equipment comes with manufacturer warranties and our quality guarantee
         </motion.p>
