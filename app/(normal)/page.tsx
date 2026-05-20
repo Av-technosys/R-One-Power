@@ -11,6 +11,7 @@ import ProjectsSection from '@/component/home/ProjectsSection'
 import RajasthanNetwork from '@/component/home/RajasthanNetwork'
 import ReadyToSolar from '@/component/home/ReadyToSolar'
 import ServicesSection from '@/component/home/ServicesSection'
+import Solar from '@/component/home/Solar'
 import SolarBenefits from '@/component/home/SolarBenefits'
 import SolarCalculator from '@/component/home/SolarCalculator'
 import Testimonials from '@/component/home/Testimonials'
@@ -29,7 +30,8 @@ const page = () => {
       <ServicesSection/>
       <Testimonials/>
       <IndustrialSolutions/>
-      <SolarCalculator/>
+      {/* <SolarCalculator/> */}
+      <Solar/>
       <SolarBenefits/>
       <RajasthanNetwork/>
       <Faq/>

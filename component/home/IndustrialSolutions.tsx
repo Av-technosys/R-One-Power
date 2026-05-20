@@ -128,6 +128,7 @@ export default function IndustrialSolutions() {
                 <p className="text-sm text-slate-500 leading-relaxed font-medium">
                   {item.desc}
                 </p>
+              
                 <button className="flex items-center gap-2 text-[#1E88E5] text-xs font-bold uppercase tracking-wider hover:gap-3 transition-all">
                   Learn More <IconArrowRight size={14} />
                 </button>

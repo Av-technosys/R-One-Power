@@ -4,6 +4,7 @@ import React from "react"
 import Image, { StaticImageData } from "next/image"
 import { IconSunFilled } from "@tabler/icons-react"
 import { motion } from "framer-motion"
+import { usePathname } from "next/navigation"
 
 type HeroSectionProps = {
   image: StaticImageData
@@ -26,12 +27,18 @@ const HeroSection = ({
   badgeVariant = "yellow",
 }: HeroSectionProps) => {
 
-const overlayClass =
-  overlay === "dark"
-    ? "bg-black/25"
-    : overlay === "none"
-    ? ""
-    : "bg-gradient-to-b from-[#1E88E580]/75 to-[#114B7F80]/100"
+  const pathname = usePathname()
+
+  const hideBadge =
+    pathname === "/privacy-policy" ||
+    pathname === "/terms-and-conditions"
+
+  const overlayClass =
+    overlay === "dark"
+      ? "bg-black/25"
+      : overlay === "none"
+      ? ""
+      : "bg-gradient-to-b from-[#1E88E580]/75 to-[#114B7F80]/100"
 
   const badgeClass =
     badgeVariant === "blue"
@@ -54,23 +61,25 @@ const overlayClass =
       <div className={`absolute inset-0 ${overlayClass}`}></div>
 
       {/* Content */}
-      <div className="relative text-white  pt-10 flex flex-col gap-10 items-center text-center">
+      <div className="relative text-white pt-10 flex flex-col gap-10 items-center text-center">
 
         {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false }}
-          className={`${badgeClass} w-fit px-5 border-2 rounded-full font-bold p-3 flex items-center justify-center gap-2`}
-        >
-          <IconSunFilled
-            size={20}
-            stroke={1.5}
-            className="text-[#FBBF24] font-inter"
-          />
+        {!hideBadge && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            className={`${badgeClass} w-fit px-5 border-2 rounded-full font-bold p-3 flex items-center justify-center gap-2`}
+          >
+            <IconSunFilled
+              size={20}
+              stroke={1.5}
+              className="text-[#FBBF24] font-inter"
+            />
 
-          {badgeText}
-        </motion.div>
+            {badgeText}
+          </motion.div>
+        )}
 
         {/* Heading */}
         <div className="relative text-white flex flex-col gap-4 items-center text-center">
@@ -82,7 +91,7 @@ const overlayClass =
             transition={{ delay: 0.1 }}
             className="max-w-7xl px-4"
           >
-            <h1 className="text-4xl sm:text-5xl md:text-7xl font-poppins font-bold leading-tight text-center break-words">
+            <h1 className="text-3xl md:text-6xl font-poppins font-bold text-center">
               {heading}
             </h1>
           </motion.div>

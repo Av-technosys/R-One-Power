@@ -68,7 +68,7 @@ function Faq() {
 
       <div>
         {/* FAQ Section */}
-        <div className="max-w-7xl mx-auto pt-16 px-10">
+        <div className="max-w-7xl mx-auto pt-16 px-6 md:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-10 items-start">
             
             {/* Left - Image */}
@@ -91,7 +91,7 @@ function Faq() {
                   Trusted Solar Solutions
                 </p>
 
-                <p className="text-lg font-inter text-white/80 pt-3">
+                <p className="text-md font-inter text-white/80 pt-3">
                   Delivering reliable solar energy systems for residential,
                   commercial, and industrial projects across Rajasthan.
                 </p>
@@ -116,7 +116,7 @@ function Faq() {
                   >
                     <AccordionItem
                       value={`item-${index + 1}`}
-                      className="border border-gray-100 p-5 rounded-2xl shadow-lg shadow-[#0052FF0A] px-6 rounded-lg text-xl"
+                      className="border border-gray-100 p-3 rounded-2xl shadow-lg shadow-[#0052FF0A] px-4 rounded-lg text-xl"
                     >
                       <AccordionTrigger className="font-poppins text-lg md:text-xl">
                         {faq.question}
