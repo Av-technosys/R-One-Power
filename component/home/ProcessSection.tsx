@@ -19,7 +19,7 @@ const steps = [
     id: "01",
     title: "Site Assessment",
     desc: "Our experts analyze your roof space, electricity consumption, and project requirements to identify the most efficient solar solution.",
-    img: "/step-1.png",
+    img: "https://dg2suxnbcr839.cloudfront.net/step-1.png",
     color: "#1E88E5",
     icon: <IconSearch size={20} />,
   },
@@ -27,7 +27,7 @@ const steps = [
     id: "02",
     title: "System Design & Planning",
     desc: "We create a customized solar system design focused on maximum performance, safety standards, and long-term energy savings.",
-    img: "/step-2.png",
+    img: "https://dg2suxnbcr839.cloudfront.net/step-2.png",
     color: "#FBC02D",
     icon: <IconLayoutDashboard size={20} />,
   },
@@ -35,7 +35,7 @@ const steps = [
     id: "03",
     title: "Professional Installation",
     desc: "Our trained technical team installs the complete solar system using high-quality components and industry-best installation practices.",
-    img: "/step-3.png",
+    img: "https://dg2suxnbcr839.cloudfront.net/step-3.png",
     color: "#1E88E5",
     icon: <IconTools size={20} />,
   },
@@ -43,7 +43,7 @@ const steps = [
     id: "04",
     title: "Testing & Commissioning",
     desc: "We complete system testing, net metering support, and final commissioning to ensure smooth and reliable solar power generation.",
-    img: "/step-4.png",
+    img: "https://dg2suxnbcr839.cloudfront.net/step-4.png",
     color: "#FBC02D",
     icon: <IconClipboardCheck size={20} />,
   },
@@ -85,7 +85,7 @@ export default function ProcessSection() {
     <section className="relative pt-15 bg-slate-50 overflow-hidden font-inter ">
       {/* Background Solar Pattern Overlay */}
       <div className="absolute inset-0 ">
-        <img src="/process-bg.png" alt="pattern" className="w-full h-full object-cover" />
+        <img src="https://dg2suxnbcr839.cloudfront.net/process-bg.png" alt="pattern" className="w-full h-full object-cover" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6 lg:px-10">

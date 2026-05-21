@@ -8,11 +8,11 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 
 const projects = [
-  { title: "Jaipur", img: "/solar-1.png" },
-  { title: "Ajmer", img: "/solar-2.png" },
-  { title: "Udaipur", img: "/solar-3.png" },
-  { title: "Jaipur", img: "/solar-1.png" },
-  { title: "Bikaner", img: "/solar-2.png" },
+  { title: "Jaipur", img: "https://dg2suxnbcr839.cloudfront.net/solar-1.png" },
+  { title: "Ajmer", img: "https://dg2suxnbcr839.cloudfront.net/solar-2.png" },
+  { title: "Udaipur", img: "https://dg2suxnbcr839.cloudfront.net/solar-3.png" },
+  { title: "Jaipur", img: "https://dg2suxnbcr839.cloudfront.net/solar-1.png" },
+  { title: "Bikaner", img: "https://dg2suxnbcr839.cloudfront.net/solar-2.png" },
 ]
 
 export default function ProjectsSection() {

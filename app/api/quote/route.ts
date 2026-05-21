@@ -14,7 +14,7 @@ export async function POST(req: Request) {
 
     const EMAIL_USER = process.env.EMAIL_USER
     const EMAIL_PASS = process.env.EMAIL_PASS
-    const EMAIL_TO = process.env.EMAIL_TO
+    const EMAIL_TO = process.env.EMAIL_TO || process.env.RECEIVER_EMAIL
 
     if (!EMAIL_USER || !EMAIL_PASS || !EMAIL_TO) {
       console.warn("Email service not configured. Returning simulated success.")

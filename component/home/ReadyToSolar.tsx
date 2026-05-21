@@ -22,7 +22,7 @@ export default function ReadyToSolar() {
       {/* Background Image Layer */}
       <div className="absolute inset-0 z-0">
         <Image 
-          src="/sky-bg.jpg" 
+          src="https://dg2suxnbcr839.cloudfront.net/sky-bg.jpg" 
           alt="Sky Background" 
           fill 
           className="object-cover"

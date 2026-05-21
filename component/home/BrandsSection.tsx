@@ -10,16 +10,16 @@ import {
 } from "@tabler/icons-react"
 
 const brandLogos = [
-  { name: "Indian Oil", img: "/logo-1" },
-  { name: "Railway", img: "/logo-2" },
-  { name: "Refex", img: "/logo-3" },
-  { name: "HP", img: "/logo-4" },
-  { name: "Ecotec", img: "/logo-5" },
-  { name: "Solar91", img: "/logo-6" },
-  { name: "7 Greens", img: "/logo-7" },
-  { name: "Genus", img: "/logo-8" },
-  { name: "Penta", img: "/logo-9" },
-  { name: "Green", img: "/logo-10" },
+  { name: "Indian Oil", img: "https://dg2suxnbcr839.cloudfront.net/logo-1" },
+  { name: "Railway", img: "https://dg2suxnbcr839.cloudfront.net/logo-2.png"},
+  { name: "Refex", img: "https://dg2suxnbcr839.cloudfront.net/logo-3" },
+  { name: "HP", img: "https://dg2suxnbcr839.cloudfront.net/logo-4" },
+  { name: "Ecotec", img: "https://dg2suxnbcr839.cloudfront.net/logo-5" },
+  { name: "Solar91", img: "https://dg2suxnbcr839.cloudfront.net/logo-6" },
+  { name: "7 Greens", img: "https://dg2suxnbcr839.cloudfront.net/logo-7" },
+  { name: "Genus", img: "https://dg2suxnbcr839.cloudfront.net/logo-8" },
+  { name: "Penta", img: "https://dg2suxnbcr839.cloudfront.net/logo-9" },
+  { name: "Green", img: "https://dg2suxnbcr839.cloudfront.net/logo-10" },
 ]
 
 export default function BrandsSection() {
@@ -40,7 +40,7 @@ export default function BrandsSection() {
       {/* Background */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/logo-bg.png"
+          src="https://dg2suxnbcr839.cloudfront.net/logo-bg.png"
           alt="Solar Background"
           fill
           className="object-cover"

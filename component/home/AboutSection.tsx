@@ -72,7 +72,7 @@ export default function AboutSection() {
             {/* Main Image Wrapper */}
             <div className="relative h-[300px] md:h-[400px] w-full md:w-[490px] rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="/about-right.jpg"
+                src="https://dg2suxnbcr839.cloudfront.net/about-right.jpg"
                 alt="Solar Installation Excellence"
                 fill
                 className="object-cover"

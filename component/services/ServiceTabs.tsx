@@ -17,7 +17,7 @@ const servicesData = [
     tabLabel: "Residential Solar",
     icon: <IconHome size={18} />,
     title: "Residential Rooftop Solar Solutions",
-    image: "/services/residential",
+    image: "https://dg2suxnbcr839.cloudfront.net/services/residential",
     description:
       "R-ONE Power delivers residential rooftop solar systems with complete EPC support, subsidy guidance, premium Tier-1 components and long-term energy savings for homeowners across Rajasthan.",
 
@@ -42,7 +42,7 @@ const servicesData = [
     tabLabel: "Commercial Solar",
     icon: <IconBuildingCommunity size={18} />,
     title: "Commercial & Industrial Solar Power Projects",
-    image: "/services/comercial",
+    image: "https://dg2suxnbcr839.cloudfront.net/services/comercial",
     description:
       "We provide high-performance commercial solar power solutions for offices, hotels, schools, hospitals and industrial facilities designed to reduce operational electricity costs and improve energy efficiency.",
 
@@ -67,7 +67,7 @@ const servicesData = [
     tabLabel: "Industrial Solar",
     icon: <IconBuildingCommunity size={18} />,
     title: "Industrial Solar & PM Kusum Projects",
-    image: "/services/industry",
+    image: "https://dg2suxnbcr839.cloudfront.net/services/industry",
     description:
       "R-ONE Power executes large-scale industrial solar and PM Kusum projects with complete planning, installation, commissioning and long-term technical support for reliable clean energy generation.",
 
@@ -92,7 +92,7 @@ const servicesData = [
     tabLabel: "Battery Storage",
     icon: <IconBuildingCommunity size={18} />,
     title: "Hybrid Solar & Battery Storage Systems",
-    image: "/services/battery",
+    image: "https://dg2suxnbcr839.cloudfront.net/services/battery",
     description:
       "We offer hybrid and battery storage solutions designed for uninterrupted power backup, energy independence and reliable solar performance in residential, commercial and remote applications.",
 
@@ -117,7 +117,7 @@ const servicesData = [
     tabLabel: "Solar AMC",
     icon: <IconBuildingCommunity size={18} />,
     title: "Solar AMC & Operation Maintenance Services",
-    image: "/services/amc",
+    image: "https://dg2suxnbcr839.cloudfront.net/services/amc",
     description:
       "Our AMC and operation maintenance services ensure maximum solar plant efficiency, reduced downtime and long-term performance through preventive inspections and expert technical support.",
 
@@ -142,7 +142,7 @@ const servicesData = [
     tabLabel: "Net Metering",
     icon: <IconBuildingCommunity size={18} />,
     title: "Net Metering & Solar Consultancy Services",
-    image: "/services/matering",
+    image: "https://dg2suxnbcr839.cloudfront.net/services/matering",
     description:
       "We provide complete net metering assistance, solar consultancy and technical support services to simplify approvals, improve system performance and maximize long-term savings.",
 

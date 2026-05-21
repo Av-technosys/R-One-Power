@@ -20,7 +20,7 @@ export default function HeroBanner() {
       <div className="absolute bottom-0 right-0 w-full h-full z-0">
          {/* Replace with your actual solar panel image path */}
         <Image 
-          src="/hero-banner.png" 
+          src="https://dg2suxnbcr839.cloudfront.net/hero-banner.png" 
           alt="Solar Panel Background"  
           fill 
           className="object-cover object-bottom opacity-90"
