@@ -5,12 +5,12 @@ import { motion, Variants } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
 
 const projectsData = [
-  { id: 1, type: "featured", image: "/gallery-1.png", badge: "Home", title: "Residential Rooftop" },
-  { id: 2, type: "small", image: "/gallery-2.png", badge: "Team", title: "Installation in Progress" },
-  { id: 3, type: "small", image: "/gallery-3.png", badge: "Tech", title: "Tier-1 Solar Panels" },
-  { id: 4, type: "wide", image: "/gallery-4.png", badge: "Industrial", title: "Industrial Rooftop Plant" },
-  { id: 5, type: "small", image: "/gallery-5.png", badge: "Service", title: "O&M & Cleaning Services" },
-  { id: 6, type: "small", image: "/gallery-6.png", badge: "Utility", title: "Solar Farm, Rajasthan" }
+  { id: 1, type: "featured", image: "https://dg2suxnbcr839.cloudfront.net/gallery-1.png", badge: "Home", title: "Residential Rooftop" },
+  { id: 2, type: "small", image: "https://dg2suxnbcr839.cloudfront.net/gallery-2.png", badge: "Team", title: "Installation in Progress" },
+  { id: 3, type: "small", image: "https://dg2suxnbcr839.cloudfront.net/gallery-3.png", badge: "Tech", title: "Tier-1 Solar Panels" },
+  { id: 4, type: "wide", image: "https://dg2suxnbcr839.cloudfront.net/gallery-4.png", badge: "Industrial", title: "Industrial Rooftop Plant" },
+  { id: 5, type: "small", image: "https://dg2suxnbcr839.cloudfront.net/gallery-5.png", badge: "Service", title: "O&M & Cleaning Services" },
+  { id: 6, type: "small", image: "https://dg2suxnbcr839.cloudfront.net/gallery-6.png", badge: "Utility", title: "Solar Farm, Rajasthan" }
 ]
 
 const cardVariants: Variants = {

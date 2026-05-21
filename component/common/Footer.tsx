@@ -81,7 +81,7 @@ export default function Footer() {
           <div className="space-y-5 md:space-y-6">
             <Link href={"/"}>
               <img
-                src="/footer-logo.png"
+                src="https://dg2suxnbcr839.cloudfront.net/footer-logo.png"
                 alt="R-ONE Power"
                 className="h-12 sm:h-14 md:h-15 w-auto"
               />

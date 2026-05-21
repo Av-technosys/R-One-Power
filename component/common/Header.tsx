@@ -24,7 +24,7 @@ export default function Header() {
       <div className="flex items-center shrink-0">
         <Link href="/">
           <img 
-            src="/main-logo.png" 
+            src="https://dg2suxnbcr839.cloudfront.net/main-logo.png" 
             alt="R-One Power" 
             className="h-10 md:h-14 w-auto object-contain transition-transform hover:scale-105"
           />

@@ -48,7 +48,7 @@ export default function MobileMenu() {
           {/* Logo */}
           <div className="px-6 py-5 border-b flex items-center">
             <img
-              src="/main-logo.png"
+              src="https://dg2suxnbcr839.cloudfront.net/main-logo.png"
               alt="R-One Power"
               className="h-10 w-auto object-contain"
             />
