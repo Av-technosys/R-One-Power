@@ -50,7 +50,7 @@ const Page = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
               transition={{ delay: 0.1 }}
-              className="text-3xl sm:text-5xl md:text-6xl font-poppins font-bold mb-2 leading-tight"
+              className="text-3xl sm:text-5xl md:text-6xl font-bold mb-2 leading-tight font-poppins"
             >
               Get in <span className="text-[#FDEA00]">Touch</span>
             </motion.p>
@@ -60,7 +60,7 @@ const Page = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
               transition={{ delay: 0.2 }}
-              className="text-base text-xl md:text-xl p-3 sm:p-4 font-poppins max-w-2xl"
+              className="text-base text-xl md:text-xl p-3 sm:p-4 max-w-2xl font-inter"
             >
               Ready to switch to solar? Reach out for a free consultation and site survey.
             </motion.p>
@@ -77,7 +77,7 @@ const Page = () => {
               icon: <IconMapPin size={30} stroke={2} className="text-blue-500" />,
               title: "Corporate Office",
               line1: "C-86, Gautam Marg, Behind Reliance Trends",
-              line2: "Near Vaishali Circle, Vaishali Nagar, Jaipur 302021",
+              line2: "",
               breakClass: "break-words"
             },
             {
@@ -96,7 +96,7 @@ const Page = () => {
             },
             {
               icon: <IconClock size={30} stroke={2} className="text-blue-500" />,
-              title: "Working Presence",
+              title: "Working",
               line1: "Operating Across 18 States & 5 UTs",
               line2: "Jaipur • Mumbai • Guwahati",
               breakClass: ""

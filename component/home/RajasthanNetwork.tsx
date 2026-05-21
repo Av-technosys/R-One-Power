@@ -132,10 +132,10 @@ export default function RajasthanNetwork() {
             </div>
 
             {/* Stats Block */}
-            <div className="grid grid-cols-3 gap-4 pt-10 border-t border-slate-100">
+            <div className="grid grid-cols-3 gap-2 p-3 border border-slate-200 rounded-md">
               {stats.map((stat, i) => (
                 <div key={i}>
-                  <h4 className="text-xl md:text-4xl font-black text-[#1E88E5] font-poppins leading-none">{stat.value}</h4>
+                  <h4 className="text-md md:text-3xl font-black text-[#1E88E5] font-poppins leading-none">{stat.value}</h4>
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-3 leading-none">{stat.label}</p>
                 </div>
               ))}

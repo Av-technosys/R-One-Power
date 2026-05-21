@@ -59,10 +59,10 @@ const QuoteForm = ({ onClose }: { onClose: () => void }) => {
   }
 
   return (
-    <section className="fixed inset-0 z-50 w-full h-screen bg-black/60 flex items-center justify-center px-4 py-4 font-inter overflow-y-auto">
-      <div className="w-full max-w-xl max-h-[92vh] overflow-y-auto bg-white rounded-[28px] px-6 py-6 md:px-10 md:py-10">
+    <section className="fixed inset-0 z-50 w-full h-screen bg-black/60 flex items-center justify-center px-4 py-4 font-inter">
+      <div className="w-full max-w-xl max-h-[85vh] overflow-y-auto bg-white rounded-[15px] px-6 py-6 md:px-10 md:py-8">
         
-        <div className="flex items-start justify-between mb-8">
+        <div className="flex items-start justify-between mb-5">
           <h2 className="text-[24px] md:text-2xl font-bold text-[#1D2433] font-poppins">
             Request a Quote
           </h2>

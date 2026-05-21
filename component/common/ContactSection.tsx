@@ -17,7 +17,8 @@ export default function ContactSection() {
   })
 
   const [loading, setLoading] = useState(false)
-  const [showPopup, setShowPopup] = useState(false) // Popup toggle karne ke liye state
+  const [successMessage, setSuccessMessage] = useState("")
+  const [errorMessage, setErrorMessage] = useState("")
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -26,15 +27,21 @@ export default function ContactSection() {
       ...formData,
       [e.target.name]: e.target.value,
     })
+    if (successMessage) {
+      setSuccessMessage("")
+    }
+    if (errorMessage) {
+      setErrorMessage("")
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const phoneRegex = /^[0-9]{10,12}$/
+    const cleanedPhone = formData.phone.replace(/\D/g, "")
 
-    if (!phoneRegex.test(formData.phone.trim())) {
-      alert("Phone number must be between 10 to 12 digits")
+    if (cleanedPhone.length !== 10) {
+      setErrorMessage("Phone number must contain exactly 10 digits.")
       return
     }
 
@@ -46,11 +53,13 @@ export default function ContactSection() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          phone: cleanedPhone,
+        }),
       })
 
       const data = await res.json()
-      alert("Form submitted successfully!")
 
       if (data.success) {
         setFormData({
@@ -60,11 +69,16 @@ export default function ContactSection() {
           city: "",
           requirement: "",
         })
-        setShowPopup(true) // Backend success response dete hi popup dikhega
+        setSuccessMessage("Form submitted successfully! We will contact you soon.")
+        setErrorMessage("")
+      } else {
+        setSuccessMessage("")
+        setErrorMessage(data.message || "Something went wrong. Please try again.")
       }
     } catch (error) {
       console.error(error)
-      alert("Something went wrong")
+      setErrorMessage("Something went wrong. Please try again later.")
+      setSuccessMessage("")
     } finally {
       setLoading(false)
     }
@@ -188,6 +202,18 @@ export default function ContactSection() {
                 {loading ? "Sending..." : "Request Callback"}
               </Button>
 
+              {errorMessage && (
+                <p className="text-center text-sm text-red-700 bg-red-50 border border-red-200 rounded-2xl px-4 py-3 mt-4 font-medium">
+                  {errorMessage}
+                </p>
+              )}
+
+              {successMessage && (
+                <p className="text-center text-sm text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-2xl px-4 py-3 mt-4 font-medium">
+                  {successMessage}
+                </p>
+              )}
+
               <p className="text-center text-[11px] text-slate-400 font-medium">
                 We'll get back to you within 24 hours
               </p>
@@ -247,35 +273,6 @@ export default function ContactSection() {
         </div>
       </div>
 
-      {/* --- POPUP HTML ONLY --- */}
-      {showPopup && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="bg-white max-w-md w-full p-8 rounded-3xl border border-gray-100 shadow-2xl text-center font-inter"
-          >
-            <div className="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-5 text-emerald-500">
-              <IconCheck size={32} stroke={2.5} />
-            </div>
-            
-            <h3 className="text-2xl font-black text-slate-900 mb-2 font-poppins">
-              Submit Successful!
-            </h3>
-            
-            <p className="text-slate-500 text-sm font-medium mb-6 leading-relaxed">
-              Thank you for reaching out. Your request has been received, and our team will get back to you within 24 hours.
-            </p>
-            
-            <Button
-              onClick={() => setShowPopup(false)}
-              className="w-full h-12 bg-[#1E88E5] hover:bg-[#1565C0] text-white font-bold rounded-xl transition-all"
-            >
-              Close
-            </Button>
-          </motion.div>
-        </div>
-      )}
     </section>
   )
 }

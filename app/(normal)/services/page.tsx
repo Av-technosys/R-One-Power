@@ -2,11 +2,11 @@ import HeroSection from '@/component/hero section/hero'
 import ServiceGrid from '@/component/services/ServiceGrid'
 import ServiceTabs from '@/component/services/ServiceTabs'
 import service_bg from '@/public/service-bg.jpg'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 const page = () => {
   return (
-    <div>
+    <Suspense fallback={<div>Loading...</div>}>
       <div>
         <HeroSection
           image={service_bg}
@@ -24,7 +24,7 @@ const page = () => {
 
       <ServiceTabs/>
       <ServiceGrid/>
-    </div>
+    </Suspense>
   )
 }
 

@@ -7,7 +7,7 @@ import { IconRosetteFilled } from "@tabler/icons-react"
 import Link from "next/link"
 
 export default function AboutSection() {
-  
+
   // Strategy: Niche se upar (y), once: false, and Type safe
   const fadeInUp: HTMLMotionProps<"div"> = {
     initial: { opacity: 0, y: 30 },
@@ -20,13 +20,13 @@ export default function AboutSection() {
     <section className="py-15 md:py-20 bg-white overflow-hidden font-inter">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          
+
           {/* Left Content Column */}
           <motion.div {...fadeInUp}> {/* Red alert fixed with spread props */}
             <span className="inline-block bg-[#1E88E526] text-[#1E88E5] px-4 py-1.5 rounded-full text-xs font-bold mb-3">
               About R-One Power
             </span>
-            
+
             <h2 className="text-4xl md:text-4xl font-black text-slate-900 font-poppins leading-tight">
               Solar Solutions <br className="md:block hidden" />
               <span className="text-[#1E88E5]">Across India</span>
@@ -35,52 +35,53 @@ export default function AboutSection() {
             <div className="mt-8 space-y-5 text-[#80807F] leading-relaxed max-w-xl">
               <p>
                 {/* Paragraph 1 */}
-R-One Power is a trusted Solar EPC and I&C company delivering end-to-end renewable energy solutions since 2016. 
-We specialize in residential, commercial, and industrial solar projects with a strong focus on quality execution, 
-engineering excellence, and long-term energy savings.
+                R-One Power is a trusted Solar EPC and I&C company delivering end-to-end renewable energy solutions since 2016.
+                We specialize in residential, commercial, and industrial solar projects with a strong focus on quality execution,
+                engineering excellence, and long-term energy savings.
               </p>
               <p>
                 {/* Paragraph 2 */}
-With successful project execution across multiple states and union territories, our team provides complete support 
-from project planning and installation to commissioning and maintenance. We are committed to delivering reliable, 
-high-performance solar systems using Tier-1 quality components and industry-best practices.
+                With successful project execution across multiple states and union territories, our team provides complete support
+                from project planning and installation to commissioning and maintenance. We are committed to delivering reliable,
+                high-performance solar systems using Tier-1 quality components and industry-best practices.
               </p>
             </div>
 
             <div className="mt-10 flex md:flex-row flex-col gap-4">
-              <Link href="/about" className="w-full md:w-auto">    
-              <Button className="bg-linear-to-r from-[#1E88E5] to-[#6EC6FF] hover:bg-[#45a7e4] w-full h-14 md:px-8 rounded-md text-white font-bold shadow-lg shadow-blue-200 transition-all">
-                {/* Primary CTA */}
-Learn More About
-              </Button>
+              <Link href="/about" className="w-full md:w-auto">
+                <Button className="bg-linear-to-r from-[#1E88E5] to-[#6EC6FF] hover:bg-[#45a7e4] w-full h-14 md:px-8 rounded-md text-white font-bold shadow-lg shadow-blue-200 transition-all">
+                  {/* Primary CTA */}
+                  Learn More About
+                </Button>
               </Link>
               <Link href="/contact">
-              <Button variant="outline" className="border-[#1E88E5] text-[#1E88E5] hover:bg-blue-50 w-full h-14 px-15 rounded-md font-bold">
+                <Button variant="outline" className="border-[#1E88E5] text-[#1E88E5] hover:bg-blue-50 w-full h-14 px-15 rounded-md font-bold">
                   {/* Secondary CTA */}
-Get in Touch
+                  Get in Touch
                 </Button>
               </Link>
             </div>
           </motion.div>
 
           {/* Right Image Column with Floating Cards */}
-          <motion.div 
+          <motion.div
             {...fadeInUp} // Same strategy applied here
             transition={{ duration: 0.8 }}
             className="relative"
           >
             {/* Main Image Wrapper */}
             <div className="relative h-[300px] md:h-[400px] w-full md:w-[490px] rounded-2xl overflow-hidden shadow-2xl">
-              <Image 
-                src="/about-right.jpg" 
+              <Image
+                src="/about-right.jpg"
                 alt="Solar Installation Excellence"
                 fill
                 className="object-cover"
+                sizes="(max-width: 768px) 100vw, 490px"
               />
             </div>
 
             {/* Floating Card 1: 800+ Happy Clients */}
-            <motion.div 
+            <motion.div
               initial={{ y: 20, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: false }} // Persistent animation
@@ -92,7 +93,7 @@ Get in Touch
             </motion.div>
 
             {/* Floating Card 2: MNRE Certified */}
-            <motion.div 
+            <motion.div
               initial={{ y: 20, opacity: 0 }} // Standardized to upward motion
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: false }} // Persistent animation

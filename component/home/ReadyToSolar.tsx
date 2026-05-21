@@ -63,7 +63,7 @@ export default function ReadyToSolar() {
               className="h-14 px-10 font-inter  border-white/40 bg-white/10 backdrop-blur-md text-white hover:bg-white/20 rounded-md font-bold text-sm gap-3 transition-all"
             >
               <IconPhoneFilled size={18} />
-              ++91 96600 77814
+              +91 96600 77814
             </Button>
             </a>
           </div>

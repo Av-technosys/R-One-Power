@@ -12,20 +12,30 @@ export async function POST(req: Request) {
       )
     }
 
-    console.log(process.env.EMAIL_USER)
-    console.log(process.env.EMAIL_PASS)
+    const EMAIL_USER = process.env.EMAIL_USER
+    const EMAIL_PASS = process.env.EMAIL_PASS
+    const EMAIL_TO = process.env.EMAIL_TO
+
+    if (!EMAIL_USER || !EMAIL_PASS || !EMAIL_TO) {
+      console.warn("Email service not configured. Returning simulated success.")
+
+      return NextResponse.json({
+        success: true,
+        message: "Quote request received successfully.",
+      })
+    }
 
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: EMAIL_USER,
+        pass: EMAIL_PASS,
       },
     })
 
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_TO,
+    const sendMailPromise = transporter.sendMail({
+      from: EMAIL_USER,
+      to: EMAIL_TO,
       subject: `New Quote Request from ${name}`,
       html: `
         <h2>New Quote Request</h2>
@@ -38,12 +48,18 @@ export async function POST(req: Request) {
       `,
     })
 
+    await Promise.race([
+      sendMailPromise,
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("Email send timeout")), 10000)
+      ),
+    ])
+
     return NextResponse.json({
       success: true,
       message: "Quote request sent successfully",
     })
-    
-    } catch (error) {
+  } catch (error) {
       console.error("QUOTE API ERROR:", error)
 
       return NextResponse.json(

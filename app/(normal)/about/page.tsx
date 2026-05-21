@@ -36,12 +36,12 @@ const page = () => {
     },
     {
       icon: heart,
-      title: "Safety & Quality",
+      title: "Safety Quality ",
       desc: "Safety and quality remain our top priorities during installation, operation, maintenance and cleaning.",
     },
     {
       icon: leaf,
-      title: "Sustainability",
+      title: "Sustainability Commitment",
       desc: "We are committed to clean energy adoption, carbon reduction and a greener future for every customer.",
     },
   ]
@@ -112,7 +112,7 @@ const page = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false }}
                 transition={{ delay: 0.1 }}
-                className="text-3xl sm:text-4xl md:text-5xl font-poppins font-bold text-gray-900 leading-tight mb-5"
+                className="text-3xl  md:text-4xl font-poppins font-bold text-gray-900 leading-tight mb-5"
               >
                 Our Journey Towards Building a Sustainable Solar Future
               </motion.h2>
@@ -174,98 +174,163 @@ const page = () => {
     </div>
 
       {/*Our Vision*/}
-      <div>
-        <div>
-          <section className="relative w-full min-h-screen overflow-hidden font-poppins">
-            <Image
-              src={ab_vision}
-              alt="Vision Mission Background"
-              fill
-              className="hidden lg:block object-cover"
-              priority
-            />
+     <div className="bg-gradient-to-r from-blue-50 via-white to-blue-50">
+  <section className="relative max-w-7xl mx-auto  overflow-hidden font-poppins md:block hidden">
 
-            <Image
-              src={tab}
-              alt="Vision Mission Background tab"
-              fill
-              className="hidden md:block lg:hidden object-cover object-center"
-              priority
-            />
+  {/* Background Image */}
+  <div className="relative w-full aspect-[16/7] min-h-[750px]">
 
-            <Image
-              src={mobile}
-              alt="Vision Mission Background mobile"
-              fill
-              className="block md:hidden object-cover object-center "
-              priority
-            />
+    <Image
+      src={ab_vision}
+      alt="Vision Mission"
+      fill
+      priority
+      className="hidden lg:block object-contain object-center"
+      sizes="100vw"
+    />
 
-            <div className="hidden lg:block relative z-10 w-full min-h-screen px-6 py-14">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false }}
-                className="text-center"
-              >
-                <h1 className="text-3xl md:text-5xl font-bold uppercase">
-                  <span className="text-[#1E88E5]">OUR VISION.</span>{" "}
-                  <span className="text-[#FDEA00]">OUR MISSION.</span>
-                </h1>
+    <Image
+      src={tab}
+      alt="Vision Mission"
+      fill
+      priority
+      className="hidden md:block lg:hidden object-contain object-center"
+      sizes="100vw"
+    />
 
-                <p className="text-gray-600 text-base md:text-lg mt-3 font-inter">
-                  Driving innovation today for a cleaner, brighter tomorrow.
-                </p>
-              </motion.div>
+    <Image
+      src={mobile}
+      alt="Vision Mission"
+      fill
+      priority
+      className="block md:hidden object-cover object-center"
+      sizes="100vw"
+    />
 
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: false }}
-                className="hidden lg:block absolute left-[5%] 2xl:left-[12%] top-[44%] 2xl:top-[47%] w-[34%] xl:w-[30%] 2xl:w-[22%] bg-white/50 backdrop-blur-sm rounded-[28px] rounded-br-[100px] px-5 xl:px-6 2xl:px-8 py-5 xl:py-6 2xl:py-10 shadow-lg border border-white/40"
-              >
-                <h2 className="text-[#1E88E5] text-2xl 2xl:text-3xl font-bold mb-4 2xl:mb-6">
-                  VISION
-                </h2>
+    {/* CONTENT */}
+    <div className="absolute inset-0 z-10 py-10">
 
-                <p className="text-gray-600 text-sm 2xl:text-base leading-6 2xl:leading-8 font-inter">
-                  A future where clean, renewable energy powers every home and
-                  business, reducing dependence on fossil fuels and lowering
-                  environmental impact. We envision thriving communities with access
-                  to affordable, reliable energy, fostering innovation, economic
-                  growth, and a healthier planet while preserving natural resources
-                  and ensuring sustainability for generations to come.
-                </p>
-              </motion.div>
+      {/* Heading */}
+      <div className="text-center pt-8 lg:pt-10">
+        <h1 className="text-2xl md:text-4xl  font-bold uppercase">
+          <span className="text-[#1E88E5]">OUR VISION.</span>{" "}
+          <span className="text-[#FDEA00]">OUR MISSION.</span>
+        </h1>
 
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: false }}
-                className="hidden lg:block absolute right-[5%] 2xl:right-[12%] top-[44%] 2xl:top-[47%] w-[34%] xl:w-[30%] 2xl:w-[22%] bg-white/50 backdrop-blur-sm rounded-t-[20px] rounded-br-[28px] rounded-bl-[100px] px-5 xl:px-6 2xl:px-8 py-5 xl:py-6 2xl:py-10 shadow-lg border border-white/40 text-right"
-              >
-                <h2 className="text-[#FDEA00] text-2xl 2xl:text-3xl font-bold mb-4 2xl:mb-6">
-                  MISSION
-                </h2>
-
-                <p className="text-gray-600 text-sm 2xl:text-base leading-6 2xl:leading-8 font-inter">
-                  A future where clean, renewable energy powers every home and
-                  business, reducing dependence on fossil fuels and lowering
-                  environmental impact. We envision thriving communities with access
-                  to affordable, reliable energy, fostering innovation, economic
-                  growth, and a healthier planet while preserving natural resources
-                  and ensuring sustainability for generations to come.
-                </p>
-              </motion.div>
-            </div>
-          </section>
-        </div>
+        <p className="text-gray-600 text-sm md:text-base mt-3 font-inter">
+          Driving innovation today for a cleaner, brighter tomorrow.
+        </p>
       </div>
+
+      {/* DESKTOP BOXES */}
+      <div className="hidden lg:block">
+
+        {/* LEFT BOX */}
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className="
+            absolute
+            left-[13%]
+            top-[65%]
+            -translate-y-1/2
+            w-[360px]
+            md:w-[250px]
+            bg-white/55
+            backdrop-blur-md
+            rounded-[35px]
+            rounded-br-[100px]
+            px-8
+            py-6
+            shadow-xl
+          "
+        >
+          <h2 className="text-[#1E88E5] text-xl font-poppins font-bold mb-3">
+            VISION
+          </h2>
+
+          <p className="text-[#374151] text-[12px] font-inter">
+            A future where clean, renewable energy powers every home and
+            business, reducing dependence on fossil fuels and lowering
+            environmental impact. We envision thriving communities with
+            access to affordable, reliable energy.
+          </p>
+        </motion.div>
+
+        {/* RIGHT BOX */}
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className="
+            absolute
+            right-[13%]
+            top-[65%]
+            -translate-y-1/2
+            w-[360px]
+            md:w-[250px]
+            bg-white/45
+            backdrop-blur-md
+            rounded-[35px]
+            rounded-bl-[100px]
+            px-8
+            py-6
+            shadow-xl
+            text-right
+          "
+        >
+          <h2 className="text-[#FDEA00] text-xl font-poppins font-bold mb-6">
+            MISSION
+          </h2>
+
+          <p className="text-[#374151] text-[12px] font-inter">
+            A future where clean, renewable energy powers every home and
+            business, reducing dependence on fossil fuels and lowering
+            environmental impact. We envision thriving communities with
+            access to affordable, reliable energy.
+          </p>
+        </motion.div>
+      </div>
+    </div>
+  </div>
+
+
+  
+</section>
+
+<div className="md:hidden block px-4 py-10 space-y-5">
+
+    <div className="bg-white/70 backdrop-blur-md rounded-3xl p-5 shadow-lg">
+      <h2 className="text-[#1E88E5] text-2xl font-bold mb-3 font-poppins">
+        VISION
+      </h2>
+
+      <p className="text-gray-700 leading-7 font-inter">
+        A future where clean, renewable energy powers every home and
+        business, reducing dependence on fossil fuels and lowering
+        environmental impact.
+      </p>
+    </div>
+
+    <div className="bg-white/70 backdrop-blur-md rounded-3xl p-5 shadow-lg font-poppins">
+      <h2 className="text-[#FDEA00] text-2xl font-bold mb-3">
+        MISSION
+      </h2>
+
+      <p className="text-gray-700 leading-7 font-inter">
+        A future where clean, renewable energy powers every home and
+        business, reducing dependence on fossil fuels and lowering
+        environmental impact.
+      </p>
+    </div>
+  </div>
+</div>
 
     <div className="max-w-7xl mx-auto">
       {/*Core Values*/}
       <div>
-        <section className="w-full  bg-white px-4 sm:px-6 md:px-16 lg:px-10 py-14 md:py-20 font-inter">
+        <section className="w-full  bg-white px-4 sm:px-6 md:px-16 lg:px-10 pt-14 md:pt-15 font-inter">
           <div className="text-center mb-10 md:mb-14">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -311,7 +376,7 @@ const page = () => {
                         />
                       </div>
 
-                      <CardTitle className="text-xl md:text-2xl font-bold text-gray-900 font-poppins">
+                      <CardTitle className="text-md md:text-xl font-bold text-gray-900 font-poppins">
                         {item.title}
                       </CardTitle>
                     </CardHeader>

@@ -46,7 +46,7 @@ const HeroSection = ({
       : "bg-yellow-500/10 border-[#FDEA00] text-[#FDEA00]"
 
   return (
-    <div className="relative h-[600px] md:h-[70vh] py-28 flex flex-col justify-center p-8 overflow-hidden">
+    <div className="relative py-20 flex flex-col justify-center p-8 overflow-hidden">
 
       {/* Background Image */}
       <Image
@@ -91,7 +91,7 @@ const HeroSection = ({
             transition={{ delay: 0.1 }}
             className="max-w-7xl px-4"
           >
-            <h1 className="text-3xl md:text-6xl font-poppins font-bold text-center">
+            <h1 className="text-3xl md:text-5xl font-poppins font-bold text-center">
               {heading}
             </h1>
           </motion.div>
@@ -102,7 +102,7 @@ const HeroSection = ({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
               transition={{ delay: 0.2 }}
-              className="text-xl p-4 md:p-6 font-poppins max-w-3xl"
+              className="text-xl p-4 md:p-6 max-w-3xl font-inter"
             >
               {subtitle}
             </motion.p>
