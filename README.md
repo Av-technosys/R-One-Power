@@ -16,6 +16,21 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Email Configuration
+
+Quote requests are sent through AWS SES from `app/api/quote/route.ts`.
+
+Required environment variables:
+
+```bash
+AWS_SES_REGION=ap-south-1
+SES_EMAIL=verified-sender@example.com
+SES_AWS_ACCESS_KEY_ID=your-access-key-id
+SES_AWS_SECRET_ACCESS_KEY=your-secret-access-key
+```
+
+Quote request confirmation emails are sent from `SES_EMAIL` to the email address submitted in the form. Lead notification emails are also sent from `SES_EMAIL` to `sales@r1power.com`, so `SES_EMAIL` must be verified in AWS SES.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
