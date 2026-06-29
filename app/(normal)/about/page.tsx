@@ -451,6 +451,7 @@ const page = () => {
       </div> */}
 
         <div>{/*<QuoteForm/>*/}</div>
+        <div className="h-12"></div>
       </div>
     </div>
   );
