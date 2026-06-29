@@ -1,51 +1,56 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion, HTMLMotionProps } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { IconSend, IconPhone, IconExternalLink, IconCheck } from "@tabler/icons-react"
-import { Textarea } from "@/components/ui/textarea"
+import { useState } from "react";
+import { motion, HTMLMotionProps } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  IconSend,
+  IconPhone,
+  IconExternalLink,
+  IconCheck,
+} from "@tabler/icons-react";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    city: "",
-    requirement: "",
-  })
+    SingleLine: "",
+    Email: "",
+    PhoneNumber_countrycode: "",
+    SingleLine1: "",
+    MultiLine: "",
+  });
 
-  const [loading, setLoading] = useState(false)
-  const [successMessage, setSuccessMessage] = useState("")
-  const [errorMessage, setErrorMessage] = useState("")
+  const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-    })
+    });
     if (successMessage) {
-      setSuccessMessage("")
+      setSuccessMessage("");
     }
     if (errorMessage) {
-      setErrorMessage("")
+      setErrorMessage("");
     }
-  }
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const cleanedPhone = formData.phone.replace(/\D/g, "")
+    const cleanedPhone = formData.PhoneNumber_countrycode.replace(/\D/g, "");
 
     if (cleanedPhone.length !== 10) {
-      setErrorMessage("Phone number must contain exactly 10 digits.")
-      return
+      setErrorMessage("Phone number must contain exactly 10 digits.");
+      return;
     }
 
-    setLoading(true)
+    setLoading(true);
 
     try {
       const res = await fetch("/api/quote", {
@@ -57,39 +62,43 @@ export default function ContactSection() {
           ...formData,
           phone: cleanedPhone,
         }),
-      })
+      });
 
-      const data = await res.json()
+      const data = await res.json();
 
       if (data.success) {
         setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          city: "",
-          requirement: "",
-        })
-        setSuccessMessage("Form submitted successfully! We will contact you soon.")
-        setErrorMessage("")
+          SingleLine: "",
+          Email: "",
+          PhoneNumber_countrycode: "",
+          SingleLine1: "",
+          MultiLine: "",
+        });
+        setSuccessMessage(
+          "Form submitted successfully! We will contact you soon.",
+        );
+        setErrorMessage("");
       } else {
-        setSuccessMessage("")
-        setErrorMessage(data.message || "Something went wrong. Please try again.")
+        setSuccessMessage("");
+        setErrorMessage(
+          data.message || "Something went wrong. Please try again.",
+        );
       }
     } catch (error) {
-      console.error(error)
-      setErrorMessage("Something went wrong. Please try again later.")
-      setSuccessMessage("")
+      console.error(error);
+      setErrorMessage("Something went wrong. Please try again later.");
+      setSuccessMessage("");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const fadeInUp: HTMLMotionProps<"div"> = {
     initial: { opacity: 0, y: 40 },
     whileInView: { opacity: 1, y: 0 },
     viewport: { once: false, margin: "-50px" },
     transition: { duration: 0.6, ease: "easeOut" },
-  }
+  };
 
   return (
     <section className="py-24 bg-white font-inter relative">
@@ -100,7 +109,8 @@ export default function ContactSection() {
             {...fadeInUp}
             className="text-4xl md:text-5xl font-black text-slate-900 mb-4 font-poppins"
           >
-            Let's Start Your <span className="text-[#1E88E5]">Solar Journey</span>
+            Let's Start Your{" "}
+            <span className="text-[#1E88E5]">Solar Journey</span>
           </motion.h2>
 
           <motion.p
@@ -121,17 +131,31 @@ export default function ContactSection() {
             <h3 className="text-2xl font-black text-slate-900 mb-8 font-poppins">
               Request Callback
             </h3>
+            <form
+              action="https://forms.zohopublic.in/r1power/form/ContactUsFormWebsite/formperma/hN8fePZJITUcdFgNdcMBW9mn2xwXq12W4hcDqCTTwoI/htmlRecords/submit"
+              name="form"
+              id="form"
+              method="POST"
+              accept-charset="UTF-8"
+            >
+              <input type="hidden" name="zf_referrer_name" value="" />
+              <input type="hidden" name="zf_redirect_url" value="" />
+              <input type="hidden" name="zc_gad" value="" />
+              <input type="hidden" name="utm_source" value="" />
+              <input type="hidden" name="utm_medium" value="" />
+              <input type="hidden" name="utm_campaign" value="" />
+              <input type="hidden" name="utm_term" value="" />
+              <input type="hidden" name="utm_content" value="" />
 
-            <form onSubmit={handleSubmit} className="space-y-5">
               <div className="space-y-2">
                 <label className="text-[13px] font-bold text-slate-700 ml-1">
                   Your Name *
                 </label>
                 <Input
-                  name="name"
-                  value={formData.name}
+                  type="text"
+                  name="SingleLine"
+                  value={formData.SingleLine}
                   onChange={handleChange}
-                  placeholder="Enter your full name"
                   required
                   className="h-12 bg-slate-50 border-gray-100 rounded-xl focus-visible:ring-[#1E88E5]"
                 />
@@ -142,11 +166,10 @@ export default function ContactSection() {
                   Email Address *
                 </label>
                 <Input
-                  name="email"
-                  value={formData.email}
+                  type="text"
+                  name="Email"
+                  value={formData.Email}
                   onChange={handleChange}
-                  type="email"
-                  placeholder="Enter your email"
                   required
                   className="h-12 bg-slate-50 border-gray-100 rounded-xl focus-visible:ring-[#1E88E5]"
                 />
@@ -157,11 +180,12 @@ export default function ContactSection() {
                   Phone Number *
                 </label>
                 <Input
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder="Enter your phone number"
+                  type="text"
                   required
+                  name="PhoneNumber_countrycode"
+                  value={formData.PhoneNumber_countrycode}
+                  onChange={handleChange}
+                  id="international_PhoneNumber_countrycode"
                   className="h-12 bg-slate-50 border-gray-100 rounded-xl focus-visible:ring-[#1E88E5]"
                 />
               </div>
@@ -171,10 +195,11 @@ export default function ContactSection() {
                   City *
                 </label>
                 <Input
-                  name="city"
-                  value={formData.city}
+                  type="text"
+                  name="SingleLine1"
+                  value={formData.SingleLine1}
                   onChange={handleChange}
-                  placeholder="e.g., Jaipur"
+                  placeholder=""
                   required
                   className="h-12 bg-slate-50 border-gray-100 rounded-xl focus-visible:ring-[#1E88E5]"
                 />
@@ -185,13 +210,17 @@ export default function ContactSection() {
                   Your Requirement
                 </label>
                 <Textarea
-                  name="requirement"
-                  value={formData.requirement}
+                  name="MultiLine"
+                  value={formData.MultiLine}
                   onChange={handleChange}
                   placeholder="Tell us about your solar requirements..."
                   className="min-h-[120px] bg-slate-50 border-gray-100 rounded-xl focus-visible:ring-[#1E88E5] resize-none"
                 />
               </div>
+
+              <select className="hidden" name="Dropdown" value="Website">
+                <option value="Website">Website</option>
+              </select>
 
               <Button
                 type="submit"
@@ -258,21 +287,20 @@ export default function ContactSection() {
               <h4 className="text-lg font-black text-slate-900 mb-2 font-poppins">
                 Quick Call
               </h4>
-             
+
               <p className="text-sm text-slate-500 mb-6 font-medium">
                 Prefer to talk? Call us directly for immediate assistance.
               </p>
-             
-               <a href="tel:+919660077814">
-              <Button className="bg-[#1E88E5] hover:bg-[#1565C0] h-14 px-8 rounded-xl text-white font-bold flex items-center gap-3 shadow-md transition-all">
-                <IconPhone size={20} /> +91 96600 77814
-              </Button>
+
+              <a href="tel:+919660077814">
+                <Button className="bg-[#1E88E5] hover:bg-[#1565C0] h-14 px-8 rounded-xl text-white font-bold flex items-center gap-3 shadow-md transition-all">
+                  <IconPhone size={20} /> +91 96600 77814
+                </Button>
               </a>
             </motion.div>
           </div>
         </div>
       </div>
-
     </section>
-  )
+  );
 }
