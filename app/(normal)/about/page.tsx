@@ -1,26 +1,26 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import HeroSection from '@/component/hero section/hero'
-import About from "../../../public/About_us.jpg"
-import about_1 from "../../../public/about_1.jpg"
-import about_2 from "../../../public/about_2.jpg"
-import about_3 from "../../../public/about_3.jpg"
-import about_4 from "../../../public/about_4.jpg"
-import Shield from "../../../public/Vector.svg"
-import Bulb from "../../../public/Vector_2.svg"
-import ab_vision from "../../../public/ab_vision.png"
-import heart from "../../../public/heart.svg"
-import leaf from "../../../public/leaf.svg"
-import Person1 from "../../../public/Vikram_Singh.jpg"
-import Person2 from "../../../public/Anita_Sharma.jpg"
-import Person3 from "../../../public/Rahul_Gupta.jpg"
-import Person4 from "../../../public/Sneha_Patel.jpg"
-import tab from "../../../public/tab_bgd.jpeg"
-import mobile from "../../../public/mobile_bgd.jpeg"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { motion } from "framer-motion"
-import QuoteForm from "@/component/Quote/Quote"
+import Image from "next/image";
+import HeroSection from "@/component/hero section/hero";
+import About from "../../../public/About_us.jpg";
+import about_1 from "../../../public/about_1.jpg";
+import about_2 from "../../../public/about_2.jpg";
+import about_3 from "../../../public/about_3.jpg";
+import about_4 from "../../../public/about_4.jpg";
+import Shield from "../../../public/Vector.svg";
+import Bulb from "../../../public/Vector_2.svg";
+import ab_vision from "../../../public/ab_vision.png";
+import heart from "../../../public/heart.svg";
+import leaf from "../../../public/leaf.svg";
+import Person1 from "../../../public/Vikram_Singh.jpg";
+import Person2 from "../../../public/Anita_Sharma.jpg";
+import Person3 from "../../../public/Rahul_Gupta.jpg";
+import Person4 from "../../../public/Sneha_Patel.jpg";
+import tab from "../../../public/tab_bgd.jpeg";
+import mobile from "../../../public/mobile_bgd.jpeg";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { motion } from "framer-motion";
+import QuoteForm from "@/component/Quote/Quote";
 
 const page = () => {
   const values = [
@@ -44,7 +44,7 @@ const page = () => {
       title: "Sustainability Commitment",
       desc: "We are committed to clean energy adoption, carbon reduction and a greener future for every customer.",
     },
-  ]
+  ];
 
   const team = [
     {
@@ -67,7 +67,7 @@ const page = () => {
       name: "Sneha Patel",
       role: "Customer Relations",
     },
-  ]
+  ];
 
   return (
     <div>
@@ -78,7 +78,9 @@ const page = () => {
           badgeText="MNRE Certified Solar EPC Partner"
           heading={
             <>
-              Powering <span className="text-[#1E88E5]">India </span>with <br/>Reliable Solar <span className="text-[#FDEA00]">Energy Solutions</span>
+              Powering <span className="text-[#1E88E5]">India </span>with <br />
+              Reliable Solar{" "}
+              <span className="text-[#FDEA00]">Energy Solutions</span>
             </>
           }
           subtitle="End-to-end solar EPC solutions with guaranteed performance, transparent pricing, and 25-year warranty. Cut your electricity bill by up to 80%."
@@ -90,147 +92,141 @@ const page = () => {
       {/*Our Story*/}
       <div className="max-w-7xl mx-auto">
         <div>
-        <section className="w-full bg-white px-4 sm:px-6 md:px-16 lg:px-10 py-14 md:py-20 font-inter">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12 items-center">
-
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: false }}
-            >
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false }}
-                className="text-orange-500 font-bold text-xs sm:text-sm tracking-wide mb-4"
-              >
-                OUR STORY
-              </motion.p>
-
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false }}
-                transition={{ delay: 0.1 }}
-                className="text-3xl  md:text-4xl font-poppins font-bold text-gray-900 leading-tight mb-5"
-              >
-                Our Journey Towards Building a Sustainable Solar Future
-              </motion.h2>
-
+          <section className="w-full bg-white px-4 sm:px-6 md:px-16 lg:px-10 py-14 md:py-20 font-inter">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12 items-center">
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: false }}
-                transition={{ delay: 0.2 }}
-                className="space-y-5 md:space-y-6 font-inter text-gray-500 text-sm sm:text-base md:text-lg leading-7 md:leading-8"
               >
-                <p>
-                  R-ONE Power Solution was founded in 2016 with a simple mission:
-                  make clean, affordable solar energy accessible to every home and
-                  business in Rajasthan. What started as a small team of three
-                  passionate engineers has grown into a full-service solar EPC
-                  company with over 40 team members.
-                </p>
-
-                <p>
-                  Over the past 8 years, we have installed more than 850 solar
-                  power systems across Jaipur, Jodhpur, Udaipur, and surrounding
-                  regions. Our installations range from small 3kW residential
-                  rooftops to large 500kW industrial solar plants.
-                </p>
-
-                <p>
-                  We are proud to be an MNRE-certified EPC contractor, which means
-                  we meet the highest government standards for solar installations.
-                  Every system we install comes with a 25-year performance warranty
-                  and comprehensive after-sales support.
-                </p>
-              </motion.div>
-            </motion.div>
-
-            <div className="grid grid-cols-2 gap-3 sm:gap-5">
-              {[about_1, about_2, about_3, about_4].map((img, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: false }}
-                  transition={{ delay: index * 0.1 }}
-                  className="relative h-[160px] sm:h-[220px] md:h-[250px] rounded-lg overflow-hidden"
+                  className="text-orange-500 font-bold text-xs sm:text-sm tracking-wide mb-4"
                 >
-                  <Image
-                    src={img}
-                    alt="Solar"
-                    fill
-                    className="object-cover"
-                  />
-                </motion.div>
-              ))}
-            </div>
+                  OUR STORY
+                </motion.p>
 
-          </div>
-        </section>
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: false }}
+                  transition={{ delay: 0.1 }}
+                  className="text-3xl  md:text-4xl font-poppins font-bold text-gray-900 leading-tight mb-5"
+                >
+                  Our Journey Towards Building a Sustainable Solar Future
+                </motion.h2>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: false }}
+                  transition={{ delay: 0.2 }}
+                  className="space-y-5 md:space-y-6 font-inter text-gray-500 text-sm sm:text-base md:text-lg leading-7 md:leading-8"
+                >
+                  <p>
+                    R-ONE Power Solution was founded in 2016 with a simple
+                    mission: make clean, affordable solar energy accessible to
+                    every home and business in Rajasthan. What started as a
+                    small team of three passionate engineers has grown into a
+                    full-service solar EPC company with over 40 team members.
+                  </p>
+
+                  <p>
+                    Over the past 8 years, we have installed more than 850 solar
+                    power systems across Jaipur, Jodhpur, Udaipur, and
+                    surrounding regions. Our installations range from small 3kW
+                    residential rooftops to large 500kW industrial solar plants.
+                  </p>
+
+                  <p>
+                    We are proud to be an MNRE-certified EPC contractor, which
+                    means we meet the highest government standards for solar
+                    installations. Every system we install comes with a 25-year
+                    performance warranty and comprehensive after-sales support.
+                  </p>
+                </motion.div>
+              </motion.div>
+
+              <div className="grid grid-cols-2 gap-3 sm:gap-5">
+                {[about_1, about_2, about_3, about_4].map((img, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: false }}
+                    transition={{ delay: index * 0.1 }}
+                    className="relative h-[160px] sm:h-[220px] md:h-[250px] rounded-lg overflow-hidden"
+                  >
+                    <Image
+                      src={img}
+                      alt="Solar"
+                      fill
+                      className="object-cover"
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </section>
+        </div>
       </div>
-    </div>
 
       {/*Our Vision*/}
-     <div className="bg-gradient-to-r from-blue-50 via-white to-blue-50">
-  <section className="relative max-w-7xl mx-auto  overflow-hidden font-poppins md:block hidden">
+      <div className="bg-gradient-to-r from-blue-50 via-white to-blue-50">
+        <section className="relative max-w-7xl mx-auto  overflow-hidden font-poppins md:block hidden">
+          {/* Background Image */}
+          <div className="relative w-full aspect-[16/7] min-h-[750px]">
+            <Image
+              src={ab_vision}
+              alt="Vision Mission"
+              fill
+              priority
+              className="hidden lg:block object-contain object-center"
+              sizes="100vw"
+            />
 
-  {/* Background Image */}
-  <div className="relative w-full aspect-[16/7] min-h-[750px]">
+            <Image
+              src={tab}
+              alt="Vision Mission"
+              fill
+              priority
+              className="hidden md:block lg:hidden object-contain object-center"
+              sizes="100vw"
+            />
 
-    <Image
-      src={ab_vision}
-      alt="Vision Mission"
-      fill
-      priority
-      className="hidden lg:block object-contain object-center"
-      sizes="100vw"
-    />
+            <Image
+              src={mobile}
+              alt="Vision Mission"
+              fill
+              priority
+              className="block md:hidden object-cover object-center"
+              sizes="100vw"
+            />
 
-    <Image
-      src={tab}
-      alt="Vision Mission"
-      fill
-      priority
-      className="hidden md:block lg:hidden object-contain object-center"
-      sizes="100vw"
-    />
+            {/* CONTENT */}
+            <div className="absolute inset-0 z-10 py-10">
+              {/* Heading */}
+              <div className="text-center pt-8 lg:pt-10">
+                <h1 className="text-2xl md:text-4xl  font-bold uppercase">
+                  <span className="text-[#1E88E5]">OUR VISION.</span>{" "}
+                  <span className="text-[#FDEA00]">OUR MISSION.</span>
+                </h1>
 
-    <Image
-      src={mobile}
-      alt="Vision Mission"
-      fill
-      priority
-      className="block md:hidden object-cover object-center"
-      sizes="100vw"
-    />
+                <p className="text-gray-600 text-sm md:text-base mt-3 font-inter">
+                  Driving innovation today for a cleaner, brighter tomorrow.
+                </p>
+              </div>
 
-    {/* CONTENT */}
-    <div className="absolute inset-0 z-10 py-10">
-
-      {/* Heading */}
-      <div className="text-center pt-8 lg:pt-10">
-        <h1 className="text-2xl md:text-4xl  font-bold uppercase">
-          <span className="text-[#1E88E5]">OUR VISION.</span>{" "}
-          <span className="text-[#FDEA00]">OUR MISSION.</span>
-        </h1>
-
-        <p className="text-gray-600 text-sm md:text-base mt-3 font-inter">
-          Driving innovation today for a cleaner, brighter tomorrow.
-        </p>
-      </div>
-
-      {/* DESKTOP BOXES */}
-      <div className="hidden lg:block">
-
-        {/* LEFT BOX */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          className="
+              {/* DESKTOP BOXES */}
+              <div className="hidden lg:block">
+                {/* LEFT BOX */}
+                <motion.div
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  className="
             absolute
             left-[13%]
             top-[65%]
@@ -245,25 +241,25 @@ const page = () => {
             py-6
             shadow-xl
           "
-        >
-          <h2 className="text-[#1E88E5] text-xl font-poppins font-bold mb-3">
-            VISION
-          </h2>
+                >
+                  <h2 className="text-[#1E88E5] text-xl font-poppins font-bold mb-3">
+                    VISION
+                  </h2>
 
-          <p className="text-[#374151] text-[12px] font-inter">
-            A future where clean, renewable energy powers every home and
-            business, reducing dependence on fossil fuels and lowering
-            environmental impact. We envision thriving communities with
-            access to affordable, reliable energy.
-          </p>
-        </motion.div>
+                  <p className="text-[#374151] text-[12px] font-inter">
+                    A future where clean, renewable energy powers every home and
+                    business, reducing dependence on fossil fuels and lowering
+                    environmental impact. We envision thriving communities with
+                    access to affordable, reliable energy.
+                  </p>
+                </motion.div>
 
-        {/* RIGHT BOX */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          className="
+                {/* RIGHT BOX */}
+                <motion.div
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  className="
             absolute
             right-[13%]
             top-[65%]
@@ -279,123 +275,117 @@ const page = () => {
             shadow-xl
             text-right
           "
-        >
-          <h2 className="text-[#FDEA00] text-xl font-poppins font-bold mb-6">
-            MISSION
-          </h2>
-
-          <p className="text-[#374151] text-[12px] font-inter">
-            A future where clean, renewable energy powers every home and
-            business, reducing dependence on fossil fuels and lowering
-            environmental impact. We envision thriving communities with
-            access to affordable, reliable energy.
-          </p>
-        </motion.div>
-      </div>
-    </div>
-  </div>
-
-
-  
-</section>
-
-<div className="md:hidden block px-4 py-10 space-y-5">
-
-    <div className="bg-white/70 backdrop-blur-md rounded-3xl p-5 shadow-lg">
-      <h2 className="text-[#1E88E5] text-2xl font-bold mb-3 font-poppins">
-        VISION
-      </h2>
-
-      <p className="text-gray-700 leading-7 font-inter">
-        A future where clean, renewable energy powers every home and
-        business, reducing dependence on fossil fuels and lowering
-        environmental impact.
-      </p>
-    </div>
-
-    <div className="bg-white/70 backdrop-blur-md rounded-3xl p-5 shadow-lg font-poppins">
-      <h2 className="text-[#FDEA00] text-2xl font-bold mb-3">
-        MISSION
-      </h2>
-
-      <p className="text-gray-700 leading-7 font-inter">
-        A future where clean, renewable energy powers every home and
-        business, reducing dependence on fossil fuels and lowering
-        environmental impact.
-      </p>
-    </div>
-  </div>
-</div>
-
-    <div className="max-w-7xl mx-auto">
-      {/*Core Values*/}
-      <div>
-        <section className="w-full  bg-white px-4 sm:px-6 md:px-16 lg:px-10 pt-14 md:pt-15 font-inter">
-          <div className="text-center mb-10 md:mb-14">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false }}
-              className="inline-flex items-center justify-center border border-[#1E88E5] bg-[#1E88E51A] text-[#1E88E5] rounded-full px-6 md:px-8 py-2 text-xs md:text-sm font-semibold mb-5"
-            >
-              What Drives Us
-            </motion.div>
-
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false }}
-              transition={{ delay: 0.1 }}
-              className="text-3xl md:text-4xl font-poppins font-bold text-gray-900"
-            >
-              Our Core Values
-            </motion.h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10 lg:gap-12 mx-0 md:mx-5">
-            {values.map((item, index) => {
-              const Icon = item.icon
-
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: false }}
-                  transition={{ delay: index * 0.1 }}
                 >
-                  <Card className="rounded-xl border border-gray-100/50 shadow-none min-h-[200px] md:min-h-[400px] flex flex-col items-center text-center px-5 md:px-6 py-7 md:py-8">
-                    <CardHeader className="p-0 flex flex-col items-center mx-auto">
-                      <div className="w-12 h-12 md:w-14 md:h-14 rounded-lg bg-blue-100 flex items-center justify-center mb-4 md:mb-5">
-                        <Image
-                          src={Icon}
-                          alt={item.title}
-                          width={24}
-                          height={24}
-                          className="object-contain"
-                        />
-                      </div>
+                  <h2 className="text-[#FDEA00] text-xl font-poppins font-bold mb-6">
+                    MISSION
+                  </h2>
 
-                      <CardTitle className="text-md md:text-xl font-bold text-gray-900 font-poppins">
-                        {item.title}
-                      </CardTitle>
-                    </CardHeader>
-
-                    <CardContent className="p-0 mt-3 md:mt-4">
-                      <p className="text-gray-500 text-sm md:text-base leading-6 md:leading-7">
-                        {item.desc}
-                      </p>
-                    </CardContent>
-                  </Card>
+                  <p className="text-[#374151] text-[12px] font-inter">
+                    A future where clean, renewable energy powers every home and
+                    business, reducing dependence on fossil fuels and lowering
+                    environmental impact. We envision thriving communities with
+                    access to affordable, reliable energy.
+                  </p>
                 </motion.div>
-              )
-            })}
+              </div>
+            </div>
           </div>
         </section>
+
+        <div className="md:hidden block px-4 py-10 space-y-5">
+          <div className="bg-white/70 backdrop-blur-md rounded-3xl p-5 shadow-lg">
+            <h2 className="text-[#1E88E5] text-2xl font-bold mb-3 font-poppins">
+              VISION
+            </h2>
+
+            <p className="text-gray-700 leading-7 font-inter">
+              A future where clean, renewable energy powers every home and
+              business, reducing dependence on fossil fuels and lowering
+              environmental impact.
+            </p>
+          </div>
+
+          <div className="bg-white/70 backdrop-blur-md rounded-3xl p-5 shadow-lg font-poppins">
+            <h2 className="text-[#FDEA00] text-2xl font-bold mb-3">MISSION</h2>
+
+            <p className="text-gray-700 leading-7 font-inter">
+              A future where clean, renewable energy powers every home and
+              business, reducing dependence on fossil fuels and lowering
+              environmental impact.
+            </p>
+          </div>
+        </div>
       </div>
 
-      {/*Leadership Team*/}
-      <div>
+      <div className="max-w-7xl mx-auto">
+        {/*Core Values*/}
+        <div>
+          <section className="w-full  bg-white px-4 sm:px-6 md:px-16 lg:px-10 pt-14 md:pt-15 font-inter">
+            <div className="text-center mb-10 md:mb-14">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false }}
+                className="inline-flex items-center justify-center border border-[#1E88E5] bg-[#1E88E51A] text-[#1E88E5] rounded-full px-6 md:px-8 py-2 text-xs md:text-sm font-semibold mb-5"
+              >
+                What Drives Us
+              </motion.div>
+
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false }}
+                transition={{ delay: 0.1 }}
+                className="text-3xl md:text-4xl font-poppins font-bold text-gray-900"
+              >
+                Our Core Values
+              </motion.h2>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10 lg:gap-12 mx-0 md:mx-5">
+              {values.map((item, index) => {
+                const Icon = item.icon;
+
+                return (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: false }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <Card className="rounded-xl border border-gray-100/50 shadow-none min-h-[200px] md:min-h-[400px] flex flex-col items-center text-center px-5 md:px-6 py-7 md:py-8">
+                      <CardHeader className="p-0 flex flex-col items-center mx-auto">
+                        <div className="w-12 h-12 md:w-14 md:h-14 rounded-lg bg-blue-100 flex items-center justify-center mb-4 md:mb-5">
+                          <Image
+                            src={Icon}
+                            alt={item.title}
+                            width={24}
+                            height={24}
+                            className="object-contain"
+                          />
+                        </div>
+
+                        <CardTitle className="text-md md:text-xl font-bold text-gray-900 font-poppins">
+                          {item.title}
+                        </CardTitle>
+                      </CardHeader>
+
+                      <CardContent className="p-0 mt-3 md:mt-4">
+                        <p className="text-gray-500 text-sm md:text-base leading-6 md:leading-7">
+                          {item.desc}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </section>
+        </div>
+
+        {/*Leadership Team*/}
+        {/* <div>
         <section className="w-full bg-white px-4 sm:px-6 md:px-16 lg:px-10 py-14 md:py-24 font-inter">
           <div className="text-center mb-12 md:mb-20">
             <motion.div
@@ -458,15 +448,12 @@ const page = () => {
             ))}
           </div>
         </section>
-      </div>
+      </div> */}
 
-      <div>
-        {/*<QuoteForm/>*/}
-
+        <div>{/*<QuoteForm/>*/}</div>
       </div>
     </div>
-    </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;
