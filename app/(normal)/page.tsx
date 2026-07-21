@@ -32,7 +32,7 @@ const page = () => {
       <ServicesSection/>
       <Testimonials/>
       <IndustrialSolutions/>
-      {/* <SolarCalculator/> */}
+     
       <SiteVisitForm/>
       <Solar/>
       <SolarBenefits/>
