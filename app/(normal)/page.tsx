@@ -11,11 +11,13 @@ import ProjectsSection from '@/component/home/ProjectsSection'
 import RajasthanNetwork from '@/component/home/RajasthanNetwork'
 import ReadyToSolar from '@/component/home/ReadyToSolar'
 import ServicesSection from '@/component/home/ServicesSection'
+import SiteVisitForm from '@/component/home/SiteVisitForm'
 import Solar from '@/component/home/Solar'
 import SolarBenefits from '@/component/home/SolarBenefits'
 import SolarCalculator from '@/component/home/SolarCalculator'
 import Testimonials from '@/component/home/Testimonials'
 import WhyChoose from '@/component/home/WhyChoose'
+import InvestorSection from '@/component/home/InvestorSection'
 import React from 'react'
 
 const page = () => {
@@ -31,12 +33,14 @@ const page = () => {
       <Testimonials/>
       <IndustrialSolutions/>
       {/* <SolarCalculator/> */}
+      <SiteVisitForm/>
       <Solar/>
       <SolarBenefits/>
       <RajasthanNetwork/>
       <Faq/>
       <Questions/>
       <BrandsSection/>
+      <InvestorSection/>
       <ContactSection/>
       <ReadyToSolar />
 

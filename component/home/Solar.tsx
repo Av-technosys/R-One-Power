@@ -22,13 +22,16 @@ import {
   IconPhone,
 } from "@tabler/icons-react";
 
+import { calculateSolarSavings } from "@/lib/solar/calculations";
+
+type TariffType = "Residential" | "Commercial" | "Industrial";
+
 interface EstimateData {
   recommendedKW: number;
   monthlySavings: number;
   yearlySavings: number;
   finalPrice: number;
   subsidy: number;
-  phase: string;
 }
 
 export default function Solar() {
@@ -43,19 +46,20 @@ export default function Solar() {
   // STATES
   // -----------------------------------------
 
-  const [load, setLoad] = React.useState("3");
-
-  const [phase, setPhase] =
-    React.useState("Single Phase");
-
   const [units, setUnits] =
     React.useState("650");
 
-  const [bill, setBill] =
-    React.useState("4200");
+  const [connectedLoad, setConnectedLoad] =
+    React.useState("");
 
   const [estimate, setEstimate] =
     React.useState<EstimateData | null>(null);
+
+  const [selectedState, setSelectedState] =
+    React.useState<string>("Rajasthan");
+
+  const [selectedTariffType, setSelectedTariffType] =
+    React.useState<TariffType>("Residential");
 
   // -----------------------------------------
   // CONDITIONS
@@ -64,148 +68,47 @@ export default function Solar() {
   const monthlyUnits =
     Number(units || 0);
 
-  const monthlyBill =
-    Number(bill || 0);
+  const connectedLoadKW =
+    Number(connectedLoad || 0);
 
   const showLargeSystemMessage =
-    monthlyUnits > 1200;
-
-  const isThreePhaseOnly =
-    Number(load) >= 6;
+    Boolean(
+      estimate?.recommendedKW &&
+        estimate.recommendedKW > 10
+    );
 
   // -----------------------------------------
   // LIVE SAVINGS
   // -----------------------------------------
 
   const liveMonthlySavings =
-    monthlyBill;
+    estimate?.monthlySavings ?? 0;
 
   const liveYearlySavings =
-    liveMonthlySavings * 12;
-
-  // -----------------------------------------
-  // AUTO PHASE CHANGE
-  // -----------------------------------------
-
-  React.useEffect(() => {
-    if (isThreePhaseOnly) {
-      setPhase("Three Phase");
-    }
-  }, [isThreePhaseOnly]);
-
-  // -----------------------------------------
-  // RECOMMENDED KW
-  // -----------------------------------------
-
-  const getRecommendedKW = (
-    unitValue: number
-  ) => {
-    if (unitValue <= 360)
-      return 3;
-
-    if (unitValue <= 600)
-      return 5;
-
-    if (unitValue <= 720)
-      return 6;
-
-    if (unitValue <= 960)
-      return 8;
-
-    if (unitValue <= 1200)
-      return 10;
-
-    return 11;
-  };
-
-  // -----------------------------------------
-  // PRICE LOGIC
-  // -----------------------------------------
-
-  const getStartingPrice = (
-    units: number,
-    phase: string
-  ) => {
-
-    // SINGLE PHASE
-
-    if (phase === "Single Phase") {
-
-      if (units <= 360)
-        return 155000;
-
-      if (units <= 600)
-        return 209990;
-
-      if (units <= 720)
-        return 289990;
-
-      if (units <= 960)
-        return 369990;
-
-      if (units <= 1200)
-        return 449990;
-    }
-
-    // THREE PHASE
-
-    if (phase === "Three Phase") {
-
-      if (units <= 360)
-        return 159990;
-
-      if (units <= 600)
-        return 255990;
-
-      if (units <= 720)
-        return 289990;
-
-      if (units <= 960)
-        return 369990;
-
-      if (units <= 1200)
-        return 449990;
-    }
-
-    return 0;
-  };
-
-  // -----------------------------------------
-  // CALCULATE
-  // -----------------------------------------
+    estimate?.yearlySavings ?? 0;
 
   const calculateSavings = () => {
-
-    const recommendedKW =
-      getRecommendedKW(monthlyUnits);
-
-    const recommendedPhase =
-      recommendedKW >= 6
-        ? "Three Phase"
-        : phase;
-
-    const subsidy = 78000;
-
-    const finalPrice =
-      getStartingPrice(
+    try {
+      const result = calculateSolarSavings({
+        state: selectedState,
+        tariffType: selectedTariffType,
         monthlyUnits,
-        recommendedPhase
-      );
+        connectedLoadKW:
+          connectedLoadKW > 0
+            ? connectedLoadKW
+            : null,
+      });
 
-    setEstimate({
-      recommendedKW,
-      monthlySavings:
-        liveMonthlySavings,
-
-      yearlySavings:
-        liveYearlySavings,
-
-      finalPrice,
-
-      subsidy,
-
-      phase: recommendedPhase,
-    });
+      setEstimate({
+        recommendedKW: result.recommendedKW,
+        monthlySavings: Math.round(result.averageMonthlyBill),
+        yearlySavings: Math.round(result.averageAnnualBill),
+        finalPrice: Math.round(result.netCost),
+        subsidy: Math.round(result.subsidy),
+      });
+    } catch {
+      setEstimate(null);
+    }
   };
 
   // -----------------------------------------
@@ -290,93 +193,68 @@ export default function Solar() {
 
             <div className="space-y-6">
 
-              {/* LOAD */}
+              {/* STATE */}
 
               <div className="space-y-2">
 
                 <label className="text-sm font-bold text-slate-700">
-                  Current Sanction Load
+                  State
                 </label>
 
                 <Select
-                  value={load}
-                  onValueChange={setLoad}
+                  value={selectedState}
+                  onValueChange={(v) => setSelectedState(String(v))}
                 >
 
                   <SelectTrigger className="py-6 w-full bg-white border-slate-200 rounded-xl">
-                    <SelectValue placeholder="Select Load" />
+                    <SelectValue placeholder="Select State" />
                   </SelectTrigger>
 
                   <SelectContent>
-
-                    <SelectItem value="3">
-                      3 KW
-                    </SelectItem>
-
-                    <SelectItem value="5">
-                      5 KW
-                    </SelectItem>
-
-                    <SelectItem value="6">
-                      6 KW
-                    </SelectItem>
-
-                    <SelectItem value="8">
-                      8 KW
-                    </SelectItem>
-
-                    <SelectItem value="10">
-                      10 KW
-                    </SelectItem>
-
+                    <SelectItem value="Rajasthan">Rajasthan</SelectItem>
+                    <SelectItem value="Gujarat">Gujarat</SelectItem>
+                    <SelectItem value="Maharashtra">Maharashtra</SelectItem>
+                    <SelectItem value="Delhi">Delhi</SelectItem>
+                    <SelectItem value="Haryana">Haryana</SelectItem>
+                    <SelectItem value="Punjab">Punjab</SelectItem>
+                    <SelectItem value="Uttar Pradesh">Uttar Pradesh</SelectItem>
+                    <SelectItem value="Madhya Pradesh">Madhya Pradesh</SelectItem>
+                    <SelectItem value="Karnataka">Karnataka</SelectItem>
+                    <SelectItem value="Tamil Nadu">Tamil Nadu</SelectItem>
+                    <SelectItem value="Kerala">Kerala</SelectItem>
+                    <SelectItem value="Telangana">Telangana</SelectItem>
+                    <SelectItem value="Andhra Pradesh">Andhra Pradesh</SelectItem>
+                    <SelectItem value="Bihar">Bihar</SelectItem>
+                    <SelectItem value="West Bengal">West Bengal</SelectItem>
                   </SelectContent>
 
                 </Select>
               </div>
 
-              {/* PHASE */}
+              {/* TARIFF TYPE */}
 
               <div className="space-y-2">
 
                 <label className="text-sm font-bold text-slate-700">
-                  Phase
+                  Tariff Type
                 </label>
 
                 <Select
-                  value={
-                    isThreePhaseOnly
-                      ? "Three Phase"
-                      : phase
-                  }
-                  onValueChange={setPhase}
+                  value={selectedTariffType}
+                  onValueChange={(v) => setSelectedTariffType(v as TariffType)}
                 >
 
                   <SelectTrigger className="py-6 w-full bg-white border-slate-200 rounded-xl">
-                    <SelectValue placeholder="Select phase" />
+                    <SelectValue placeholder="Select Tariff Type" />
                   </SelectTrigger>
 
                   <SelectContent>
-
-                    {!isThreePhaseOnly && (
-                      <SelectItem value="Single Phase">
-                        Single Phase
-                      </SelectItem>
-                    )}
-
-                    <SelectItem value="Three Phase">
-                      Three Phase
-                    </SelectItem>
-
+                    <SelectItem value="Residential">Residential</SelectItem>
+                    <SelectItem value="Commercial">Commercial</SelectItem>
+                    <SelectItem value="Industrial">Industrial</SelectItem>
                   </SelectContent>
 
                 </Select>
-
-                {isThreePhaseOnly && (
-                  <p className="text-xs text-slate-500 mt-1">
-                    * {load} KW is only
-                    available in Three Phase
-                  </p>
-                )}
 
               </div>
 
@@ -385,9 +263,8 @@ export default function Solar() {
               <div className="space-y-2">
 
                 <label className="text-sm font-bold text-slate-700">
-                  Avg Units Consumed
-                  (last 12 months per
-                  month)
+                  Average Monthly Unit
+                  Consumption (kWh)
                 </label>
 
                 <Input
@@ -403,24 +280,25 @@ export default function Solar() {
 
               </div>
 
-              {/* BILL */}
+              {/* CONNECTED LOAD */}
 
               <div className="space-y-2">
 
                 <label className="text-sm font-bold text-slate-700">
-                  Avg Bill Amount
-                  (last 12 months per
-                  month) ₹
+                  Connected Load In KW
+                  (If Known)
                 </label>
 
                 <Input
                   type="number"
-                  value={bill}
+                  value={connectedLoad}
                   onChange={(e) =>
-                    setBill(
+                    setConnectedLoad(
                       e.target.value
                     )
                   }
+                  min="0"
+                  step="0.5"
                   className="h-14 border-slate-200 rounded-xl focus-visible:ring-[#1E88E5]"
                 />
 
@@ -580,11 +458,8 @@ export default function Solar() {
 
                       <h4 className="text-3xl font-black text-white leading-tight mt-1">
 
-                        {
-                          estimate.recommendedKW
-                        }{" "}
-                        KW{" "}
-                        {estimate.phase}
+                        {estimate.recommendedKW.toFixed(2)}{" "}
+                        KW
 
                       </h4>
 
@@ -599,7 +474,7 @@ export default function Solar() {
                     </div>
                   </div>
 
-                  {/* SAVINGS */}
+                  {/* AVERAGE BILL */}
 
                   <div className="flex">
 
@@ -615,7 +490,7 @@ export default function Solar() {
                     <div className="flex-1 rounded-md bg-white/10 px-6 py-5 backdrop-blur-sm">
 
                       <p className="text-xs font-bold opacity-80">
-                        Monthly Savings
+                        Average Monthly Bill
                       </p>
 
                       <h4 className="text-3xl font-black">
@@ -648,7 +523,7 @@ export default function Solar() {
                     <div className="flex-1 rounded-md bg-white/10 px-6 py-5 backdrop-blur-sm">
 
                       <p className="text-xs font-bold opacity-80">
-                        Starting Price
+                        Net System Cost After Subsidy
                       </p>
 
                       <h4 className="text-3xl font-black">

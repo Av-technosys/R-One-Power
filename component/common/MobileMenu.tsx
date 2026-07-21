@@ -22,6 +22,8 @@ export default function MobileMenu() {
     { name: "About", href: "/about" },
     { name: "Services", href: "/services" },
     { name: "Gallery", href: "/gallery" },
+    { name: "Business", href: "/business" },
+    { name: "Career", href: "/career" },
     { name: "Contact", href: "/contact" },
   ]
 

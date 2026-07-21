@@ -18,16 +18,9 @@ import {
   IconCalculator,
 } from "@tabler/icons-react";
 
-const SOLAR_PRICING: Record<number, number> = {
-  1: 70000,
-  2: 130000,
-  3: 195000,
-  4: 240000,
-  5: 285000,
-  6: 330000,
-  8: 420000,
-  10: 520000,
-};
+import { calculateSolarSavings } from "@/lib/solar";
+
+type TariffType = "Residential" | "Commercial" | "Industrial";
 
 export default function SolarCalculator() {
   const fadeInUp: HTMLMotionProps<"div"> = {
@@ -37,59 +30,49 @@ export default function SolarCalculator() {
     transition: { duration: 0.6, ease: "easeOut" },
   };
 
-  const [sanctionLoad, setSanctionLoad] = React.useState("3");
-  const [phase, setPhase] = React.useState("three");
-  const [monthlyUnits, setMonthlyUnits] = React.useState(200);
-  const [monthlyBill, setMonthlyBill] = React.useState(4200);
+  const [selectedState, setSelectedState] = React.useState("Rajasthan");
+  const [selectedTariffType, setSelectedTariffType] =
+    React.useState<TariffType>("Residential");
+  const [monthlyUnits, setMonthlyUnits] = React.useState("200");
+  const [connectedLoad, setConnectedLoad] = React.useState("");
 
-  // Recommended System Size Logic
-  const recommendedKW = React.useMemo(() => {
-    const kw = Math.ceil(monthlyUnits / 130);
+  const estimate = React.useMemo(() => {
+    try {
+      const connectedLoadKW = Number(connectedLoad || 0);
 
-    if (kw <= 1) return 1;
-    if (kw <= 2) return 2;
-    if (kw <= 3) return 3;
-    if (kw <= 4) return 4;
-    if (kw <= 5) return 5;
-    if (kw <= 6) return 6;
-    if (kw <= 8) return 8;
+      return calculateSolarSavings({
+        state: selectedState,
+        tariffType: selectedTariffType,
+        monthlyUnits: Number(monthlyUnits || 0),
+        connectedLoadKW:
+          connectedLoadKW > 0
+            ? connectedLoadKW
+            : null,
+      });
+    } catch {
+      return null;
+    }
+  }, [connectedLoad, monthlyUnits, selectedState, selectedTariffType]);
 
-    return 10;
-  }, [monthlyUnits]);
-
-  // Auto phase suggestion
-  const recommendedPhase = recommendedKW <= 5 ? "Single Phase" : "Three Phase";
-
-  // Pricing
-  const systemPrice = SOLAR_PRICING[recommendedKW] || 0;
-
-  // Subsidy Logic (PM Surya Ghar)
-  const subsidy = React.useMemo(() => {
-    if (recommendedKW === 1) return 30000;
-    if (recommendedKW === 2) return 60000;
-    if (recommendedKW >= 3) return 78000;
-
-    return 0;
-  }, [recommendedKW]);
-
-  const finalPrice = systemPrice - subsidy;
-
-  // Solar Generation Logic
-  const monthlyGeneration = recommendedKW * 130;
-
-  // Savings Logic
-  const estimatedMonthlySavings = Math.min(
-    monthlyBill,
-    Math.round(monthlyGeneration * 7)
-  );
-
-  const yearlySavings = estimatedMonthlySavings * 12;
-
-  // ROI
-  const paybackYears =
-    yearlySavings > 0 ? (finalPrice / yearlySavings).toFixed(1) : 0;
-
-  // 25 Year Savings
+  const recommendedKW = estimate?.recommendedKW ?? 0;
+  const monthlyGeneration = estimate
+    ? Math.round(estimate.annualGeneration / 12)
+    : 0;
+  const estimatedMonthlySavings = estimate
+    ? Math.round(estimate.averageMonthlyBill)
+    : 0;
+  const yearlySavings = estimate
+    ? Math.round(estimate.averageAnnualBill)
+    : 0;
+  const paybackYears = estimate?.paybackYears
+    ? estimate.paybackYears.toFixed(1)
+    : 0;
+  const finalPrice = estimate
+    ? Math.round(estimate.netCost)
+    : 0;
+  const subsidy = estimate
+    ? Math.round(estimate.subsidy)
+    : 0;
   const lifetimeSavings = yearlySavings * 25;
 
   const handleProposalClick = () => {
@@ -144,46 +127,60 @@ export default function SolarCalculator() {
             </h3>
 
             <div className="space-y-6">
-              {/* Sanction Load */}
+              {/* State */}
               <div className="space-y-2">
                 <label className="text-sm font-bold text-slate-700">
-                  Current Sanction Load
+                  State
                 </label>
 
                 <Select
-                  value={sanctionLoad}
-                  onValueChange={setSanctionLoad}
+                  value={selectedState}
+                  onValueChange={(value) => setSelectedState(String(value))}
                 >
                   <SelectTrigger className="py-6 w-full bg-white border-slate-200 rounded-xl">
-                    <SelectValue />
+                    <SelectValue placeholder="Select State" />
                   </SelectTrigger>
 
                   <SelectContent>
-                    <SelectItem value="1">1 KW</SelectItem>
-                    <SelectItem value="2">2 KW</SelectItem>
-                    <SelectItem value="3">3 KW</SelectItem>
-                    <SelectItem value="5">5 KW</SelectItem>
-                    <SelectItem value="6">6 KW</SelectItem>
-                    <SelectItem value="8">8 KW</SelectItem>
-                    <SelectItem value="10">10 KW</SelectItem>
+                    <SelectItem value="Rajasthan">Rajasthan</SelectItem>
+                    <SelectItem value="Gujarat">Gujarat</SelectItem>
+                    <SelectItem value="Maharashtra">Maharashtra</SelectItem>
+                    <SelectItem value="Delhi">Delhi</SelectItem>
+                    <SelectItem value="Haryana">Haryana</SelectItem>
+                    <SelectItem value="Punjab">Punjab</SelectItem>
+                    <SelectItem value="Uttar Pradesh">Uttar Pradesh</SelectItem>
+                    <SelectItem value="Madhya Pradesh">Madhya Pradesh</SelectItem>
+                    <SelectItem value="Karnataka">Karnataka</SelectItem>
+                    <SelectItem value="Tamil Nadu">Tamil Nadu</SelectItem>
+                    <SelectItem value="Kerala">Kerala</SelectItem>
+                    <SelectItem value="Telangana">Telangana</SelectItem>
+                    <SelectItem value="Andhra Pradesh">Andhra Pradesh</SelectItem>
+                    <SelectItem value="Bihar">Bihar</SelectItem>
+                    <SelectItem value="West Bengal">West Bengal</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
-              {/* Phase */}
+              {/* Tariff Type */}
               <div className="space-y-2">
                 <label className="text-sm font-bold text-slate-700">
-                  Phase
+                  Tariff Type
                 </label>
 
-                <Select value={phase} onValueChange={setPhase}>
+                <Select
+                  value={selectedTariffType}
+                  onValueChange={(value) =>
+                    setSelectedTariffType(value as TariffType)
+                  }
+                >
                   <SelectTrigger className="py-6 w-full bg-white border-slate-200 rounded-xl">
-                    <SelectValue />
+                    <SelectValue placeholder="Select Tariff Type" />
                   </SelectTrigger>
 
                   <SelectContent>
-                    <SelectItem value="single">Single Phase</SelectItem>
-                    <SelectItem value="three">Three Phase</SelectItem>
+                    <SelectItem value="Residential">Residential</SelectItem>
+                    <SelectItem value="Commercial">Commercial</SelectItem>
+                    <SelectItem value="Industrial">Industrial</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -191,31 +188,33 @@ export default function SolarCalculator() {
               {/* Units */}
               <div className="space-y-2">
                 <label className="text-sm font-bold text-slate-700">
-                  Avg Units Consumed (Monthly)
+                  Average Monthly Unit Consumption (kWh)
                 </label>
 
                 <Input
                   type="number"
                   value={monthlyUnits}
                   onChange={(e) =>
-                    setMonthlyUnits(Number(e.target.value))
+                    setMonthlyUnits(e.target.value)
                   }
                   className="h-14 border-slate-200 rounded-xl focus-visible:ring-[#1E88E5]"
                 />
               </div>
 
-              {/* Bill */}
+              {/* Connected Load */}
               <div className="space-y-2">
                 <label className="text-sm font-bold text-slate-700">
-                  Avg Bill Amount ₹
+                  Connected Load In KW (If Known)
                 </label>
 
                 <Input
                   type="number"
-                  value={monthlyBill}
+                  value={connectedLoad}
                   onChange={(e) =>
-                    setMonthlyBill(Number(e.target.value))
+                    setConnectedLoad(e.target.value)
                   }
+                  min="0"
+                  step="0.5"
                   className="h-14 border-slate-200 rounded-xl focus-visible:ring-[#1E88E5]"
                 />
               </div>
@@ -246,7 +245,7 @@ export default function SolarCalculator() {
                     </p>
 
                     <h4 className="text-3xl font-black text-white leading-tight mt-1">
-                      {recommendedKW} KW {recommendedPhase}
+                      {recommendedKW.toFixed(2)} KW
                     </h4>
 
                     <p className="text-sm mt-3 text-white">
@@ -267,7 +266,7 @@ export default function SolarCalculator() {
 
                   <div className="flex-1 rounded-md bg-white/10 px-6 py-5">
                     <p className="text-xs font-bold opacity-80">
-                      Monthly Savings
+                      Average Monthly Bill
                     </p>
 
                     <h4 className="text-3xl font-black">
@@ -292,7 +291,7 @@ export default function SolarCalculator() {
 
                   <div className="flex-1 rounded-md bg-white/10 px-6 py-5">
                     <p className="text-xs font-bold opacity-80">
-                      Estimated Price
+                      Net System Cost After Subsidy
                     </p>
 
                     <h4 className="text-3xl font-black">
