@@ -12,8 +12,8 @@ export default function ReadyToSolar() {
   const fadeInUp: HTMLMotionProps<"div"> = {
     initial: { opacity: 0, y: 30 },
     whileInView: { opacity: 1, y: 0 },
-    viewport: { once: false },
-    transition: { duration: 0.6, ease: "easeOut" }
+    viewport: { once: true },
+    transition: { duration: 0.6, ease: "easeIn" }
   }
 
   return (

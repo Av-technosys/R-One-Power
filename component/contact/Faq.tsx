@@ -48,7 +48,7 @@ function Faq() {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false }}
+          viewport={{ once:true }}
           className="text-3xl md:text-4xl font-poppins font-bold mb-3 text-center"
         >
           Frequently Asked <span className="text-[#1E88E5]">Questions</span>
@@ -57,7 +57,7 @@ function Faq() {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false }}
+          viewport={{ once:true }}
           transition={{ delay: 0.1 }}
           className="font-inter text-lg text-center text-[#717A75]"
         >
@@ -75,7 +75,7 @@ function Faq() {
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: false }}
+              viewport={{ once:true }}
               className="relative w-full h-[350px] lg:h-full rounded-lg overflow-hidden hidden lg:block"
             >
               <Image
@@ -111,7 +111,7 @@ function Faq() {
                     key={index}
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: false }}
+                    viewport={{ once:true }}
                     transition={{ delay: index * 0.1 }}
                   >
                     <AccordionItem

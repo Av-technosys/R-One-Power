@@ -34,12 +34,107 @@ interface EstimateData {
   subsidy: number;
 }
 
+interface CashFlowPoint {
+  year: number;
+  value: number;
+}
+
+const CASH_FLOW_YEARS = Array.from(
+  { length: 25 },
+  (_, index) => index + 1
+);
+
+const CHART_WIDTH = 1240;
+const CHART_HEIGHT = 560;
+const CHART_MARGIN = {
+  top: 86,
+  right: 28,
+  bottom: 72,
+  left: 108,
+};
+
+const getNiceStep = (value: number) => {
+  if (value <= 0) {
+    return 100_000;
+  }
+
+  const power = 10 ** Math.floor(Math.log10(value));
+  const normalized = value / power;
+
+  if (normalized <= 1) {
+    return power;
+  }
+
+  if (normalized <= 2) {
+    return 2 * power;
+  }
+
+  if (normalized <= 5) {
+    return 5 * power;
+  }
+
+  return 10 * power;
+};
+
+const formatINR = (value: number) =>
+  Math.round(value).toLocaleString("en-IN");
+
+const buildCashFlowData = (estimate: EstimateData | null): CashFlowPoint[] => {
+  if (!estimate) {
+    return [];
+  }
+
+  return CASH_FLOW_YEARS.map((year) => ({
+    year,
+    value: Math.round(estimate.yearlySavings * year - estimate.finalPrice),
+  }));
+};
+
+const INDIA_STATES = [
+  "Andhra Pradesh",
+  "Arunachal Pradesh",
+  "Assam",
+  "Bihar",
+  "Chhattisgarh",
+  "Goa",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Madhya Pradesh",
+  "Maharashtra",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Punjab",
+  "Rajasthan",
+  "Sikkim",
+  "Tamil Nadu",
+  "Telangana",
+  "Tripura",
+  "Uttar Pradesh",
+  "Uttarakhand",
+  "West Bengal",
+  "Andaman and Nicobar Islands",
+  "Chandigarh",
+  "Dadra and Nagar Haveli and Daman and Diu",
+  "Delhi",
+  "Jammu and Kashmir",
+  "Ladakh",
+  "Lakshadweep",
+  "Puducherry",
+] as const;
+
 export default function Solar() {
   const fadeInUp: HTMLMotionProps<"div"> = {
     initial: { opacity: 0, y: 40 },
     whileInView: { opacity: 1, y: 0 },
-    viewport: { once: false, margin: "-50px" },
-    transition: { duration: 0.6, ease: "easeOut" },
+    viewport: { once: true, margin: "-50px" },
+    transition: { duration: 0.6, ease: "easeIn" },
   };
 
   // -----------------------------------------
@@ -54,6 +149,9 @@ export default function Solar() {
 
   const [estimate, setEstimate] =
     React.useState<EstimateData | null>(null);
+
+  const [activeCashFlowYear, setActiveCashFlowYear] =
+    React.useState(25);
 
   const [selectedState, setSelectedState] =
     React.useState<string>("Rajasthan");
@@ -87,6 +185,52 @@ export default function Solar() {
   const liveYearlySavings =
     estimate?.yearlySavings ?? 0;
 
+  const cashFlowData =
+    React.useMemo(
+      () => buildCashFlowData(estimate),
+      [estimate]
+    );
+
+  const chartBounds =
+    React.useMemo(() => {
+      const values = cashFlowData.map((point) => point.value);
+      const minValue = Math.min(...values, 0);
+      const maxValue = Math.max(...values, 1);
+      const step = getNiceStep(
+        Math.max(Math.abs(minValue), Math.abs(maxValue)) / 5
+      );
+      const min = Math.min(Math.floor(minValue / step) * step, -step);
+      const max = Math.max(Math.ceil(maxValue / step) * step, step);
+      const ticks = Array.from(
+        { length: Math.round((max - min) / step) + 1 },
+        (_, index) => min + index * step
+      );
+
+      return {
+        min,
+        max,
+        ticks,
+      };
+    }, [cashFlowData]);
+
+  const activeCashFlow =
+    cashFlowData.find((point) => point.year === activeCashFlowYear) ??
+    cashFlowData[cashFlowData.length - 1];
+
+  const chartPlotWidth =
+    CHART_WIDTH - CHART_MARGIN.left - CHART_MARGIN.right;
+  const chartPlotHeight =
+    CHART_HEIGHT - CHART_MARGIN.top - CHART_MARGIN.bottom;
+
+  const valueToY = (value: number) =>
+    CHART_MARGIN.top +
+    ((chartBounds.max - value) / (chartBounds.max - chartBounds.min)) *
+      chartPlotHeight;
+
+  const baselineY = valueToY(0);
+  const barSlotWidth = chartPlotWidth / CASH_FLOW_YEARS.length;
+  const barWidth = Math.min(42, barSlotWidth * 0.82);
+
   const calculateSavings = () => {
     try {
       const result = calculateSolarSavings({
@@ -106,6 +250,7 @@ export default function Solar() {
         finalPrice: Math.round(result.netCost),
         subsidy: Math.round(result.subsidy),
       });
+      setActiveCashFlowYear(25);
     } catch {
       setEstimate(null);
     }
@@ -134,7 +279,7 @@ export default function Solar() {
   };
 
   return (
-    <section className="py-24 bg-linear-to-b from-[#F9FCFA] to-[#F4F9F6] font-inter">
+    <section id="solar-calculator" className="py-24 bg-linear-to-b from-[#F9FCFA] to-[#F4F9F6] font-inter">
 
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
 
@@ -211,21 +356,11 @@ export default function Solar() {
                   </SelectTrigger>
 
                   <SelectContent>
-                    <SelectItem value="Rajasthan">Rajasthan</SelectItem>
-                    <SelectItem value="Gujarat">Gujarat</SelectItem>
-                    <SelectItem value="Maharashtra">Maharashtra</SelectItem>
-                    <SelectItem value="Delhi">Delhi</SelectItem>
-                    <SelectItem value="Haryana">Haryana</SelectItem>
-                    <SelectItem value="Punjab">Punjab</SelectItem>
-                    <SelectItem value="Uttar Pradesh">Uttar Pradesh</SelectItem>
-                    <SelectItem value="Madhya Pradesh">Madhya Pradesh</SelectItem>
-                    <SelectItem value="Karnataka">Karnataka</SelectItem>
-                    <SelectItem value="Tamil Nadu">Tamil Nadu</SelectItem>
-                    <SelectItem value="Kerala">Kerala</SelectItem>
-                    <SelectItem value="Telangana">Telangana</SelectItem>
-                    <SelectItem value="Andhra Pradesh">Andhra Pradesh</SelectItem>
-                    <SelectItem value="Bihar">Bihar</SelectItem>
-                    <SelectItem value="West Bengal">West Bengal</SelectItem>
+                    {INDIA_STATES.map((state) => (
+                      <SelectItem key={state} value={state}>
+                        {state}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
 
                 </Select>
@@ -441,7 +576,7 @@ export default function Solar() {
 
                   <div className="flex">
 
-                    <div className="w-[60px] rounded-md bg-white/10 flex items-center justify-center shrink-0 mr-3">
+                    <div className="w-15 rounded-md bg-white/10 flex items-center justify-center shrink-0 mr-3">
 
                       <IconBolt
                         size={34}
@@ -478,7 +613,7 @@ export default function Solar() {
 
                   <div className="flex">
 
-                    <div className="w-[60px] rounded-md bg-white/10 flex items-center justify-center shrink-0 mr-3">
+                    <div className="w-15 rounded-md bg-white/10 flex items-center justify-center shrink-0 mr-3">
 
                       <IconTrendingDown
                         size={28}
@@ -511,7 +646,7 @@ export default function Solar() {
 
                   <div className="flex">
 
-                    <div className="w-[60px] rounded-md bg-white/10 flex items-center justify-center shrink-0 mr-3">
+                    <div className="w-15 rounded-md bg-white/10 flex items-center justify-center shrink-0 mr-3">
 
                       <IconCurrencyRupee
                         size={28}
@@ -562,6 +697,171 @@ export default function Solar() {
 
           </div>
         </motion.div>
+
+        {estimate && (
+          <motion.div
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: "easeIn" }}
+            className="max-w-6xl mx-auto mt-10 border border-slate-200 bg-[#F6F6F6] p-4 md:p-8 shadow-xl shadow-slate-200/70"
+          >
+            <div className="mb-5 text-center">
+              <h3 className="font-poppins text-3xl md:text-4xl font-black uppercase text-[#555]">
+                Net Cash Outflow
+              </h3>
+            </div>
+
+            <div className="mb-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+              <div className="flex flex-wrap justify-center gap-3 md:justify-start">
+                <div className="flex items-center gap-2 text-xs font-bold text-slate-700">
+                  <span className="h-3 w-3 bg-[#F5A623]" />
+                  Recovery
+                </div>
+                <div className="flex items-center gap-2 text-xs font-bold text-slate-700">
+                  <span className="h-3 w-3 bg-[#FF7078]" />
+                  Investment Pending
+                </div>
+              </div>
+
+              <div className="rounded-md bg-white px-4 py-2 text-sm font-bold text-slate-700 shadow-sm">
+                Year {activeCashFlow?.year ?? 25}:{" "}
+                <span
+                  className={
+                    activeCashFlow && activeCashFlow.value < 0
+                      ? "text-[#E85961]"
+                      : "text-[#D98D08]"
+                  }
+                >
+                  {activeCashFlow && activeCashFlow.value < 0 ? "-" : ""}
+                  ₹{formatINR(Math.abs(activeCashFlow?.value ?? 0))}
+                </span>
+              </div>
+            </div>
+
+            <div className="overflow-x-auto">
+              <svg
+                viewBox={`0 0 ${CHART_WIDTH} ${CHART_HEIGHT}`}
+                className="h-[360px] min-w-[900px] w-full md:h-[520px]"
+                role="img"
+                aria-label="Net cash outflow over 25 years"
+              >
+                <rect
+                  width={CHART_WIDTH}
+                  height={CHART_HEIGHT}
+                  fill="#F6F6F6"
+                />
+
+                {chartBounds.ticks.map((tick) => {
+                  const y = valueToY(tick);
+
+                  return (
+                    <g key={tick}>
+                      <line
+                        x1={CHART_MARGIN.left}
+                        x2={CHART_WIDTH - CHART_MARGIN.right}
+                        y1={y}
+                        y2={y}
+                        stroke={tick === 0 ? "#2F2F2F" : "rgba(0,0,0,0.08)"}
+                        strokeWidth={tick === 0 ? 2 : 1}
+                      />
+                      <text
+                        x={CHART_MARGIN.left - 12}
+                        y={y + 5}
+                        textAnchor="end"
+                        fill="#3F3F3F"
+                        fontSize="18"
+                        fontWeight="700"
+                      >
+                        {tick === 0
+                          ? "0"
+                          : `${tick < 0 ? "-" : ""}${formatINR(Math.abs(tick))}`}
+                      </text>
+                    </g>
+                  );
+                })}
+
+                <line
+                  x1={CHART_MARGIN.left}
+                  x2={CHART_MARGIN.left}
+                  y1={CHART_MARGIN.top - 8}
+                  y2={CHART_HEIGHT - CHART_MARGIN.bottom}
+                  stroke="#2F2F2F"
+                  strokeWidth="2"
+                />
+
+                {cashFlowData.map((point, index) => {
+                  const x =
+                    CHART_MARGIN.left +
+                    index * barSlotWidth +
+                    (barSlotWidth - barWidth) / 2;
+                  const valueY = valueToY(point.value);
+                  const y = Math.min(valueY, baselineY);
+                  const height = Math.max(Math.abs(valueY - baselineY), 2);
+                  const isNegative = point.value < 0;
+                  const isActive = point.year === activeCashFlowYear;
+
+                  return (
+                    <g key={point.year}>
+                      <rect
+                        x={x}
+                        y={y}
+                        width={barWidth}
+                        height={height}
+                        fill={isNegative ? "#FF7078" : "#F5A623"}
+                        opacity={isActive ? 1 : 0.96}
+                        stroke={isActive ? "#B96F00" : "transparent"}
+                        strokeWidth={isActive ? 3 : 0}
+                        onMouseEnter={() => setActiveCashFlowYear(point.year)}
+                        onFocus={() => setActiveCashFlowYear(point.year)}
+                        tabIndex={0}
+                        className="cursor-pointer outline-none transition-opacity hover:opacity-80"
+                      >
+                        <title>
+                          Year {point.year}: {point.value < 0 ? "-" : ""}₹
+                          {formatINR(Math.abs(point.value))}
+                        </title>
+                      </rect>
+                      <text
+                        x={x + barWidth / 2}
+                        y={baselineY + 24}
+                        textAnchor="middle"
+                        fill="#333"
+                        fontSize="16"
+                        fontWeight="600"
+                      >
+                        {point.year}
+                      </text>
+                    </g>
+                  );
+                })}
+
+                <text
+                  x={CHART_MARGIN.left - 86}
+                  y={CHART_HEIGHT / 2}
+                  fill="#222"
+                  fontSize="22"
+                  fontWeight="500"
+                  textAnchor="middle"
+                  transform={`rotate(-90 ${CHART_MARGIN.left - 86} ${CHART_HEIGHT / 2})`}
+                >
+                  INR
+                </text>
+
+                <text
+                  x={CHART_MARGIN.left + chartPlotWidth / 2}
+                  y={CHART_HEIGHT - 18}
+                  fill="#222"
+                  fontSize="20"
+                  fontWeight="500"
+                  textAnchor="middle"
+                >
+                  Year
+                </text>
+              </svg>
+            </div>
+          </motion.div>
+        )}
 
         {/* BOTTOM */}
 

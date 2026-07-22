@@ -8,12 +8,12 @@ import Link from "next/link"
 
 export default function AboutSection() {
 
-  // Strategy: Niche se upar (y), once: false, and Type safe
+  // Strategy: Niche se upar (y), once:true, and Type safe
   const fadeInUp: HTMLMotionProps<"div"> = {
     initial: { opacity: 0, y: 30 },
     whileInView: { opacity: 1, y: 0 },
-    viewport: { once: false, margin: "-100px" },
-    transition: { duration: 0.6, ease: "easeOut" }
+    viewport: { once: true, margin: "-100px" },
+    transition: { duration: 0.6, ease: "easeIn" }
   }
 
   return (
@@ -84,7 +84,7 @@ export default function AboutSection() {
             <motion.div
               initial={{ y: 20, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: false }} // Persistent animation
+              viewport={{ once:true }} // Persistent animation
               transition={{ delay: 0.3, duration: 0.5 }}
               className="absolute -top-6 -right-4 md:right-12 bg-[#56B8F5] text-white p-3 rounded-3xl shadow-xl px-5 text-center border-4 border-white"
             >
@@ -96,7 +96,7 @@ export default function AboutSection() {
             <motion.div
               initial={{ y: 20, opacity: 0 }} // Standardized to upward motion
               whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: false }} // Persistent animation
+              viewport={{ once:true }} // Persistent animation
               transition={{ delay: 0.5, duration: 0.5 }}
               className="absolute -bottom-6 -left-4 md:-left-8 bg-white p-3 rounded-2xl shadow-2xl flex items-center gap-3 border border-gray-100"
             >

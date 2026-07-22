@@ -69,9 +69,9 @@ designed for long-term performance, maximum savings, and sustainable growth.
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
           className="mt-8 flex flex-col md:flex-row gap-4 justify-center"
-        ><Link href="/contact" className="w-full md:w-auto">
+        ><Link href="/#solar-calculator" className="w-full md:w-auto">
           <Button size="lg" className="bg-linear-to-r from-[#1E88E5] to-[#6EC6FF] py-6 border border-[#1E88E5] hover:bg-blue-700 md:px-8 px-22 text-md rounded-md">
-            Get Free Consultation
+            Calculate Solar Savings
           </Button>
           </Link>
           <Link href="/services" className="w-full md:w-auto">

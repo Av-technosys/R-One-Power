@@ -45,12 +45,12 @@ const features = [
 ]
 
 export default function WhyChoose() {
-  // Animation Approach: Niche se upar, once: false
+  // Animation Approach: Niche se upar, once:true
   const fadeInUp: HTMLMotionProps<"div"> = {
     initial: { opacity: 0, y: 30 },
     whileInView: { opacity: 1, y: 0 },
-    viewport: { once: false, margin: "-50px" },
-    transition: { duration: 0.5, ease: "easeOut" }
+    viewport: { once: true, margin: "-50px" },
+    transition: { duration: 0.5, ease: "easeIn" }
   }
 
   return (

@@ -52,7 +52,7 @@ export default function SolarBenefits() {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false }}
+            viewport={{ once:true }}
             className="inline-block bg-blue-50 text-[#1E88E5] px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-widest border border-blue-100 mb-4"
           >
             What We Offer
@@ -61,7 +61,7 @@ export default function SolarBenefits() {
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false }}
+            viewport={{ once:true }}
             transition={{ delay: 0.1 }}
             className="text-4xl md:text-5xl font-black text-slate-900 font-poppins mb-4"
           >
@@ -71,7 +71,7 @@ export default function SolarBenefits() {
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false }}
+            viewport={{ once:true }}
             transition={{ delay: 0.2 }}
             className="text-slate-500 font-medium max-w-lg mx-auto"
           >
@@ -87,7 +87,7 @@ Smart solar investments designed to reduce energy costs, improve long-term savin
               key={idx}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false }}
+              viewport={{ once:true }}
               transition={{ delay: idx * 0.1 }}
               className="flex flex-col items-center text-center group"
             >
@@ -106,7 +106,7 @@ Smart solar investments designed to reduce energy costs, improve long-term savin
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false }}
+            viewport={{ once:true }}
             className="bg-[#BBF7D0] border border-emerald-100 rounded-[32px] p-10 flex flex-col items-start gap-3 hover:shadow-xl transition-shadow"
           >
             <div className="h-14 w-14 rounded-2xl  flex items-center justify-center ">
@@ -124,7 +124,7 @@ Smart solar investments designed to reduce energy costs, improve long-term savin
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false }}
+            viewport={{ once:true }}
             className="bg-[#FDE68A] border border-amber-100 rounded-[32px] p-10 flex flex-col items-start gap-3 hover:shadow-xl transition-shadow"
           >
             <div className="h-14 w-14 rounded-2xl flex items-center justify-center ">

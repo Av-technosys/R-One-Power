@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion, HTMLMotionProps } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,6 +13,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 
 export default function ContactSection() {
+  const formRef = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState({
     SingleLine: "",
     Email: "",
@@ -51,17 +52,24 @@ export default function ContactSection() {
     }
 
     setLoading(true);
+    setErrorMessage("");
+    setSuccessMessage("");
 
     try {
+      const payload = {
+        name: formData.SingleLine.trim(),
+        email: formData.Email.trim(),
+        phone: cleanedPhone,
+        city: formData.SingleLine1.trim(),
+        requirement: formData.MultiLine.trim(),
+      };
+
       const res = await fetch("/api/quote", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          ...formData,
-          phone: cleanedPhone,
-        }),
+        body: JSON.stringify(payload),
       });
 
       const data = await res.json();
@@ -74,10 +82,23 @@ export default function ContactSection() {
           SingleLine1: "",
           MultiLine: "",
         });
+
+        if (formRef.current) {
+          const zohoFormData = new FormData(formRef.current);
+          void fetch(
+            "https://forms.zohopublic.in/r1power/form/ContactUsFormWebsite/formperma/hN8fePZJITUcdFgNdcMBW9mn2xwXq12W4hcDqCTTwoI/htmlRecords/submit",
+            {
+              method: "POST",
+              body: zohoFormData,
+              mode: "no-cors",
+              keepalive: true,
+            },
+          ).catch(() => undefined);
+        }
+
         setSuccessMessage(
           "Form submitted successfully! We will contact you soon.",
         );
-        setErrorMessage("");
       } else {
         setSuccessMessage("");
         setErrorMessage(
@@ -96,8 +117,8 @@ export default function ContactSection() {
   const fadeInUp: HTMLMotionProps<"div"> = {
     initial: { opacity: 0, y: 40 },
     whileInView: { opacity: 1, y: 0 },
-    viewport: { once: false, margin: "-50px" },
-    transition: { duration: 0.6, ease: "easeOut" },
+    viewport: { once: true, margin: "-50px" },
+    transition: { duration: 0.6, ease: "easeIn" },
   };
 
   return (
@@ -132,11 +153,11 @@ export default function ContactSection() {
               Request Callback
             </h3>
             <form
-              action="https://forms.zohopublic.in/r1power/form/ContactUsFormWebsite/formperma/hN8fePZJITUcdFgNdcMBW9mn2xwXq12W4hcDqCTTwoI/htmlRecords/submit"
+              ref={formRef}
               name="form"
               id="form"
-              method="POST"
               accept-charset="UTF-8"
+              onSubmit={handleSubmit}
             >
               <input type="hidden" name="zf_referrer_name" value="" />
               <input type="hidden" name="zf_redirect_url" value="" />

@@ -174,8 +174,8 @@ function BusinessPopup({ onClose }: { onClose: () => void }) {
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 20 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
-        className="relative z-10 w-full max-w-xl max-h-[92vh] overflow-y-auto bg-white rounded-3xl shadow-2xl"
+        transition={{ duration: 0.3, ease: "easeIn" }}
+        className="relative z-10 w-full max-w-xl max-h-[92vh] overflow-y-auto bg-white rounded-3xl shadow-2xl custom-scrollbar"
       >
         {/* Header bar */}
         <div className="bg-gradient-to-r from-[#1E88E5] to-[#1565C0] p-6 rounded-t-3xl">
@@ -342,8 +342,8 @@ export default function BusinessPage() {
   const fadeInUp: HTMLMotionProps<"div"> = {
     initial:    { opacity: 0, y: 40 },
     whileInView: { opacity: 1, y: 0 },
-    viewport:   { once: false, margin: "-50px" },
-    transition: { duration: 0.6, ease: "easeOut" },
+    viewport: { once: true, margin: "-50px" },
+    transition: { duration: 0.6, ease: "easeIn" },
   }
 
   // Prevent flash before mount

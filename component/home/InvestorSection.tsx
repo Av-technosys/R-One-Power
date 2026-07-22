@@ -16,8 +16,8 @@ import Link from "next/link"
 const fadeInUp: HTMLMotionProps<"div"> = {
   initial: { opacity: 0, y: 40 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: false, margin: "-80px" },
-  transition: { duration: 0.6, ease: "easeOut" },
+  viewport: { once: true, margin: "-80px" },
+  transition: { duration: 0.6, ease: "easeIn" },
 }
 
 // ── Key investment metrics ────────────────────────────────────────────────────

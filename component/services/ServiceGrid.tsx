@@ -47,8 +47,8 @@ export default function ServiceGrid() {
   const fadeInUp: HTMLMotionProps<"div"> = {
     initial: { opacity: 0, y: 20 },
     whileInView: { opacity: 1, y: 0 },
-    viewport: { once: false },
-    transition: { duration: 0.5, ease: "easeOut" }
+    viewport: { once: true },
+    transition: { duration: 0.5, ease: "easeIn" }
   }
 
   return (

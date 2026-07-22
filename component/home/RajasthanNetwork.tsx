@@ -30,8 +30,8 @@ export default function RajasthanNetwork() {
   const fadeInUp: HTMLMotionProps<"div"> = {
     initial: { opacity: 0, y: 40 },
     whileInView: { opacity: 1, y: 0 },
-    viewport: { once: false },
-    transition: { duration: 0.6, ease: "easeOut" }
+    viewport: { once: true },
+    transition: { duration: 0.6, ease: "easeIn" }
   }
 
   return (
@@ -58,7 +58,7 @@ export default function RajasthanNetwork() {
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: false }}
+              viewport={{ once:true }}
               className="relative w-full h-[300px] md:h-[350px]"
             >
               <Image

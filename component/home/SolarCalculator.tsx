@@ -26,8 +26,8 @@ export default function SolarCalculator() {
   const fadeInUp: HTMLMotionProps<"div"> = {
     initial: { opacity: 0, y: 40 },
     whileInView: { opacity: 1, y: 0 },
-    viewport: { once: false, margin: "-50px" },
-    transition: { duration: 0.6, ease: "easeOut" },
+    viewport: { once: true, margin: "-50px" },
+    transition: { duration: 0.6, ease: "easeIn" },
   };
 
   const [selectedState, setSelectedState] = React.useState("Rajasthan");

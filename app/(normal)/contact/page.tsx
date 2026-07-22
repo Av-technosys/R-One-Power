@@ -37,7 +37,7 @@ const Page = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false }}
+            viewport={{ once:true }}
             className="bg-blue-500/10 w-fit px-5 border-2 border-[#1E88E5] text-[#1E88E5] rounded-full font-bold p-3 flex items-center justify-center gap-2 "
           >
             <IconSunFilled size={20} stroke={1.5} className="text-[#FBBF24] font-inter" />
@@ -48,7 +48,7 @@ const Page = () => {
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false }}
+              viewport={{ once:true }}
               transition={{ delay: 0.1 }}
               className="text-3xl sm:text-5xl md:text-6xl font-bold mb-2 leading-tight font-poppins"
             >
@@ -58,7 +58,7 @@ const Page = () => {
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false }}
+              viewport={{ once:true }}
               transition={{ delay: 0.2 }}
               className="text-base text-xl md:text-xl p-3 sm:p-4 max-w-2xl font-inter"
             >
@@ -106,7 +106,7 @@ const Page = () => {
               key={idx}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false }}
+              viewport={{ once:true }}
               transition={{ delay: idx * 0.1 }}
             >
               <Card className="rounded-xl shadow-lg min-h-[200px] md:min-h-[310px] p-3 md:p-4">

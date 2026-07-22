@@ -68,7 +68,7 @@ const HeroSection = ({
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             className={`${badgeClass} w-fit px-5 border-2 rounded-full font-bold p-3 flex items-center justify-center gap-2`}
           >
             <IconSunFilled
@@ -87,7 +87,7 @@ const HeroSection = ({
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             transition={{ delay: 0.1 }}
             className="max-w-7xl px-4"
           >
@@ -100,7 +100,7 @@ const HeroSection = ({
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false }}
+              viewport={{ once: true }}
               transition={{ delay: 0.2 }}
               className="text-xl p-4 md:p-6 max-w-3xl font-inter"
             >
