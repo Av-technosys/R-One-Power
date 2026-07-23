@@ -30,7 +30,7 @@ export default function SiteVisitForm() {
     initial: { opacity: 0, y: 30 },
     whileInView: { opacity: 1, y: 0 },
     viewport: { once: true, margin: "-50px" },
-    transition: { duration: 0.6, ease: "easeIn" },
+    transition: { duration: 0.6, ease: "easeOut" },
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -186,7 +186,7 @@ export default function SiteVisitForm() {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="h-12 px-12 bg-white text-[#1E88E5] hover:bg-gray-100 rounded-lg font-bold text-base shadow-xl transition-all hover:shadow-2xl hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed font-inter"
+                  className="h-12 px-20 lg:px-12 bg-white text-[#1E88E5] hover:bg-gray-100 rounded-lg font-bold text-base shadow-xl transition-all hover:shadow-2xl hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed font-inter"
                 >
                   {isSubmitting ? "Submitting..." : "Submit Details"}
                 </Button>

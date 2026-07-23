@@ -17,7 +17,7 @@ const fadeInUp: HTMLMotionProps<"div"> = {
   initial: { opacity: 0, y: 40 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: "-80px" },
-  transition: { duration: 0.6, ease: "easeIn" },
+  transition: { duration: 0.6, ease: "easeOut" },
 }
 
 // ── Key investment metrics ────────────────────────────────────────────────────
@@ -250,7 +250,7 @@ export default function InvestorSection() {
                 </button>
               </Link>
               <a href="tel:+919660077814">
-                <button className="h-13 px-8 py-3.5 bg-white/15 hover:bg-white/25 border border-white/30 text-white font-bold rounded-xl text-sm transition-all">
+                <button className="h-13 px-14 lg:px-8 py-3.5 bg-white/15 hover:bg-white/25 border border-white/30 text-white font-bold rounded-xl text-sm transition-all text-center">
                   +91 96600 77814
                 </button>
               </a>

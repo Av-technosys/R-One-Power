@@ -196,7 +196,7 @@ const page = () => {
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: "easeIn" }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
               className="flex justify-center lg:justify-start"
             >
               <div className="relative">
@@ -226,7 +226,7 @@ const page = () => {
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: "easeIn" }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
               className="space-y-8"
             >
               <blockquote>

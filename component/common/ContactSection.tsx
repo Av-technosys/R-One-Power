@@ -118,7 +118,7 @@ export default function ContactSection() {
     initial: { opacity: 0, y: 40 },
     whileInView: { opacity: 1, y: 0 },
     viewport: { once: true, margin: "-50px" },
-    transition: { duration: 0.6, ease: "easeIn" },
+    transition: { duration: 0.6, ease: "easeOut" },
   };
 
   return (
@@ -303,18 +303,18 @@ export default function ContactSection() {
             <motion.div
               {...fadeInUp}
               transition={{ delay: 0.3 }}
-              className="bg-slate-50 p-8 rounded-3xl border border-slate-100"
+              className="bg-slate-50 p-8  rounded-3xl border border-slate-100"
             >
-              <h4 className="text-lg font-black text-slate-900 mb-2 font-poppins">
+              <h4 className="text-lg  font-black text-slate-900 mb-2 font-poppins">
                 Quick Call
               </h4>
 
-              <p className="text-sm text-slate-500 mb-6 font-medium">
+              <p className="text-sm  text-slate-500 mb-6 font-medium">
                 Prefer to talk? Call us directly for immediate assistance.
               </p>
 
               <a href="tel:+919660077814">
-                <Button className="bg-[#1E88E5] hover:bg-[#1565C0] h-14 px-8 rounded-xl text-white font-bold flex items-center gap-3 shadow-md transition-all">
+                <Button className="bg-[#1E88E5]  text-center hover:bg-[#1565C0] h-14 lg:px-8 px-14 rounded-xl text-white font-bold flex items-center gap-3 shadow-md transition-all">
                   <IconPhone size={20} /> +91 96600 77814
                 </Button>
               </a>

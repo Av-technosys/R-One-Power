@@ -174,7 +174,7 @@ function BusinessPopup({ onClose }: { onClose: () => void }) {
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 20 }}
-        transition={{ duration: 0.3, ease: "easeIn" }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
         className="relative z-10 w-full max-w-xl max-h-[92vh] overflow-y-auto bg-white rounded-3xl shadow-2xl custom-scrollbar"
       >
         {/* Header bar */}
@@ -343,7 +343,7 @@ export default function BusinessPage() {
     initial:    { opacity: 0, y: 40 },
     whileInView: { opacity: 1, y: 0 },
     viewport: { once: true, margin: "-50px" },
-    transition: { duration: 0.6, ease: "easeIn" },
+    transition: { duration: 0.6, ease: "easeOut" },
   }
 
   // Prevent flash before mount
@@ -579,7 +579,7 @@ export default function BusinessPage() {
               <a href="tel:+919660077814">
                 <Button
                   variant="outline"
-                  className="h-14 px-10 border-slate-200 text-slate-700 font-bold rounded-xl text-sm gap-2"
+                  className="h-14 px-24 lg:px-10 border-slate-200 text-slate-700 font-bold rounded-xl text-sm gap-2"
                 >
                   <IconPhoneFilled size={16} />
                   +91 96600 77814

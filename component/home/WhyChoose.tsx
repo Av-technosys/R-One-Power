@@ -2,7 +2,6 @@
 
 import { HTMLMotionProps, motion } from "framer-motion"
 import { 
-  IconRosetteFilled, 
   IconShieldCheck, 
   IconHeadset, 
   IconCurrencyRupee, 
@@ -50,7 +49,7 @@ export default function WhyChoose() {
     initial: { opacity: 0, y: 30 },
     whileInView: { opacity: 1, y: 0 },
     viewport: { once: true, margin: "-50px" },
-    transition: { duration: 0.5, ease: "easeIn" }
+    transition: { duration: 0.5, ease: "easeOut" }
   }
 
   return (
@@ -83,26 +82,33 @@ Delivering dependable solar solutions through quality engineering, trusted execu
         </div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {features.map((item, idx) => (
             <motion.div
               key={idx}
               {...fadeInUp}
               transition={{ delay: idx * 0.1 }} // Staggered entry
-              whileHover={{ y: -8 }}
-              className="bg-white p-8 rounded-md border border-gray-100 shadow-sm hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-300 flex items-start gap-5 group"
+              className="group relative min-h-[220px] overflow-hidden rounded-md border border-slate-200/80 bg-white p-5 shadow-[0_8px_24px_rgba(15,23,42,0.07)] transition-all duration-300 sm:p-7 md:hover:-translate-y-2 md:hover:border-[#1E88E5]/35 md:hover:shadow-[0_18px_40px_rgba(30,136,229,0.14)]"
             >
-              {/* Icon Container */}
-              <div className="shrink-0 w-14 h-14 bg-[#E3F2FD] rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                {item.icon}
+              <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#1E88E5] via-[#34A853] to-[#F6B21A]" />
+              <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-[#E3F2FD]/70 transition-transform duration-300 md:group-hover:scale-125" />
+
+              {/* Card Top */}
+              <div className="relative mb-6 flex items-center justify-between">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-md bg-[#E3F2FD] shadow-inner ring-1 ring-[#1E88E5]/10 transition-transform duration-300 md:group-hover:scale-105 md:group-hover:bg-[#D8EEFF]">
+                  {item.icon}
+                </div>
+                <span className="font-poppins text-4xl font-black leading-none text-[#1E88E5]/25 transition-colors duration-300 md:text-slate-100 md:group-hover:text-[#1E88E5]/15">
+                  {(idx + 1).toString().padStart(2, "0")}
+                </span>
               </div>
 
               {/* Text Content */}
-              <div className="space-y-2">
-                <h3 className="text-xl font-poppins font-bold text-slate-900 group-hover:text-[#1E88E5] transition-colors">
+              <div className="relative space-y-3">
+                <h3 className="max-w-[15rem] text-xl font-poppins font-extrabold leading-snug text-slate-900 transition-colors md:group-hover:text-[#1E88E5] sm:text-[1.35rem]">
                   {item.title}
                 </h3>
-                <p className="text-sm text-slate-500 leading-relaxed font-medium">
+                <p className="text-sm font-semibold leading-6 text-slate-500 sm:font-medium">
                   {item.desc}
                 </p>
               </div>

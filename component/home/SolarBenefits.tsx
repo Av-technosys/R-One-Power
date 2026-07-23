@@ -45,8 +45,7 @@ const topBenefits = [
 export default function SolarBenefits() {
   return (
     <section className="py-24 bg-white font-inter overflow-hidden">
-      <div className="max-w-7xl mx-auto px-10">
-        
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <div className="text-center mb-20">
           <motion.div 
@@ -107,7 +106,7 @@ Smart solar investments designed to reduce energy costs, improve long-term savin
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once:true }}
-            className="bg-[#BBF7D0] border border-emerald-100 rounded-[32px] p-10 flex flex-col items-start gap-3 hover:shadow-xl transition-shadow"
+            className="bg-[#BBF7D0] border border-emerald-100 rounded-[32px] p-8 flex flex-col items-start gap-3 hover:shadow-xl transition-shadow"
           >
             <div className="h-14 w-14 rounded-2xl  flex items-center justify-center ">
               <IconLeaf size={30} className="text-emerald-600" />
@@ -125,7 +124,7 @@ Smart solar investments designed to reduce energy costs, improve long-term savin
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once:true }}
-            className="bg-[#FDE68A] border border-amber-100 rounded-[32px] p-10 flex flex-col items-start gap-3 hover:shadow-xl transition-shadow"
+            className="bg-[#FDE68A] border border-amber-100 rounded-[32px] p-8 flex flex-col items-start gap-3 hover:shadow-xl transition-shadow"
           >
             <div className="h-14 w-14 rounded-2xl flex items-center justify-center ">
               <IconBolt size={30} className="text-amber-600" />

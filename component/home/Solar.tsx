@@ -134,7 +134,7 @@ export default function Solar() {
     initial: { opacity: 0, y: 40 },
     whileInView: { opacity: 1, y: 0 },
     viewport: { once: true, margin: "-50px" },
-    transition: { duration: 0.6, ease: "easeIn" },
+    transition: { duration: 0.6, ease: "easeOut" },
   };
 
   // -----------------------------------------
@@ -703,7 +703,7 @@ export default function Solar() {
             initial={{ opacity: 0, y: 22 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6, ease: "easeIn" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             className="max-w-6xl mx-auto mt-10 border border-slate-200 bg-[#F6F6F6] p-4 md:p-8 shadow-xl shadow-slate-200/70"
           >
             <div className="mb-5 text-center">
