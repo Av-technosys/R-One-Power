@@ -184,12 +184,12 @@ const page = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-6  "
           >
-            <span className="inline-block text-[#1E88E5] text-xs font-bold uppercase tracking-widest mb-2">Founder & Leadership</span>
+            <span className=" ml-60 text-orange-500   font-bold text-sm sm:text-lg tracking-wide mb-4 ">Founder & Leadership</span>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 ">
 
             {/* ── Photo side ────────────────────────────────────────── */}
             <motion.div
@@ -290,7 +290,7 @@ const page = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="inline-flex items-center justify-center border border-[#1E88E5] bg-[#1E88E51A] text-[#1E88E5] rounded-full px-6 py-2 text-xs font-semibold mb-4"
+              className="inline-flex items-center justify-center border border-[#1E88E5] bg-[#1E88E51A] text-[#1E88E5] rounded-full px-6 py-2 text-xs font-semibold my-4"
             >
               Our Purpose
             </motion.div>

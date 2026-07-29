@@ -180,7 +180,7 @@ export default function Footer() {
                   C-86, Gautam Marg, Behind Reliance Trends,
                   <br />
                   Near Vaishali Circle, Vaishali Nagar,
-                  <br />
+                  
                   Jaipur – 302021
                 </p>
               </div>

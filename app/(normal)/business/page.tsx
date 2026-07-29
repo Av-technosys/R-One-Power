@@ -109,7 +109,13 @@ const steps = [
 ]
 
 // ── Business Enquiry Popup Form ───────────────────────────────────────────────
-function BusinessPopup({ onClose }: { onClose: () => void }) {
+function BusinessPopup({
+  onClose,
+  onCancel,
+}: {
+  onClose: () => void
+  onCancel: () => void
+}) {
   const [formData, setFormData] = useState({
     name: "",
     company: "",
@@ -304,16 +310,27 @@ function BusinessPopup({ onClose }: { onClose: () => void }) {
             </p>
           )}
 
-          {/* Submit */}
-          <button
-            type="button"
-            onClick={handleSubmit}
-            disabled={loading}
-            className="w-full h-12 bg-[#1E88E5] hover:bg-[#1565C0] text-white font-bold rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg shadow-blue-100 transition-all disabled:opacity-60"
-          >
-            <IconArrowRight size={18} />
-            {loading ? "Submitting..." : "Submit & Access Business Portal"}
-          </button>
+          {/* Actions */}
+          <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-3">
+            <button
+              type="button"
+              onClick={onCancel}
+              disabled={loading}
+              className="h-12 px-6 border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-bold rounded-xl text-sm flex items-center justify-center gap-2 transition-all disabled:opacity-60"
+            >
+              <IconX size={18} />
+              Cancel
+            </button>
+            <button
+              type="button"
+              onClick={handleSubmit}
+              disabled={loading}
+              className="h-12 bg-[#1E88E5] hover:bg-[#1565C0] text-white font-bold rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg shadow-blue-100 transition-all disabled:opacity-60"
+            >
+              <IconArrowRight size={18} />
+              {loading ? "Submitting..." : "Submit & Access Business Portal"}
+            </button>
+          </div>
 
           <p className="text-center text-[11px] text-slate-400">
             Your information is kept confidential · We respond within 24 hours
@@ -355,7 +372,10 @@ export default function BusinessPage() {
       {/* ── Business Registration Popup ─────────────────────────────────── */}
       <AnimatePresence>
         {showPopup && (
-          <BusinessPopup onClose={() => setShowPopup(false)} />
+          <BusinessPopup
+            onClose={() => setShowPopup(false)}
+            onCancel={() => router.back()}
+          />
         )}
       </AnimatePresence>
 
