@@ -20,6 +20,8 @@ import {
   IconCurrencyRupee,
   IconCalculator,
   IconPhone,
+  IconSend,
+  IconX,
 } from "@tabler/icons-react";
 
 import { calculateSolarSavings } from "@/lib/solar/calculations";
@@ -37,6 +39,16 @@ interface EstimateData {
 interface CashFlowPoint {
   year: number;
   value: number;
+}
+
+interface ProposalFormData {
+  name: string;
+  company: string;
+  designation: string;
+  address: string;
+  mobile: string;
+  service: string;
+  message: string;
 }
 
 const CASH_FLOW_YEARS = Array.from(
@@ -90,6 +102,32 @@ const buildCashFlowData = (estimate: EstimateData | null): CashFlowPoint[] => {
   }));
 };
 
+const buildProposalMessage = ({
+  estimate,
+  selectedState,
+  selectedTariffType,
+  units,
+  connectedLoad,
+}: {
+  estimate: EstimateData;
+  selectedState: string;
+  selectedTariffType: TariffType;
+  units: string;
+  connectedLoad: string;
+}) =>
+  [
+    "Solar calculator proposal request",
+    `State: ${selectedState}`,
+    `Tariff Type: ${selectedTariffType}`,
+    `Average Monthly Units: ${units || "0"} kWh`,
+    `Connected Load: ${connectedLoad || "Not provided"} KW`,
+    `Recommended System: ${estimate.recommendedKW.toFixed(2)} KW`,
+    `Average Monthly Bill: INR ${formatINR(estimate.monthlySavings)}`,
+    `Estimated Annual Bill: INR ${formatINR(estimate.yearlySavings)}`,
+    `Net System Cost After Subsidy: INR ${formatINR(estimate.finalPrice)}`,
+    `Govt. Subsidy: INR ${formatINR(estimate.subsidy)}`,
+  ].join("\n");
+
 const INDIA_STATES = [
   "Andhra Pradesh",
   "Arunachal Pradesh",
@@ -130,6 +168,8 @@ const INDIA_STATES = [
 ] as const;
 
 export default function Solar() {
+  const proposalFormRef = React.useRef<HTMLFormElement>(null);
+
   const fadeInUp: HTMLMotionProps<"div"> = {
     initial: { opacity: 0, y: 40 },
     whileInView: { opacity: 1, y: 0 },
@@ -158,6 +198,29 @@ export default function Solar() {
 
   const [selectedTariffType, setSelectedTariffType] =
     React.useState<TariffType>("Residential");
+
+  const [isProposalOpen, setIsProposalOpen] =
+    React.useState(false);
+
+  const [proposalLoading, setProposalLoading] =
+    React.useState(false);
+
+  const [proposalError, setProposalError] =
+    React.useState("");
+
+  const [proposalSuccess, setProposalSuccess] =
+    React.useState("");
+
+  const [proposalFormData, setProposalFormData] =
+    React.useState<ProposalFormData>({
+      name: "",
+      company: "",
+      designation: "",
+      address: "",
+      mobile: "",
+      service: "EPC",
+      message: "",
+    });
 
   // -----------------------------------------
   // CONDITIONS
@@ -231,25 +294,29 @@ export default function Solar() {
   const barSlotWidth = chartPlotWidth / CASH_FLOW_YEARS.length;
   const barWidth = Math.min(42, barSlotWidth * 0.82);
 
+  const getCurrentEstimate = () => {
+    const result = calculateSolarSavings({
+      state: selectedState,
+      tariffType: selectedTariffType,
+      monthlyUnits,
+      connectedLoadKW:
+        connectedLoadKW > 0
+          ? connectedLoadKW
+          : null,
+    });
+
+    return {
+      recommendedKW: result.recommendedKW,
+      monthlySavings: Math.round(result.averageMonthlyBill),
+      yearlySavings: Math.round(result.averageAnnualBill),
+      finalPrice: Math.round(result.netCost),
+      subsidy: Math.round(result.subsidy),
+    };
+  };
+
   const calculateSavings = () => {
     try {
-      const result = calculateSolarSavings({
-        state: selectedState,
-        tariffType: selectedTariffType,
-        monthlyUnits,
-        connectedLoadKW:
-          connectedLoadKW > 0
-            ? connectedLoadKW
-            : null,
-      });
-
-      setEstimate({
-        recommendedKW: result.recommendedKW,
-        monthlySavings: Math.round(result.averageMonthlyBill),
-        yearlySavings: Math.round(result.averageAnnualBill),
-        finalPrice: Math.round(result.netCost),
-        subsidy: Math.round(result.subsidy),
-      });
+      setEstimate(getCurrentEstimate());
       setActiveCashFlowYear(25);
     } catch {
       setEstimate(null);
@@ -257,29 +324,361 @@ export default function Solar() {
   };
 
   // -----------------------------------------
-  // WHATSAPP
+  // PROPOSAL FORM
   // -----------------------------------------
 
   const openDetailedProposal = () => {
+    try {
+      const currentEstimate = estimate ?? getCurrentEstimate();
 
-    const message =
-      "Hi, I'm interested in a solar installation. Please share a detailed proposal based on my estimate.";
+      setEstimate(currentEstimate);
+      setActiveCashFlowYear(25);
+      setProposalFormData((current) => ({
+        ...current,
+        message: buildProposalMessage({
+          estimate: currentEstimate,
+          selectedState,
+          selectedTariffType,
+          units,
+          connectedLoad,
+        }),
+      }));
+      setProposalError("");
+      setProposalSuccess("");
+      setIsProposalOpen(true);
+    } catch {
+      setProposalError("Please enter valid calculator details first.");
+    }
+  };
 
-    const whatsappUrl =
-      `https://wa.me/919660077814?text=${encodeURIComponent(
-        message
-      )}`;
+  const closeProposalForm = () => {
+    if (!proposalLoading) {
+      setIsProposalOpen(false);
+    }
+  };
 
-    if (typeof window !== "undefined") {
-      window.open(
-        whatsappUrl,
-        "_blank"
+  const handleProposalChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    setProposalFormData({
+      ...proposalFormData,
+      [e.target.name]: e.target.value,
+    });
+    if (proposalError) {
+      setProposalError("");
+    }
+    if (proposalSuccess) {
+      setProposalSuccess("");
+    }
+  };
+
+  const handleProposalSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const activeEstimate = estimate ?? getCurrentEstimate();
+    const cleanedMobile = proposalFormData.mobile.replace(/\D/g, "");
+
+    if (cleanedMobile.length !== 10) {
+      setProposalError("Please enter a valid 10-digit mobile number.");
+      return;
+    }
+
+    setProposalLoading(true);
+    setProposalError("");
+    setProposalSuccess("");
+
+    const estimateMessage = buildProposalMessage({
+      estimate: activeEstimate,
+      selectedState,
+      selectedTariffType,
+      units,
+      connectedLoad,
+    });
+
+    const fullMessage = proposalFormData.message.trim() || estimateMessage;
+
+    try {
+      const payload = {
+        name: proposalFormData.name.trim(),
+        company: proposalFormData.company.trim(),
+        designation: proposalFormData.designation.trim(),
+        address: proposalFormData.address.trim(),
+        mobile: cleanedMobile,
+        service: proposalFormData.service,
+        message: fullMessage,
+      };
+
+      const res = await fetch("/api/business", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+
+      if (!data.success) {
+        setProposalError(
+          data.message || "Something went wrong. Please try again."
+        );
+        return;
+      }
+
+      if (proposalFormRef.current) {
+        const zohoFormData = new FormData(proposalFormRef.current);
+        zohoFormData.set("PhoneNumber_countrycode", cleanedMobile);
+        zohoFormData.set("MultiLine", fullMessage);
+        void fetch(
+          "https://forms.zohopublic.in/r1power/form/ContactUsFormWebsite/formperma/hN8fePZJITUcdFgNdcMBW9mn2xwXq12W4hcDqCTTwoI/htmlRecords/submit",
+          {
+            method: "POST",
+            body: zohoFormData,
+            mode: "no-cors",
+            keepalive: true,
+          },
+        ).catch(() => undefined);
+      }
+
+      setProposalSuccess(
+        "Proposal request submitted successfully. Our team will contact you soon."
       );
+      setProposalFormData({
+        name: "",
+        company: "",
+        designation: "",
+        address: "",
+        mobile: "",
+        service: "EPC",
+        message: "",
+      });
+      window.setTimeout(() => {
+        setIsProposalOpen(false);
+        setProposalSuccess("");
+      }, 1800);
+    } catch (error) {
+      console.error(error);
+      setProposalError("Something went wrong. Please try again later.");
+    } finally {
+      setProposalLoading(false);
     }
   };
 
   return (
     <section id="solar-calculator" className="py-24 bg-linear-to-b from-[#F9FCFA] to-[#F4F9F6] font-inter">
+
+      {isProposalOpen && estimate && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 py-5 backdrop-blur-sm">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            className="relative max-h-[92vh] w-full max-w-3xl overflow-y-auto rounded-2xl bg-white shadow-2xl"
+          >
+            <div className="flex items-start justify-between bg-[#1E88E5] px-6 py-5 text-white md:px-8">
+              <div>
+                <p className="text-xs font-black uppercase tracking-widest text-yellow-200">
+                  Detailed Proposal
+                </p>
+                <h3 className="mt-1 font-poppins text-2xl font-black">
+                  Solar Proposal Request
+                </h3>
+              </div>
+
+              <button
+                type="button"
+                onClick={closeProposalForm}
+                disabled={proposalLoading}
+                className="rounded-full bg-white/10 p-2 text-white transition hover:bg-white/20 disabled:opacity-60"
+                aria-label="Close proposal form"
+              >
+                <IconX size={20} />
+              </button>
+            </div>
+
+            <form
+              ref={proposalFormRef}
+              name="form"
+              id="solar-proposal-form"
+              acceptCharset="UTF-8"
+              onSubmit={handleProposalSubmit}
+              className="space-y-6 p-6 md:p-8"
+            >
+              <input type="hidden" name="zf_referrer_name" value="" />
+              <input type="hidden" name="zf_redirect_url" value="" />
+              <input type="hidden" name="zc_gad" value="" />
+              <input type="hidden" name="utm_source" value="" />
+              <input type="hidden" name="utm_medium" value="" />
+              <input type="hidden" name="utm_campaign" value="" />
+              <input type="hidden" name="utm_term" value="" />
+              <input type="hidden" name="utm_content" value="" />
+              <input type="hidden" name="SingleLine" value={proposalFormData.name} readOnly />
+              <input type="hidden" name="SingleLine1" value={proposalFormData.address} readOnly />
+              <input type="hidden" name="PhoneNumber_countrycode" value={proposalFormData.mobile} readOnly />
+              <input type="hidden" name="MultiLine" value={proposalFormData.message} readOnly />
+              <input
+                type="hidden"
+                name="Dropdown"
+                value="Website - Solar Calculator Proposal"
+                readOnly
+              />
+
+              <div className="grid grid-cols-1 gap-3 rounded-xl border border-blue-100 bg-blue-50 p-4 sm:grid-cols-2 lg:grid-cols-4">
+                <div>
+                  <p className="text-xs font-bold text-slate-500">
+                    Recommended
+                  </p>
+                  <p className="text-lg font-black text-slate-900">
+                    {estimate.recommendedKW.toFixed(2)} KW
+                  </p>
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-slate-500">
+                    Monthly Bill
+                  </p>
+                  <p className="text-lg font-black text-slate-900">
+                    ₹{formatINR(estimate.monthlySavings)}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-slate-500">
+                    Annual Bill
+                  </p>
+                  <p className="text-lg font-black text-slate-900">
+                    ₹{formatINR(estimate.yearlySavings)}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-slate-500">
+                    Net Cost
+                  </p>
+                  <p className="text-lg font-black text-slate-900">
+                    ₹{formatINR(estimate.finalPrice)}
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="space-y-1.5">
+                  <label className="text-[13px] font-bold text-slate-700">
+                    Full Name *
+                  </label>
+                  <Input
+                    name="name"
+                    value={proposalFormData.name}
+                    onChange={handleProposalChange}
+                    required
+                    className="h-12 rounded-xl border-slate-200 bg-slate-50 focus-visible:ring-[#1E88E5]"
+                  />
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-[13px] font-bold text-slate-700">
+                    Company Name *
+                  </label>
+                  <Input
+                    name="company"
+                    value={proposalFormData.company}
+                    onChange={handleProposalChange}
+                    required
+                    className="h-12 rounded-xl border-slate-200 bg-slate-50 focus-visible:ring-[#1E88E5]"
+                  />
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-[13px] font-bold text-slate-700">
+                    Designation *
+                  </label>
+                  <Input
+                    name="designation"
+                    value={proposalFormData.designation}
+                    onChange={handleProposalChange}
+                    required
+                    className="h-12 rounded-xl border-slate-200 bg-slate-50 focus-visible:ring-[#1E88E5]"
+                  />
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-[13px] font-bold text-slate-700">
+                    Mobile Number *
+                  </label>
+                  <Input
+                    name="mobile"
+                    value={proposalFormData.mobile}
+                    onChange={handleProposalChange}
+                    required
+                    type="tel"
+                    className="h-12 rounded-xl border-slate-200 bg-slate-50 focus-visible:ring-[#1E88E5]"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-[13px] font-bold text-slate-700">
+                  Address / Site Location *
+                </label>
+                <Input
+                  name="address"
+                  value={proposalFormData.address}
+                  onChange={handleProposalChange}
+                  required
+                  className="h-12 rounded-xl border-slate-200 bg-slate-50 focus-visible:ring-[#1E88E5]"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-[13px] font-bold text-slate-700">
+                  Service Interested In *
+                </label>
+                <select
+                  name="service"
+                  value={proposalFormData.service}
+                  onChange={handleProposalChange}
+                  required
+                  className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-[#1E88E5]"
+                >
+                  <option value="EPC">EPC - Engineering, Procurement & Construction</option>
+                  <option value="I&C">I&C - Installation & Commissioning</option>
+                  <option value="Net Meter">Net Meter - Grid Tie-Up & Net Metering</option>
+                </select>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-[13px] font-bold text-slate-700">
+                  Estimate Details / Message
+                </label>
+                <textarea
+                  name="message"
+                  value={proposalFormData.message}
+                  onChange={handleProposalChange}
+                  rows={7}
+                  className="w-full resize-none rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-[#1E88E5]"
+                />
+              </div>
+
+              {proposalError && (
+                <p className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-center text-sm font-medium text-red-700">
+                  {proposalError}
+                </p>
+              )}
+
+              {proposalSuccess && (
+                <p className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-center text-sm font-medium text-emerald-700">
+                  {proposalSuccess}
+                </p>
+              )}
+
+              <Button
+                type="submit"
+                disabled={proposalLoading}
+                className="h-14 w-full rounded-xl bg-[#1E88E5] text-base font-black text-white shadow-lg shadow-blue-100 hover:bg-[#1565C0] disabled:opacity-60"
+              >
+                <IconSend size={18} />
+                {proposalLoading ? "Submitting..." : "Submit Proposal Request"}
+              </Button>
+            </form>
+          </motion.div>
+        </div>
+      )}
 
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
 
