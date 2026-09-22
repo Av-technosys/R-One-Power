@@ -134,7 +134,7 @@ const page = () => {
                   </p>
 
                   <p>
-                    Over the past 8 years, we have installed more than 850 solar
+                    Over the past 8 years, we have installed more than 800+ solar
                     power systems across Jaipur, Jodhpur, Udaipur, and
                     surrounding regions. Our installations range from small 3kW
                     residential rooftops to large 500kW industrial solar plants.
@@ -281,10 +281,7 @@ const page = () => {
                   </h2>
 
                   <p className="text-[#374151] text-[12px] font-inter">
-                    A future where clean, renewable energy powers every home and
-                    business, reducing dependence on fossil fuels and lowering
-                    environmental impact. We envision thriving communities with
-                    access to affordable, reliable energy.
+               A mission to deliver clean, reliable energy solutions for every home and business, reducing electricity costs and lowering carbon footprints. We provide expert installation, honest guidance, and dependable support for a sustainable future.
                   </p>
                 </motion.div>
               </div>
@@ -309,9 +306,7 @@ const page = () => {
             <h2 className="text-[#FDEA00] text-2xl font-bold mb-3">MISSION</h2>
 
             <p className="text-gray-700 leading-7 font-inter">
-              A future where clean, renewable energy powers every home and
-              business, reducing dependence on fossil fuels and lowering
-              environmental impact.
+             A mission to deliver clean, reliable energy solutions for every home and business, reducing electricity costs and lowering carbon footprints. We provide expert installation, honest guidance, and dependable support for a sustainable future.
             </p>
           </div>
         </div>

@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import ContactSection from '@/component/common/ContactSection'
 import Faq from '@/component/contact/Faq'
 import Questions from '@/component/contact/Questions'
@@ -18,11 +19,38 @@ import Testimonials from '@/component/home/Testimonials'
 import WhyChoose from '@/component/home/WhyChoose'
 import React from 'react'
 
+export const metadata: Metadata = {
+  title: 'Solar EPC Company in India | Energy Solutions | R-One Power',
+  description:
+    'R-One Power is an MNRE-empanelled solar EPC company based in Rajasthan, serving clients across India. Residential, commercial & industrial solar solutions.',
+  alternates: {
+    canonical: 'https://www.r1power.com/',
+  },
+  openGraph: {
+    type: 'website',
+    siteName: 'R-One Power',
+    url: 'https://www.r1power.com/',
+    title: 'Solar EPC Company in India | Energy Solutions | R-One Power',
+    description:
+      'R-One Power is an MNRE-empanelled solar EPC company based in Rajasthan, serving clients across India. Residential, commercial & industrial solar solutions.',
+    images: ['https://dg2suxnbcr839.cloudfront.net/main-logo.png'],
+    locale: 'en_IN',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@ronepowerindia',
+    title: 'Solar EPC Company in India | Energy Solutions | R-One Power',
+    description:
+      'R-One Power is an MNRE-empanelled solar EPC company based in Rajasthan, serving clients across India. Residential, commercial & industrial solar solutions.',
+    images: ['https://dg2suxnbcr839.cloudfront.net/main-logo.png'],
+  },
+}
+
 const page = () => {
   return (
     <div>
       <HeroBanner/>
-      <LogoStrap/>
+      {/* <LogoStrap/> */}
       <AboutSection/>
       <ProjectsSection/>
       <WhyChoose/>

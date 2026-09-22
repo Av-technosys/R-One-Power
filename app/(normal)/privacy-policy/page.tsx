@@ -1,8 +1,36 @@
+import type { Metadata } from 'next'
 import React from 'react'
 import Image from 'next/image'
 import Solar_services from '../../../public/Solar_services.jpg'
 import { IconSunFilled } from '@tabler/icons-react'
 import HeroSection from '@/component/hero section/hero'
+
+export const metadata: Metadata = {
+  title: 'Our Privacy Policy | R-One Power Solar EPC India',
+  description:
+    "Read R-One Power's privacy policy to learn how we collect, use, and protect your personal data when you request solar consultations or services.",
+  alternates: {
+    canonical: 'https://www.r1power.com/privacy-policy',
+  },
+  openGraph: {
+    type: 'website',
+    siteName: 'R-One Power',
+    url: 'https://www.r1power.com/privacy-policy',
+    title: 'Our Privacy Policy | R-One Power Solar EPC India',
+    description:
+      "Read R-One Power's privacy policy to learn how we collect, use, and protect your personal data when you request solar consultations or services.",
+    images: ['https://dg2suxnbcr839.cloudfront.net/main-logo.png'],
+    locale: 'en_IN',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@ronepowerindia',
+    title: 'Our Privacy Policy | R-One Power Solar EPC India',
+    description:
+      "Read R-One Power's privacy policy to learn how we collect, use, and protect your personal data when you request solar consultations or services.",
+    images: ['https://dg2suxnbcr839.cloudfront.net/main-logo.png'],
+  },
+}
 
 
 

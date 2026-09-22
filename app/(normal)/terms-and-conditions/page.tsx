@@ -1,8 +1,36 @@
+import type { Metadata } from 'next'
 import React from 'react'
 import Image from 'next/image'
 import Solar_services from '../../../public/Solar_services.jpg'
 import { IconSunFilled } from '@tabler/icons-react'
 import HeroSection from '@/component/hero section/hero'
+
+export const metadata: Metadata = {
+  title: 'Terms & Conditions | R-One Power Solar EPC India',
+  description:
+    "Review the terms and conditions of R-One Power's solar installation, EPC services, quotations, payments, warranties, project timelines and responsibilities.",
+  alternates: {
+    canonical: 'https://www.r1power.com/terms-and-conditions',
+  },
+  openGraph: {
+    type: 'website',
+    siteName: 'R-One Power',
+    url: 'https://www.r1power.com/terms-and-conditions',
+    title: 'Terms & Conditions | R-One Power Solar EPC India',
+    description:
+      "Review the terms and conditions of R-One Power's solar installation, EPC services, quotations, payments, warranties, project timelines and responsibilities.",
+    images: ['https://dg2suxnbcr839.cloudfront.net/main-logo.png'],
+    locale: 'en_IN',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@ronepowerindia',
+    title: 'Terms & Conditions | R-One Power Solar EPC India',
+    description:
+      "Review the terms and conditions of R-One Power's solar installation, EPC services, quotations, payments, warranties, project timelines and responsibilities.",
+    images: ['https://dg2suxnbcr839.cloudfront.net/main-logo.png'],
+  },
+}
 
 const page = () => {
   return (
