@@ -23,7 +23,7 @@ const hubs = [
 const stats = [
   { label: "Installed Capacity", value: "50+ MW" },
   { label: "Completed Projects", value: "800+" },
-  { label: "Industry Experience", value: "9+ Years" },
+  { label: "Industry Experience", value: "8+ Years" },
 ]
 export default function RajasthanNetwork() {
   // Using HTMLMotionProps to fix the "Red Alert" TypeScript errors
