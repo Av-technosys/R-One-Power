@@ -21,6 +21,7 @@ const quickLinks = [
   { name: "About Us", href: "/about" },
   { name: "Services", href: "/services" },
   { name: "Gallery", href: "/gallery" },
+  { name: "Blog", href: "/blog" },
   { name: "Contact", href: "/contact" },
 ]
 const services = [
@@ -68,7 +69,15 @@ const socialLinks = [
   { icon: IconBrandYoutube, href: "https://www.youtube.com/channel/UCqEsmZmBqd_NCX5NqF8CGXg" },
 ]
 
+import { usePathname } from "next/navigation"
+
 export default function Footer() {
+  const pathname = usePathname()
+
+  if (pathname?.startsWith("/admin")) {
+    return null
+  }
+
   return (
     <footer className="bg-gradient-to-r from-[#111827] via-[#1F2937] to-[#111827] text-gray-400 font-inter pt-10">
       <div className="max-w-7xl mx-auto md:px-10 px-4 pb-4">
