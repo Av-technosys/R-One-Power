@@ -1,7 +1,7 @@
 "use client"
 
-import React, { useState, useEffect } from "react"
-import { usePathname, useRouter } from "next/navigation"
+import React, { useState } from "react"
+import { usePathname } from "next/navigation"
 import AdminSidebar from "@/component/admin/AdminSidebar"
 import { IconMenu2 } from "@tabler/icons-react"
 
@@ -11,52 +11,11 @@ export default function AdminLayout({
   children: React.ReactNode
 }) {
   const pathname = usePathname()
-  const router = useRouter()
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null)
 
-  const isLoginPage = pathname === "/admin/login"
-
-  useEffect(() => {
-    const isAuth = localStorage.getItem("rone_admin_logged_in") === "true"
-
-    if (isLoginPage) {
-      if (isAuth) {
-        router.replace("/admin")
-      } else {
-        setIsAuthenticated(false)
-      }
-      return
-    }
-
-    if (isAuth) {
-      setIsAuthenticated(true)
-    } else {
-      setIsAuthenticated(false)
-      router.replace("/admin/login")
-    }
-  }, [pathname, router, isLoginPage])
-
-  // If on login page, render children directly without admin sidebar/shell
-  if (isLoginPage) {
+  // If on login page, render children directly without admin sidebar
+  if (pathname === "/admin/login") {
     return <>{children}</>
-  }
-
-  // Loading state while checking authentication
-  if (isAuthenticated === null) {
-    return (
-      <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center font-inter">
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-8 h-8 border-3 border-slate-300 border-t-[#1565C0] rounded-full animate-spin" />
-          <span className="text-xs font-semibold text-slate-400">Verifying admin access...</span>
-        </div>
-      </div>
-    )
-  }
-
-  // If not authenticated, return null while redirecting to /admin/login
-  if (!isAuthenticated) {
-    return null
   }
 
   return (
@@ -70,17 +29,20 @@ export default function AdminLayout({
       {/* Main Content Area (offset on desktop by sidebar width) */}
       <div className="lg:pl-72 flex flex-col min-h-screen">
         {/* Mobile-only toggle bar */}
-        <div className="lg:hidden h-14 bg-white border-b border-gray-200 flex items-center px-4 justify-between">
+        <div className="lg:hidden h-16 bg-white border-b border-gray-200/80 flex items-center px-4 justify-between sticky top-0 z-30">
           <button
             onClick={() => setMobileOpen(true)}
-            className="p-2 text-gray-700 hover:bg-gray-100 rounded-lg"
+            className="p-2 text-slate-700 hover:bg-gray-100 rounded-lg cursor-pointer"
             title="Open menu"
           >
             <IconMenu2 size={22} />
           </button>
-          <span className="font-poppins font-bold text-slate-900 text-sm">
-            R-One Power
-          </span>
+          <img
+            src="/admin-logo-dark.png"
+            alt="R-ONE Power"
+            className="h-8 w-auto object-contain"
+          />
+          <div className="w-8" />
         </div>
 
         {/* Page Content Viewport */}

@@ -1,8 +1,6 @@
 "use client"
 
 import React, { useState, useEffect, useMemo, Suspense } from "react"
-import Link from "next/link"
-import Image from "next/image"
 import { useSearchParams } from "next/navigation"
 import {
   IconPlus,
@@ -13,52 +11,66 @@ import {
   IconArticle,
   IconCheck,
 } from "@tabler/icons-react"
+import type { BlogCategory } from "@/db/schema"
 import {
-  initialBlogs,
-  initialCategories,
-  Blog,
-  BlogCategory,
-} from "@/lib/adminBlogData"
+  getBlogs,
+  getCategories,
+  deleteBlog,
+  toggleBlogDraft,
+  type BlogWithCategory,
+} from "@/app/actions/blogActions"
+import { getStorageImageUrl } from "@/lib/supabaseClient"
 import BlogForm from "@/component/admin/BlogForm"
+import { ConfirmModal, SuccessModal } from "@/component/admin/AdminModal"
 
 function AdminBlogsContent() {
   const searchParams = useSearchParams()
   const initialAction = searchParams.get("action")
 
-  const [blogs, setBlogs] = useState<Blog[]>([])
+  const [blogs, setBlogs] = useState<BlogWithCategory[]>([])
   const [categories, setCategories] = useState<BlogCategory[]>([])
+  const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedCat, setSelectedCat] = useState("all")
   const [selectedStatus, setSelectedStatus] = useState("all")
   const [toastMessage, setToastMessage] = useState<string | null>(null)
 
+  // Delete Confirmation Modal State
+  const [deleteTarget, setDeleteTarget] = useState<{ id: string; title: string } | null>(null)
+  const [isDeleting, setIsDeleting] = useState(false)
+
+  // Success Popup Modal State
+  const [successModal, setSuccessModal] = useState<{
+    isOpen: boolean
+    title: string
+    message: string
+  } | null>(null)
+
   // View state: 'list' | 'new' | 'edit'
   const [viewMode, setViewMode] = useState<"list" | "new" | "edit">(
     initialAction === "new" ? "new" : "list"
   )
-  const [editingBlog, setEditingBlog] = useState<Blog | null>(null)
+  const [editingBlog, setEditingBlog] = useState<BlogWithCategory | null>(null)
 
-  const loadBlogsFromStorage = () => {
-    const storedBlogs = localStorage.getItem("rone_admin_blogs")
-    const storedCats = localStorage.getItem("rone_admin_categories")
-
-    if (storedBlogs) {
-      setBlogs(JSON.parse(storedBlogs))
-    } else {
-      setBlogs(initialBlogs)
-      localStorage.setItem("rone_admin_blogs", JSON.stringify(initialBlogs))
-    }
-
-    if (storedCats) {
-      setCategories(JSON.parse(storedCats))
-    } else {
-      setCategories(initialCategories)
-      localStorage.setItem("rone_admin_categories", JSON.stringify(initialCategories))
+  const loadData = async () => {
+    try {
+      setLoading(true)
+      const [blogsData, catsData] = await Promise.all([
+        getBlogs({ includeDrafts: true }),
+        getCategories(),
+      ])
+      setBlogs(blogsData)
+      setCategories(catsData)
+    } catch (err) {
+      console.error("Failed to load admin blogs:", err)
+      showToast("Failed to load blogs from database")
+    } finally {
+      setLoading(false)
     }
   }
 
   useEffect(() => {
-    loadBlogsFromStorage()
+    loadData()
   }, [])
 
   const showToast = (msg: string) => {
@@ -66,28 +78,58 @@ function AdminBlogsContent() {
     setTimeout(() => setToastMessage(null), 3000)
   }
 
-  const handleToggleDraft = (blogId: string) => {
-    const updated = blogs.map((b) => {
-      if (b.id === blogId) {
-        return { ...b, isDraft: !b.isDraft, updatedAt: new Date().toISOString() }
+  const handleToggleDraft = async (blogId: string, currentDraft: boolean) => {
+    try {
+      const nextDraftState = !currentDraft
+      // Optimistic update
+      setBlogs((prev) =>
+        prev.map((b) => (b.id === blogId ? { ...b, isDraft: nextDraftState } : b))
+      )
+      const res = await toggleBlogDraft(blogId, nextDraftState)
+      if (!res.success) {
+        showToast(res.error || "Failed to update status")
+        loadData() // Revert on error
+      } else {
+        showToast(nextDraftState ? "Blog set to Draft" : "Blog Published!")
       }
-      return b
-    })
-    setBlogs(updated)
-    localStorage.setItem("rone_admin_blogs", JSON.stringify(updated))
-    showToast("Blog status updated successfully")
-  }
-
-  const handleDelete = (blogId: string, title: string) => {
-    if (confirm(`Are you sure you want to delete "${title}"?`)) {
-      const updated = blogs.filter((b) => b.id !== blogId)
-      setBlogs(updated)
-      localStorage.setItem("rone_admin_blogs", JSON.stringify(updated))
-      showToast("Blog deleted successfully")
+    } catch {
+      showToast("Error updating status")
+      loadData()
     }
   }
 
-  const handleOpenEdit = (blog: Blog) => {
+  const handleRequestDelete = (blogId: string, title: string) => {
+    setDeleteTarget({ id: blogId, title })
+  }
+
+  const handleConfirmDelete = async () => {
+    if (!deleteTarget) return
+
+    try {
+      setIsDeleting(true)
+      const targetId = deleteTarget.id
+      const targetTitle = deleteTarget.title
+
+      const res = await deleteBlog(targetId)
+      if (!res.success) {
+        showToast(res.error || "Failed to delete blog")
+      } else {
+        setBlogs((prev) => prev.filter((b) => b.id !== targetId))
+        setSuccessModal({
+          isOpen: true,
+          title: "Blog Deleted Successfully!",
+          message: `"${targetTitle}" has been permanently deleted.`,
+        })
+      }
+    } catch {
+      showToast("Error deleting blog")
+    } finally {
+      setIsDeleting(false)
+      setDeleteTarget(null)
+    }
+  }
+
+  const handleOpenEdit = (blog: BlogWithCategory) => {
     setEditingBlog(blog)
     setViewMode("edit")
   }
@@ -100,7 +142,7 @@ function AdminBlogsContent() {
   const handleBackToList = () => {
     setEditingBlog(null)
     setViewMode("list")
-    loadBlogsFromStorage()
+    loadData()
   }
 
   // Filtered List
@@ -125,7 +167,8 @@ function AdminBlogsContent() {
     })
   }, [blogs, searchQuery, selectedCat, selectedStatus])
 
-  const getCategoryName = (catId: string) => {
+  const getCategoryName = (catId: string, blogCatName?: string | null) => {
+    if (blogCatName) return blogCatName
     return categories.find((c) => c.id === catId)?.name || "General"
   }
 
@@ -134,6 +177,7 @@ function AdminBlogsContent() {
     return (
       <div className="py-2">
         <BlogForm
+          categories={categories}
           onCancel={handleBackToList}
           onSaved={handleBackToList}
         />
@@ -146,6 +190,7 @@ function AdminBlogsContent() {
       <div className="py-2">
         <BlogForm
           initialBlog={editingBlog}
+          categories={categories}
           isEdit={true}
           onCancel={handleBackToList}
           onSaved={handleBackToList}
@@ -170,6 +215,9 @@ function AdminBlogsContent() {
           <h1 className="text-2xl sm:text-3xl font-black font-poppins text-slate-900 tracking-tight">
             Blogs Management
           </h1>
+          <p className="text-xs text-slate-500 mt-0.5">
+            Create, edit, publish, and manage all articles.
+          </p>
         </div>
 
         <button
@@ -236,7 +284,12 @@ function AdminBlogsContent() {
 
       {/* Blogs Table */}
       <div className="bg-white rounded-2xl border border-gray-200/80 shadow-2xs overflow-hidden">
-        {filteredBlogs.length === 0 ? (
+        {loading ? (
+          <div className="py-20 text-center text-slate-400">
+            <div className="w-8 h-8 mx-auto border-3 border-slate-200 border-t-[#1E88E5] rounded-full animate-spin mb-3" />
+            <span className="text-xs font-semibold">Fetching articles from Supabase...</span>
+          </div>
+        ) : filteredBlogs.length === 0 ? (
           <div className="py-16 text-center">
             <IconArticle size={40} className="mx-auto text-slate-300 mb-3" />
             <p className="text-base font-bold text-slate-700 font-poppins">
@@ -265,11 +318,10 @@ function AdminBlogsContent() {
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
                         <div className="relative h-12 w-16 rounded-lg overflow-hidden shrink-0 bg-slate-100 border border-gray-200/80">
-                          <Image
-                            src={blog.mainBannerImage}
+                          <img
+                            src={getStorageImageUrl(blog.mainBannerImage)}
                             alt={blog.title}
-                            fill
-                            className="object-cover"
+                            className="w-full h-full object-cover"
                           />
                         </div>
                         <div className="max-w-xs sm:max-w-sm lg:max-w-md">
@@ -281,7 +333,7 @@ function AdminBlogsContent() {
                             {blog.title}
                           </button>
                           <span className="text-[11px] text-slate-400 font-mono block mt-0.5 truncate">
-                            /{blog.slug}
+                            /blog/{blog.slug}
                           </span>
                         </div>
                       </div>
@@ -290,7 +342,7 @@ function AdminBlogsContent() {
                     {/* Category */}
                     <td className="px-6 py-4">
                       <span className="inline-block bg-slate-100 text-slate-700 text-xs font-semibold px-2.5 py-1 rounded-md">
-                        {getCategoryName(blog.categoryId)}
+                        {getCategoryName(blog.categoryId, blog.category?.name)}
                       </span>
                     </td>
 
@@ -302,7 +354,7 @@ function AdminBlogsContent() {
                     {/* Status Badge Toggle */}
                     <td className="px-6 py-4">
                       <button
-                        onClick={() => handleToggleDraft(blog.id)}
+                        onClick={() => handleToggleDraft(blog.id, blog.isDraft)}
                         className={`inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-full cursor-pointer transition-transform active:scale-95 ${
                           blog.isDraft
                             ? "bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100"
@@ -334,7 +386,7 @@ function AdminBlogsContent() {
 
                         {/* Delete */}
                         <button
-                          onClick={() => handleDelete(blog.id, blog.title)}
+                          onClick={() => handleRequestDelete(blog.id, blog.title)}
                           className="p-1.5 text-slate-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
                           title="Delete Blog"
                         >
@@ -357,6 +409,33 @@ function AdminBlogsContent() {
         </div>
       </div>
 
+      {/* Delete Confirmation Popup in Middle */}
+      {deleteTarget && (
+        <ConfirmModal
+          isOpen={!!deleteTarget}
+          title="Delete Blog Post?"
+          message={`Are you sure you want to delete "${deleteTarget.title}"? This will permanently delete the blog post and remove its banner image from storage. This action cannot be undone.`}
+          confirmText="Yes, Delete"
+          cancelText="Cancel"
+          isDestructive={true}
+          isLoading={isDeleting}
+          onConfirm={handleConfirmDelete}
+          onCancel={() => {
+            if (!isDeleting) setDeleteTarget(null)
+          }}
+        />
+      )}
+
+      {/* Success Popup in Middle */}
+      {successModal && (
+        <SuccessModal
+          isOpen={successModal.isOpen}
+          title={successModal.title}
+          message={successModal.message}
+          buttonText="OK, Got it"
+          onClose={() => setSuccessModal(null)}
+        />
+      )}
     </div>
   )
 }

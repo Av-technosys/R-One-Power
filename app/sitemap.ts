@@ -1,9 +1,10 @@
 import type { MetadataRoute } from "next";
+import { getBlogs } from "@/app/actions/blogActions";
 
 const BASE_URL = "https://www.r1power.com";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  return [
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: BASE_URL,
       lastModified: new Date(),
@@ -41,30 +42,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: `${BASE_URL}/blog/how-industrial-solar-is-used-across-different-industries`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/blog/industrial-solar-vs-residential-key-differences`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/blog/how-to-choose-the-right-solar-epc-manufacturer`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/blog/different-types-of-solar-panels-complete-guide`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
       url: `${BASE_URL}/privacy-policy`,
       lastModified: new Date(),
       changeFrequency: "yearly",
@@ -77,4 +54,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.3,
     },
   ];
+
+  try {
+    const publishedBlogs = await getBlogs();
+    const dynamicBlogRoutes: MetadataRoute.Sitemap = publishedBlogs.map((b) => ({
+      url: `${BASE_URL}/blog/${b.slug}`,
+      lastModified: new Date(b.updatedAt || b.createdAt || new Date()),
+      changeFrequency: "weekly",
+      priority: 0.7,
+    }));
+
+    return [...staticRoutes, ...dynamicBlogRoutes];
+  } catch (err) {
+    console.error("Failed to load dynamic blogs for sitemap:", err);
+    return staticRoutes;
+  }
 }

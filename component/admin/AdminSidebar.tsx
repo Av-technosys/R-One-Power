@@ -8,7 +8,10 @@ import {
   IconFileText,
   IconX,
   IconLogout,
+  IconShieldCheck,
+  IconExternalLink,
 } from "@tabler/icons-react"
+import { logoutAdmin } from "@/app/actions/authActions"
 
 interface AdminSidebarProps {
   mobileOpen?: boolean
@@ -37,10 +40,13 @@ export default function AdminSidebar({
     },
   ]
 
-  const handleLogout = () => {
-    localStorage.removeItem("rone_admin_logged_in")
-    document.cookie = "rone_admin_logged_in=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT"
-    router.push("/admin/login")
+  const handleLogout = async () => {
+    try {
+      await logoutAdmin()
+    } finally {
+      router.push("/admin/login")
+      router.refresh()
+    }
   }
 
   return (
@@ -55,77 +61,118 @@ export default function AdminSidebar({
 
       {/* Sidebar Container */}
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-50 w-72 bg-[#1565C0] text-white border-r border-blue-400/30 flex flex-col justify-between transition-transform duration-300 ease-in-out font-inter shadow-xl ${
+        className={`fixed top-0 bottom-0 left-0 z-50 w-72 bg-[#1565C0] text-white border-r border-blue-400/20 flex flex-col justify-between transition-transform duration-300 ease-in-out font-inter shadow-2xl ${
           mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
       >
         <div>
-          {/* Logo & Header (Full edge-to-edge white header - Logo Only) */}
-          <div className="bg-white px-4 pt-0.5 pb-2 border-b border-gray-200 relative flex items-center justify-center">
+          {/* Logo & Brand Header */}
+          <div className="h-20 px-5 border-b border-white/10 flex items-center justify-between bg-black/10">
+            <Link
+              href="/admin"
+              className="flex items-center gap-2.5 group transition-transform active:scale-98"
+            >
+              <img
+                src="/admin-logo-white.png"
+                alt="R-ONE Power"
+                className="h-10 w-auto object-contain transition-transform group-hover:scale-102 drop-shadow-sm"
+              />
+              <span className="text-[10px] font-extrabold uppercase tracking-widest px-2 py-0.5 rounded-full bg-white/20 text-white border border-white/30 shadow-xs">
+                Admin
+              </span>
+            </Link>
+
             {/* Mobile Close Button */}
             {setMobileOpen && (
               <button
                 onClick={() => setMobileOpen(false)}
-                className="lg:hidden absolute top-1/2 -translate-y-1/2 right-2 p-1 text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-100 z-10 cursor-pointer"
+                className="lg:hidden p-1.5 text-blue-200 hover:text-white rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
                 title="Close sidebar"
               >
                 <IconX size={20} />
               </button>
             )}
-
-            <Link href="/admin" className="block group w-full">
-              {/* Full Width Edge-to-Edge Logo with slight bottom breathing room */}
-              <div className="flex items-center justify-center">
-                <img
-                  src="/admin-logo-clean.png"
-                  alt="R-One Power"
-                  className="h-13 w-auto max-w-[220px] object-contain transition-transform group-hover:scale-105"
-                />
-              </div>
-            </Link>
-          </div>
-
-          {/* Admin Panel text outside white box, on blue background */}
-          <div className="pt-3.5 pb-1 text-center">
-            <span className="text-xs font-bold text-white tracking-widest uppercase font-inter">
-              Admin Panel
-            </span>
           </div>
 
           {/* Nav List */}
-          <div className="px-4 py-4 space-y-2">
-            {navItems.map((item) => {
-              const Icon = item.icon
-              return (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  onClick={() => setMobileOpen?.(false)}
-                  className={`flex items-center gap-3.5 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${
-                    item.active
-                      ? "bg-white text-[#1565C0] shadow-md font-bold"
-                      : "text-blue-100 hover:text-white hover:bg-white/10"
-                  }`}
-                >
-                  <Icon size={19} className={item.active ? "text-[#1565C0]" : "text-blue-200"} />
-                  <span>{item.name}</span>
-                </Link>
-              )
-            })}
+          <div className="px-4 py-5 space-y-6">
+            <div className="space-y-1.5">
+              <span className="px-3 text-[10px] font-bold uppercase tracking-wider text-blue-200/70 font-mono block mb-2">
+                Main Menu
+              </span>
+              {navItems.map((item) => {
+                const Icon = item.icon
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={() => setMobileOpen?.(false)}
+                    className={`flex items-center gap-3.5 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${
+                      item.active
+                        ? "bg-white text-[#1565C0] shadow-md shadow-blue-900/20 font-bold"
+                        : "text-blue-100 hover:text-white hover:bg-white/10"
+                    }`}
+                  >
+                    <Icon
+                      size={20}
+                      className={item.active ? "text-[#1565C0]" : "text-blue-200"}
+                    />
+                    <span>{item.name}</span>
+                  </Link>
+                )
+              })}
+            </div>
+
+            {/* Quick Link to Main Website */}
+            <div className="pt-2 border-t border-white/10 space-y-1.5">
+              <span className="px-3 text-[10px] font-bold uppercase tracking-wider text-blue-200/70 font-mono block mb-2">
+                Live Site
+              </span>
+              <Link
+                href="/"
+                target="_blank"
+                className="flex items-center justify-between px-4 py-2.5 rounded-xl text-xs font-semibold text-blue-100 hover:text-white hover:bg-white/10 transition-all group"
+              >
+                <div className="flex items-center gap-3">
+                  <IconExternalLink
+                    size={18}
+                    className="text-blue-200 group-hover:text-white transition-colors"
+                  />
+                  <span>View Website</span>
+                </div>
+                <span className="text-[10px] text-blue-200/80 group-hover:text-white">
+                  ↗
+                </span>
+              </Link>
+            </div>
           </div>
         </div>
 
-        {/* Bottom Profile / Logout section matching screenshot */}
-        <div className="p-4 border-t border-blue-400/30">
-          <button
-            onClick={handleLogout}
-            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-blue-100 hover:text-white hover:bg-white/10 transition-colors text-sm font-medium cursor-pointer"
-          >
-            <div className="h-7 w-7 rounded-full bg-white/20 border border-white/30 flex items-center justify-center text-white text-xs font-bold">
-              N
+        {/* Bottom Profile / Logout section */}
+        <div className="p-4 border-t border-white/10 bg-black/10">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="h-9 w-9 rounded-xl bg-white/15 border border-white/20 flex items-center justify-center text-white shrink-0 shadow-xs">
+                <IconShieldCheck size={18} />
+              </div>
+              <div className="flex flex-col min-w-0">
+                <span className="text-xs font-bold text-white truncate font-poppins">
+                  Administrator
+                </span>
+                <span className="text-[10px] text-blue-200 truncate font-mono">
+                  Super Admin
+                </span>
+              </div>
             </div>
-            <span>Logout</span>
-          </button>
+
+            <button
+              onClick={handleLogout}
+              className="p-2 text-blue-200 hover:text-white hover:bg-white/15 rounded-lg transition-colors cursor-pointer shrink-0"
+              title="Logout from Admin"
+            >
+              <IconLogout size={18} />
+            </button>
+          </div>
         </div>
       </aside>
     </>
