@@ -72,14 +72,14 @@ export default function AdminDashboardPage() {
           <div className="flex flex-wrap items-center gap-3 mt-8 pt-4">
             <Link
               href="/admin/blogs"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-[#1E88E5] hover:bg-blue-600 transition-all shadow-md shadow-blue-500/20 active:scale-95"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-[#1565C0] hover:bg-[#0D47A1] transition-all shadow-md shadow-blue-500/20 active:scale-95"
             >
               <span>Open Blogs</span>
               <IconArrowRight size={15} />
             </Link>
 
             <Link
-              href="/admin/blogs?action=new"
+              href="/admin/blogs/new"
               className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-sm font-bold text-slate-900 bg-white border border-slate-300 hover:bg-gray-50 transition-all active:scale-95"
             >
               <span>Add Blog</span>
@@ -89,7 +89,7 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Right Card: Blog Statistics */}
-        <div className="lg:col-span-5 bg-[#1E88E5] text-white rounded-2xl p-6 sm:p-8 shadow-lg flex flex-col justify-between">
+        <div className="lg:col-span-5 bg-[#1565C0] text-white rounded-2xl p-6 sm:p-8 shadow-lg flex flex-col justify-between">
           <div>
             <span className="text-[11px] font-bold uppercase tracking-widest text-blue-100 font-mono block mb-5">
               BLOG STATISTICS

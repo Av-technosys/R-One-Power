@@ -47,7 +47,7 @@ export default function AdminLayout({
     return (
       <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center font-inter">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-8 h-8 border-3 border-slate-300 border-t-[#1E88E5] rounded-full animate-spin" />
+          <div className="w-8 h-8 border-3 border-slate-300 border-t-[#1565C0] rounded-full animate-spin" />
           <span className="text-xs font-semibold text-slate-400">Verifying admin access...</span>
         </div>
       </div>
@@ -84,7 +84,7 @@ export default function AdminLayout({
         </div>
 
         {/* Page Content Viewport */}
-        <main className="flex-1 p-6 sm:p-8 lg:p-10">
+        <main className="flex-1 p-3.5 sm:p-8 lg:p-10">
           {children}
         </main>
       </div>

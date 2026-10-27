@@ -13,19 +13,8 @@ import {
   IconFileText,
   IconSeo,
   IconUpload,
-  IconChevronDown,
-  IconList,
-  IconListNumbers,
-  IconTable,
-  IconLink,
-  IconCode,
-  IconDroplet,
-  IconArrowsVertical,
-  IconAlignLeft,
-  IconAlignCenter,
-  IconAlignRight,
-  IconAlignJustified,
 } from "@tabler/icons-react"
+import BlogContentEditor from "./BlogContentEditor"
 import {
   initialCategories,
   initialBlogs,
@@ -80,15 +69,8 @@ export default function BlogForm({
     Array<{ id: string; question: string; answer: string; orderIndex: number }>
   >([])
 
-  // Editor states & toolbar dropdowns
-  const [isCodeView, setIsCodeView] = useState(false)
-  const [activeHeadingMenu, setActiveHeadingMenu] = useState(false)
-  const [activeSizeMenu, setActiveSizeMenu] = useState(false)
-  const [activeColorMenu, setActiveColorMenu] = useState(false)
-  const [activeAlignMenu, setActiveAlignMenu] = useState(false)
   const [isDraggingOver, setIsDraggingOver] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
-  const editorRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     // Load categories from localStorage
@@ -122,10 +104,7 @@ export default function BlogForm({
     }
   }, [initialBlog, isEdit])
 
-  // Word & character counts
-  const plainText = content.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ")
-  const charCount = plainText.length
-  const wordCount = plainText.trim() ? plainText.trim().split(/\s+/).length : 0
+
 
   // FAQ Handlers
   const handleAddFaq = () => {
@@ -207,67 +186,7 @@ export default function BlogForm({
     }
   }
 
-  // Rich Text Editor Commands
-  const execCmd = (command: string, value: string | undefined = undefined) => {
-    if (isCodeView) return
-    document.execCommand(command, false, value)
-    if (editorRef.current) {
-      setContent(editorRef.current.innerHTML)
-    }
-  }
 
-  const applyHeading = (tag: string) => {
-    setActiveHeadingMenu(false)
-    if (tag === "p") {
-      execCmd("formatBlock", "<p>")
-    } else {
-      execCmd("formatBlock", `<${tag}>`)
-    }
-  }
-
-  const applyFontSize = (size: string) => {
-    setActiveSizeMenu(false)
-    execCmd("fontSize", size)
-  }
-
-  const applyColor = (color: string) => {
-    setActiveColorMenu(false)
-    execCmd("foreColor", color)
-  }
-
-  const insertLink = () => {
-    const url = prompt("Enter hyperlink URL:", "https://")
-    if (url) {
-      execCmd("createLink", url)
-    }
-  }
-
-  const insertImage = () => {
-    const url = prompt("Enter image URL:", "https://")
-    if (url) {
-      execCmd("insertImage", url)
-    }
-  }
-
-  const insertTable = () => {
-    const tableHtml = `
-      <table style="width:100%; border-collapse: collapse; margin: 16px 0; border: 1px solid #cbd5e1;">
-        <thead>
-          <tr style="background: #f1f5f9;">
-            <th style="border: 1px solid #cbd5e1; padding: 8px 12px; text-align: left;">Header 1</th>
-            <th style="border: 1px solid #cbd5e1; padding: 8px 12px; text-align: left;">Header 2</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="border: 1px solid #cbd5e1; padding: 8px 12px;">Sample Data 1</td>
-            <td style="border: 1px solid #cbd5e1; padding: 8px 12px;">Sample Data 2</td>
-          </tr>
-        </tbody>
-      </table>
-    `
-    execCmd("insertHTML", tableHtml)
-  }
 
   // Form Submit Handler
   const handleSubmit = (e: React.FormEvent) => {
@@ -395,7 +314,7 @@ export default function BlogForm({
           {/* Submit Button */}
           <button
             type="submit"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs sm:text-sm font-bold text-white bg-[#1E88E5] hover:bg-blue-600 shadow-md shadow-blue-500/20 transition-all active:scale-95 cursor-pointer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs sm:text-sm font-bold text-white bg-[#1565C0] hover:bg-blue-600 shadow-md shadow-blue-500/20 transition-all active:scale-95 cursor-pointer"
           >
             <IconCheck size={18} />
             <span>{isEdit ? "Update Blog" : "Save & Publish"}</span>
@@ -412,7 +331,7 @@ export default function BlogForm({
           {/* Card: Core Blog Details */}
           <div className="bg-white p-6 rounded-2xl border border-gray-200/80 shadow-2xs space-y-5">
             <h3 className="text-sm font-bold font-poppins uppercase tracking-wider text-slate-400 flex items-center gap-2">
-              <IconFileText size={17} className="text-[#1E88E5]" />
+              <IconFileText size={17} className="text-[#1565C0]" />
               <span>Core Information</span>
             </h3>
 
@@ -427,7 +346,7 @@ export default function BlogForm({
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="e.g. How Industrial Solar Is Used Across Different Industries"
-                className="w-full px-4 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-[#1E88E5] focus:bg-white text-slate-900 font-medium transition-all"
+                className="w-full px-4 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-[#1565C0] focus:bg-white text-slate-900 font-medium transition-all"
               />
             </div>
 
@@ -436,7 +355,7 @@ export default function BlogForm({
               <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                 Slug (URL) <span className="text-red-500">*</span>
               </label>
-              <div className="flex items-center bg-gray-50 border border-gray-200 rounded-lg overflow-hidden focus-within:border-[#1E88E5] focus-within:bg-white transition-all">
+              <div className="flex items-center bg-gray-50 border border-gray-200 rounded-lg overflow-hidden focus-within:border-[#1565C0] focus-within:bg-white transition-all">
                 <span className="px-3 text-xs text-slate-400 bg-gray-100/80 border-r border-gray-200 select-none py-2.5 font-mono">
                   /blog/
                 </span>
@@ -462,375 +381,21 @@ export default function BlogForm({
                 value={authorName}
                 onChange={(e) => setAuthorName(e.target.value)}
                 placeholder="R-ONE Power Engineering Team"
-                className="w-full px-4 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-[#1E88E5] focus:bg-white text-slate-900 transition-all"
+                className="w-full px-4 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-[#1565C0] focus:bg-white text-slate-900 transition-all"
               />
             </div>
           </div>
 
-          {/* WYSIWYG Rich Text Editor matching Image 2 */}
+          {/* Main Blog Content - Jodit Rich Text Editor */}
           <div className="space-y-2">
             <label className="block text-sm font-semibold text-slate-800">
               Main Blog Content
             </label>
-
-            <div className="border border-gray-300 rounded-lg overflow-hidden bg-white shadow-2xs transition-all focus-within:border-gray-400">
-              {/* Top Toolbar matching Image 2 */}
-              <div className="flex items-center flex-wrap gap-1 px-3 py-2 border-b border-gray-200 bg-[#F9FAFB] text-slate-700 text-xs select-none">
-                
-                {/* Paragraph Dropdown ¶ ˅ */}
-                <div className="relative">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setActiveHeadingMenu(!activeHeadingMenu)
-                      setActiveSizeMenu(false)
-                      setActiveColorMenu(false)
-                      setActiveAlignMenu(false)
-                    }}
-                    className="flex items-center gap-1 px-2 py-1 hover:bg-gray-200 rounded text-slate-700 font-serif"
-                    title="Paragraph & Headings"
-                  >
-                    <span className="text-sm font-bold leading-none">¶</span>
-                    <IconChevronDown size={12} className="text-slate-400" />
-                  </button>
-
-                  {activeHeadingMenu && (
-                    <div className="absolute left-0 top-full mt-1 w-36 bg-white border border-gray-200 rounded-lg shadow-lg py-1 z-20 text-xs">
-                      <button
-                        type="button"
-                        onClick={() => applyHeading("p")}
-                        className="w-full text-left px-3 py-1.5 hover:bg-blue-50 text-slate-700"
-                      >
-                        Paragraph
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => applyHeading("h1")}
-                        className="w-full text-left px-3 py-1.5 hover:bg-blue-50 text-slate-900 font-bold text-base"
-                      >
-                        Heading 1
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => applyHeading("h2")}
-                        className="w-full text-left px-3 py-1.5 hover:bg-blue-50 text-slate-900 font-bold text-sm"
-                      >
-                        Heading 2
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => applyHeading("h3")}
-                        className="w-full text-left px-3 py-1.5 hover:bg-blue-50 text-slate-900 font-semibold text-xs"
-                      >
-                        Heading 3
-                      </button>
-                    </div>
-                  )}
-                </div>
-
-                {/* Font Size Dropdown ↕ ˅ */}
-                <div className="relative">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setActiveSizeMenu(!activeSizeMenu)
-                      setActiveHeadingMenu(false)
-                      setActiveColorMenu(false)
-                      setActiveAlignMenu(false)
-                    }}
-                    className="flex items-center gap-1 px-2 py-1 hover:bg-gray-200 rounded text-slate-700"
-                    title="Font Size"
-                  >
-                    <IconArrowsVertical size={14} />
-                    <IconChevronDown size={12} className="text-slate-400" />
-                  </button>
-
-                  {activeSizeMenu && (
-                    <div className="absolute left-0 top-full mt-1 w-28 bg-white border border-gray-200 rounded-lg shadow-lg py-1 z-20 text-xs">
-                      <button
-                        type="button"
-                        onClick={() => applyFontSize("2")}
-                        className="w-full text-left px-3 py-1.5 hover:bg-blue-50 text-slate-700"
-                      >
-                        Small
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => applyFontSize("3")}
-                        className="w-full text-left px-3 py-1.5 hover:bg-blue-50 text-slate-700"
-                      >
-                        Normal
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => applyFontSize("4")}
-                        className="w-full text-left px-3 py-1.5 hover:bg-blue-50 text-slate-700"
-                      >
-                        Medium
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => applyFontSize("5")}
-                        className="w-full text-left px-3 py-1.5 hover:bg-blue-50 text-slate-700"
-                      >
-                        Large
-                      </button>
-                    </div>
-                  )}
-                </div>
-
-                {/* Text Color Dropdown 💧 ˅ */}
-                <div className="relative">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setActiveColorMenu(!activeColorMenu)
-                      setActiveHeadingMenu(false)
-                      setActiveSizeMenu(false)
-                      setActiveAlignMenu(false)
-                    }}
-                    className="flex items-center gap-1 px-2 py-1 hover:bg-gray-200 rounded text-slate-700"
-                    title="Text Color"
-                  >
-                    <IconDroplet size={14} className="text-slate-600" />
-                    <IconChevronDown size={12} className="text-slate-400" />
-                  </button>
-
-                  {activeColorMenu && (
-                    <div className="absolute left-0 top-full mt-1 w-32 bg-white border border-gray-200 rounded-lg shadow-lg p-2 z-20 grid grid-cols-4 gap-1.5">
-                      {[
-                        { color: "#000000", label: "Black" },
-                        { color: "#1E88E5", label: "Blue" },
-                        { color: "#10B981", label: "Green" },
-                        { color: "#F59E0B", label: "Orange" },
-                        { color: "#EF4444", label: "Red" },
-                        { color: "#8B5CF6", label: "Purple" },
-                        { color: "#64748B", label: "Slate" },
-                        { color: "#0B132B", label: "Navy" },
-                      ].map((c) => (
-                        <button
-                          key={c.color}
-                          type="button"
-                          onClick={() => applyColor(c.color)}
-                          className="w-6 h-6 rounded-full border border-gray-300 hover:scale-110 transition-transform"
-                          style={{ backgroundColor: c.color }}
-                          title={c.label}
-                        />
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                {/* Divider */}
-                <div className="h-4 w-px bg-gray-300 mx-1" />
-
-                {/* Formatting: B I U S */}
-                <button
-                  type="button"
-                  onClick={() => execCmd("bold")}
-                  className="px-2 py-1 hover:bg-gray-200 rounded font-bold text-slate-800"
-                  title="Bold"
-                >
-                  B
-                </button>
-                <button
-                  type="button"
-                  onClick={() => execCmd("italic")}
-                  className="px-2 py-1 hover:bg-gray-200 rounded italic font-serif text-slate-800"
-                  title="Italic"
-                >
-                  I
-                </button>
-                <button
-                  type="button"
-                  onClick={() => execCmd("underline")}
-                  className="px-2 py-1 hover:bg-gray-200 rounded underline text-slate-800"
-                  title="Underline"
-                >
-                  U
-                </button>
-                <button
-                  type="button"
-                  onClick={() => execCmd("strikeThrough")}
-                  className="px-2 py-1 hover:bg-gray-200 rounded line-through text-slate-800"
-                  title="Strikethrough"
-                >
-                  S
-                </button>
-
-                {/* Align Dropdown */}
-                <div className="relative">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setActiveAlignMenu(!activeAlignMenu)
-                      setActiveHeadingMenu(false)
-                      setActiveSizeMenu(false)
-                      setActiveColorMenu(false)
-                    }}
-                    className="flex items-center gap-1 px-2 py-1 hover:bg-gray-200 rounded text-slate-700"
-                    title="Text Alignment"
-                  >
-                    <IconAlignLeft size={14} />
-                    <IconChevronDown size={12} className="text-slate-400" />
-                  </button>
-
-                  {activeAlignMenu && (
-                    <div className="absolute left-0 top-full mt-1 w-28 bg-white border border-gray-200 rounded-lg shadow-lg py-1 z-20 text-xs">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          execCmd("justifyLeft")
-                          setActiveAlignMenu(false)
-                        }}
-                        className="flex items-center gap-2 w-full text-left px-3 py-1.5 hover:bg-blue-50 text-slate-700"
-                      >
-                        <IconAlignLeft size={14} />
-                        <span>Left</span>
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          execCmd("justifyCenter")
-                          setActiveAlignMenu(false)
-                        }}
-                        className="flex items-center gap-2 w-full text-left px-3 py-1.5 hover:bg-blue-50 text-slate-700"
-                      >
-                        <IconAlignCenter size={14} />
-                        <span>Center</span>
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          execCmd("justifyRight")
-                          setActiveAlignMenu(false)
-                        }}
-                        className="flex items-center gap-2 w-full text-left px-3 py-1.5 hover:bg-blue-50 text-slate-700"
-                      >
-                        <IconAlignRight size={14} />
-                        <span>Right</span>
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          execCmd("justifyFull")
-                          setActiveAlignMenu(false)
-                        }}
-                        className="flex items-center gap-2 w-full text-left px-3 py-1.5 hover:bg-blue-50 text-slate-700"
-                      >
-                        <IconAlignJustified size={14} />
-                        <span>Justify</span>
-                      </button>
-                    </div>
-                  )}
-                </div>
-
-                {/* Divider */}
-                <div className="h-4 w-px bg-gray-300 mx-1" />
-
-                {/* Lists */}
-                <button
-                  type="button"
-                  onClick={() => execCmd("insertUnorderedList")}
-                  className="flex items-center gap-0.5 px-2 py-1 hover:bg-gray-200 rounded text-slate-700"
-                  title="Bullet List"
-                >
-                  <IconList size={15} />
-                  <IconChevronDown size={10} className="text-slate-400" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => execCmd("insertOrderedList")}
-                  className="flex items-center gap-0.5 px-2 py-1 hover:bg-gray-200 rounded text-slate-700"
-                  title="Numbered List"
-                >
-                  <IconListNumbers size={15} />
-                  <IconChevronDown size={10} className="text-slate-400" />
-                </button>
-
-                {/* Divider */}
-                <div className="h-4 w-px bg-gray-300 mx-1" />
-
-                {/* Table, Link, Image, Code View */}
-                <button
-                  type="button"
-                  onClick={insertTable}
-                  className="p-1 hover:bg-gray-200 rounded text-slate-700"
-                  title="Insert Table"
-                >
-                  <IconTable size={15} />
-                </button>
-                <button
-                  type="button"
-                  onClick={insertLink}
-                  className="p-1 hover:bg-gray-200 rounded text-slate-700"
-                  title="Insert Link"
-                >
-                  <IconLink size={15} />
-                </button>
-                <button
-                  type="button"
-                  onClick={insertImage}
-                  className="p-1 hover:bg-gray-200 rounded text-slate-700"
-                  title="Insert Image URL"
-                >
-                  <IconPhoto size={15} />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setIsCodeView(!isCodeView)}
-                  className={`p-1 rounded transition-colors ${
-                    isCodeView ? "bg-blue-100 text-[#1E88E5]" : "hover:bg-gray-200 text-slate-700"
-                  }`}
-                  title="Toggle HTML Source Code View"
-                >
-                  <IconCode size={15} />
-                </button>
-              </div>
-
-              {/* Editable Writing Area with Placeholder */}
-              <div className="relative min-h-[340px] bg-white">
-                {isCodeView ? (
-                  <textarea
-                    rows={14}
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                    className="w-full h-full p-4 font-mono text-xs text-slate-800 bg-slate-50 focus:outline-none"
-                    placeholder="Write your blog content here..."
-                  />
-                ) : (
-                  <div className="relative min-h-[340px]">
-                    {(!content || content === "<br>" || content.trim() === "") && (
-                      <div className="absolute top-4 left-4 text-sm text-gray-400 pointer-events-none select-none">
-                        Write your blog content here...
-                      </div>
-                    )}
-                    <div
-                      ref={editorRef}
-                      contentEditable
-                      suppressContentEditableWarning
-                      onInput={(e) => {
-                        const html = e.currentTarget.innerHTML
-                        setContent(html === "<br>" ? "" : html)
-                      }}
-                      dangerouslySetInnerHTML={{ __html: content }}
-                      className="p-4 min-h-[340px] focus:outline-none text-sm text-slate-800 prose prose-slate max-w-none leading-relaxed"
-                    />
-                  </div>
-                )}
-              </div>
-
-              {/* Bottom Info Bar matching Image 2 */}
-              <div className="flex items-center justify-between px-3 py-1.5 border-t border-gray-200 bg-[#F9FAFB] text-[11px] text-gray-500 font-medium select-none">
-                <div className="flex items-center gap-1.5 text-gray-400">
-                  <span className="text-xs">⛶</span>
-                </div>
-                <div className="flex items-center gap-3 tracking-wider font-mono text-[10px]">
-                  <span>CHARS: {charCount}</span>
-                  <span>WORDS: {wordCount}</span>
-                </div>
-              </div>
-            </div>
+            <BlogContentEditor
+              value={content}
+              onChange={(newContent) => setContent(newContent)}
+              placeholder="Write your blog content here..."
+            />
           </div>
 
           {/* Card: Blog FAQs */}
@@ -838,7 +403,7 @@ export default function BlogForm({
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-sm font-bold font-poppins uppercase tracking-wider text-slate-400 flex items-center gap-2">
-                  <IconHelpCircle size={17} className="text-[#1E88E5]" />
+                  <IconHelpCircle size={17} className="text-[#1565C0]" />
                   <span>Blog FAQs</span>
                 </h3>
               </div>
@@ -846,7 +411,7 @@ export default function BlogForm({
               <button
                 type="button"
                 onClick={handleAddFaq}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-[#1E88E5] bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-[#1565C0] bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors cursor-pointer"
               >
                 <IconPlus size={15} />
                 <span>Add FAQ</span>
@@ -862,7 +427,7 @@ export default function BlogForm({
                 <button
                   type="button"
                   onClick={handleAddFaq}
-                  className="mt-2 text-xs font-bold text-[#1E88E5] hover:underline"
+                  className="mt-2 text-xs font-bold text-[#1565C0] hover:underline"
                 >
                   + Add First Question
                 </button>
@@ -896,7 +461,7 @@ export default function BlogForm({
                           handleUpdateFaq(index, "question", e.target.value)
                         }
                         placeholder="Question title..."
-                        className="w-full px-3 py-2 text-xs font-semibold bg-white border border-gray-200 rounded-lg focus:outline-none focus:border-[#1E88E5] text-slate-800"
+                        className="w-full px-3 py-2 text-xs font-semibold bg-white border border-gray-200 rounded-lg focus:outline-none focus:border-[#1565C0] text-slate-800"
                       />
                     </div>
 
@@ -908,7 +473,7 @@ export default function BlogForm({
                           handleUpdateFaq(index, "answer", e.target.value)
                         }
                         placeholder="Answer details..."
-                        className="w-full px-3 py-2 text-xs bg-white border border-gray-200 rounded-lg focus:outline-none focus:border-[#1E88E5] text-slate-700 leading-relaxed"
+                        className="w-full px-3 py-2 text-xs bg-white border border-gray-200 rounded-lg focus:outline-none focus:border-[#1565C0] text-slate-700 leading-relaxed"
                       />
                     </div>
                   </div>
@@ -935,7 +500,7 @@ export default function BlogForm({
               <select
                 value={categoryId}
                 onChange={(e) => setCategoryId(e.target.value)}
-                className="w-full px-3.5 py-2.5 text-xs font-semibold bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-[#1E88E5] text-slate-800"
+                className="w-full px-3.5 py-2.5 text-xs font-semibold bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-[#1565C0] text-slate-800"
               >
                 {categories.map((cat) => (
                   <option key={cat.id} value={cat.id}>
@@ -955,7 +520,7 @@ export default function BlogForm({
                 required
                 value={publishDate}
                 onChange={(e) => setPublishDate(e.target.value)}
-                className="w-full px-3.5 py-2 text-xs font-semibold bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-[#1E88E5] text-slate-800"
+                className="w-full px-3.5 py-2 text-xs font-semibold bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-[#1565C0] text-slate-800"
               />
             </div>
 
@@ -994,7 +559,7 @@ export default function BlogForm({
           {/* Card: Main Banner Image (PC File Upload System) */}
           <div className="bg-white p-6 rounded-2xl border border-gray-200/80 shadow-2xs space-y-4">
             <h3 className="text-xs font-bold font-poppins uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-              <IconPhoto size={16} className="text-[#1E88E5]" />
+              <IconPhoto size={16} className="text-[#1565C0]" />
               <span>Main Banner Image</span>
             </h3>
 
@@ -1022,7 +587,7 @@ export default function BlogForm({
                   <button
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
-                    className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-bold text-white bg-[#1E88E5] hover:bg-blue-600 transition-colors cursor-pointer shadow-xs"
+                    className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-bold text-white bg-[#1565C0] hover:bg-blue-600 transition-colors cursor-pointer shadow-xs"
                   >
                     <IconUpload size={14} />
                     <span>Upload from PC</span>
@@ -1046,11 +611,11 @@ export default function BlogForm({
                 onDrop={handleDrop}
                 className={`border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-all ${
                   isDraggingOver
-                    ? "border-[#1E88E5] bg-blue-50/60"
-                    : "border-gray-300 hover:border-[#1E88E5] hover:bg-gray-50"
+                    ? "border-[#1565C0] bg-blue-50/60"
+                    : "border-gray-300 hover:border-[#1565C0] hover:bg-gray-50"
                 }`}
               >
-                <div className="w-12 h-12 mx-auto rounded-full bg-blue-50 text-[#1E88E5] flex items-center justify-center mb-3">
+                <div className="w-12 h-12 mx-auto rounded-full bg-blue-50 text-[#1565C0] flex items-center justify-center mb-3">
                   <IconUpload size={22} />
                 </div>
                 <p className="text-xs font-bold text-slate-800">
@@ -1069,7 +634,7 @@ export default function BlogForm({
           {/* SEO Metadata */}
           <div className="bg-white p-6 rounded-2xl border border-gray-200/80 shadow-2xs space-y-4">
             <h3 className="text-xs font-bold font-poppins uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-              <IconSeo size={16} className="text-[#1E88E5]" />
+              <IconSeo size={16} className="text-[#1565C0]" />
               <span>SEO Meta Tags</span>
             </h3>
 
@@ -1088,7 +653,7 @@ export default function BlogForm({
                 value={metaTitle}
                 onChange={(e) => setMetaTitle(e.target.value)}
                 placeholder="R-ONE Power Solar EPC India"
-                className="w-full px-3 py-2 text-xs bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-[#1E88E5] text-slate-900"
+                className="w-full px-3 py-2 text-xs bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-[#1565C0] text-slate-900"
               />
             </div>
 
@@ -1108,7 +673,7 @@ export default function BlogForm({
                 value={metaDescription}
                 onChange={(e) => setMetaDescription(e.target.value)}
                 placeholder="Summary for Google and social previews..."
-                className="w-full px-3 py-2 text-xs bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-[#1E88E5] text-slate-900 leading-relaxed"
+                className="w-full px-3 py-2 text-xs bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-[#1565C0] text-slate-900 leading-relaxed"
               />
             </div>
           </div>

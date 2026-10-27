@@ -55,7 +55,7 @@ export default function AdminLoginPage() {
     <div className="min-h-screen grid grid-cols-1 lg:grid-cols-12 font-inter bg-[#F7F7F5]">
       
       {/* Left Column: Brand & Hero */}
-      <div className="lg:col-span-6 xl:col-span-7 bg-[#1E88E5] text-white p-8 sm:p-12 lg:p-16 flex flex-col justify-between relative overflow-hidden">
+      <div className="lg:col-span-6 xl:col-span-7 bg-[#1565C0] text-white p-8 sm:p-12 lg:p-16 flex flex-col justify-between relative overflow-hidden">
         {/* Subtle decorative background glow */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-400/20 rounded-full blur-3xl pointer-events-none" />
@@ -64,7 +64,7 @@ export default function AdminLoginPage() {
         <div className="flex items-center gap-3.5 relative z-10">
           <div className="h-11 w-11 rounded-xl bg-white flex items-center justify-center p-1.5 shadow-sm shrink-0">
             <img
-              src="/admin-logo-cropped.png"
+              src="/admin-logo-clean.png"
               alt="R-One Power"
               className="h-full w-full object-contain"
             />
@@ -142,7 +142,7 @@ export default function AdminLoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="admin@r1power.com"
-                  className="w-full pl-10 pr-4 py-3 bg-[#F9FAFB] border border-gray-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-[#1E88E5] focus:bg-white transition-all font-medium"
+                  className="w-full pl-10 pr-4 py-3 bg-[#F9FAFB] border border-gray-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-[#1565C0] focus:bg-white transition-all font-medium"
                 />
               </div>
             </div>
@@ -163,7 +163,7 @@ export default function AdminLoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter password"
-                  className="w-full pl-10 pr-4 py-3 bg-[#F9FAFB] border border-gray-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-[#1E88E5] focus:bg-white transition-all"
+                  className="w-full pl-10 pr-4 py-3 bg-[#F9FAFB] border border-gray-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-[#1565C0] focus:bg-white transition-all"
                 />
               </div>
             </div>
@@ -172,7 +172,7 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full mt-2 py-3.5 px-4 bg-[#1E88E5] hover:bg-blue-600 text-white font-bold rounded-xl text-sm flex items-center justify-center gap-2 transition-all shadow-md shadow-blue-500/25 active:scale-98 cursor-pointer disabled:opacity-50"
+              className="w-full mt-2 py-3.5 px-4 bg-[#1565C0] hover:bg-[#0D47A1] text-white font-bold rounded-xl text-sm flex items-center justify-center gap-2 transition-all shadow-md shadow-blue-500/25 active:scale-98 cursor-pointer disabled:opacity-50"
             >
               <span>{loading ? "Signing in..." : "Login to Admin"}</span>
               <IconArrowRight size={16} />
