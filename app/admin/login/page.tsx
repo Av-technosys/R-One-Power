@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { useRouter } from "next/navigation"
 import {
   IconMail,
@@ -8,6 +8,7 @@ import {
   IconArrowRight,
   IconAlertCircle,
 } from "@tabler/icons-react"
+import { loginAdmin } from "@/app/actions/authActions"
 
 export default function AdminLoginPage() {
   const router = useRouter()
@@ -17,36 +18,36 @@ export default function AdminLoginPage() {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
-    const isAuth = localStorage.getItem("rone_admin_logged_in")
-    if (isAuth === "true") {
-      router.replace("/admin")
-    }
-  }, [router])
-
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
     setLoading(true)
 
-    const trimmedEmail = email.trim().toLowerCase()
+    const trimmedEmail = email.trim()
     const trimmedPassword = password.trim()
 
     if (!trimmedEmail || !trimmedPassword) {
-      setError("Please enter both email address and password.")
+      setError("Please enter both email/ID and password.")
       setLoading(false)
       return
     }
 
-    // Strict validation check: only allow exact admin@r1power.com and admin123
-    if (trimmedEmail === "admin@r1power.com" && trimmedPassword === "admin123") {
-      localStorage.setItem("rone_admin_logged_in", "true")
-      document.cookie = "rone_admin_logged_in=true; path=/; max-age=86400"
-      setTimeout(() => {
-        router.push("/admin")
-      }, 300)
-    } else {
-      setError("Invalid credentials. Please check your email and password.")
+    try {
+      const res = await loginAdmin({
+        email: trimmedEmail,
+        password: trimmedPassword,
+      })
+
+      if (!res.success) {
+        setError(res.error || "Invalid credentials. Please try again.")
+        setLoading(false)
+      } else {
+        // Redirect to admin blogs dashboard
+        router.push("/admin/blogs")
+        router.refresh()
+      }
+    } catch {
+      setError("An unexpected error occurred during login. Please try again.")
       setLoading(false)
     }
   }
@@ -129,7 +130,7 @@ export default function AdminLoginPage() {
             {/* Email Address */}
             <div>
               <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                Email Address
+                Admin ID / Email
               </label>
               <div className="relative">
                 <IconMail
@@ -137,11 +138,11 @@ export default function AdminLoginPage() {
                   className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
                 />
                 <input
-                  type="email"
+                  type="text"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="admin@r1power.com"
+                  placeholder="Enter admin ID or email"
                   className="w-full pl-10 pr-4 py-3 bg-[#F9FAFB] border border-gray-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-[#1565C0] focus:bg-white transition-all font-medium"
                 />
               </div>

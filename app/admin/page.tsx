@@ -1,25 +1,16 @@
-"use client"
-
-import React, { useState, useEffect } from "react"
+import React from "react"
 import Link from "next/link"
 import {
   IconFileText,
   IconArrowRight,
   IconPlus,
 } from "@tabler/icons-react"
-import { initialBlogs, Blog } from "@/lib/adminBlogData"
+import { getBlogs } from "@/app/actions/blogActions"
 
-export default function AdminDashboardPage() {
-  const [blogs, setBlogs] = useState<Blog[]>([])
+export const dynamic = "force-dynamic"
 
-  useEffect(() => {
-    const storedBlogs = localStorage.getItem("rone_admin_blogs")
-    if (storedBlogs) {
-      setBlogs(JSON.parse(storedBlogs))
-    } else {
-      setBlogs(initialBlogs)
-    }
-  }, [])
+export default async function AdminDashboardPage() {
+  const blogs = await getBlogs({ includeDrafts: true })
 
   const publishedCount = blogs.filter((b) => !b.isDraft).length
   const draftCount = blogs.filter((b) => b.isDraft).length

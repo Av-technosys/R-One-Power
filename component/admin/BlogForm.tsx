@@ -6,26 +6,25 @@ import Link from "next/link"
 import {
   IconArrowLeft,
   IconCheck,
-  IconPlus,
-  IconTrash,
   IconPhoto,
-  IconHelpCircle,
   IconFileText,
   IconSeo,
   IconUpload,
+  IconTrash,
 } from "@tabler/icons-react"
+import { SuccessModal } from "@/component/admin/AdminModal"
 import BlogContentEditor from "./BlogContentEditor"
+import type { Blog, BlogCategory } from "@/db/schema"
+import { createBlog, updateBlog, getCategories } from "@/app/actions/blogActions"
 import {
-  initialCategories,
-  initialBlogs,
-  initialFaqs,
-  Blog,
-  BlogCategory,
-  BlogFaq,
-} from "@/lib/adminBlogData"
+  uploadBlogImage,
+  getStorageImageUrl,
+  deleteBlogImageFromStorage,
+} from "@/lib/supabaseClient"
 
 interface BlogFormProps {
-  initialBlog?: Blog
+  initialBlog?: Blog | null
+  categories?: BlogCategory[]
   isEdit?: boolean
   onCancel?: () => void
   onSaved?: () => void
@@ -33,20 +32,28 @@ interface BlogFormProps {
 
 export default function BlogForm({
   initialBlog,
+  categories: initialCatList = [],
   isEdit = false,
   onCancel,
   onSaved,
 }: BlogFormProps) {
   const router = useRouter()
 
-  const [categories, setCategories] = useState<BlogCategory[]>([])
+  const [categories, setCategories] = useState<BlogCategory[]>(initialCatList)
   const [toastMessage, setToastMessage] = useState<string | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isUploadingImage, setIsUploadingImage] = useState(false)
+  const [successModal, setSuccessModal] = useState<{
+    isOpen: boolean
+    title: string
+    message: string
+  } | null>(null)
 
   // Form Fields matching Drizzle 'blogs' schema
   const [title, setTitle] = useState(initialBlog?.title || "")
   const [slug, setSlug] = useState(initialBlog?.slug || "")
   const [categoryId, setCategoryId] = useState(
-    initialBlog?.categoryId || initialCategories[0]?.id || ""
+    initialBlog?.categoryId || initialCatList[0]?.id || ""
   )
   const [publishDate, setPublishDate] = useState(
     initialBlog?.publishDate || new Date().toISOString().split("T")[0]
@@ -64,100 +71,88 @@ export default function BlogForm({
   const [content, setContent] = useState(initialBlog?.content || "")
   const [isDraft, setIsDraft] = useState<boolean>(initialBlog?.isDraft ?? false)
 
-  // FAQs matching Drizzle 'blog_faqs' schema
-  const [faqs, setFaqs] = useState<
-    Array<{ id: string; question: string; answer: string; orderIndex: number }>
-  >([])
-
-  const [isDraggingOver, setIsDraggingOver] = useState(false)
+  // File Upload State
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const [isDraggingOver, setIsDraggingOver] = useState(false)
 
+  // Load categories if not provided
   useEffect(() => {
-    // Load categories from localStorage
-    const storedCats = localStorage.getItem("rone_admin_categories")
-    if (storedCats) {
-      const parsed = JSON.parse(storedCats)
-      setCategories(parsed)
-      if (!initialBlog && parsed.length > 0) {
-        setCategoryId(parsed[0].id)
-      }
-    } else {
-      setCategories(initialCategories)
-      localStorage.setItem("rone_admin_categories", JSON.stringify(initialCategories))
+    if (categories.length === 0) {
+      getCategories().then((cats) => {
+        setCategories(cats)
+        if (!categoryId && cats.length > 0) {
+          setCategoryId(cats[0].id)
+        }
+      })
+    } else if (!categoryId && categories.length > 0) {
+      setCategoryId(categories[0].id)
     }
+  }, [categories, categoryId])
 
-    // Load FAQs for this blog if editing
-    if (isEdit && initialBlog) {
-      const storedFaqs = localStorage.getItem("rone_admin_faqs")
-      if (storedFaqs) {
-        const allFaqs: BlogFaq[] = JSON.parse(storedFaqs)
-        const currentBlogFaqs = allFaqs
-          .filter((f) => f.blogId === initialBlog.id)
-          .sort((a, b) => a.orderIndex - b.orderIndex)
-        setFaqs(currentBlogFaqs)
-      } else {
-        const currentBlogFaqs = initialFaqs
-          .filter((f) => f.blogId === initialBlog.id)
-          .sort((a, b) => a.orderIndex - b.orderIndex)
-        setFaqs(currentBlogFaqs)
-      }
+  // Synchronize form fields whenever initialBlog changes (for edit mode)
+  useEffect(() => {
+    if (initialBlog) {
+      setTitle(initialBlog.title || "")
+      setSlug(initialBlog.slug || "")
+      setCategoryId(initialBlog.categoryId || "")
+      setPublishDate(initialBlog.publishDate || new Date().toISOString().split("T")[0])
+      setMainBannerImage(initialBlog.mainBannerImage || "")
+      setAuthorName(initialBlog.authorName || "R-ONE Power Engineering Team")
+      setMetaTitle(initialBlog.metaTitle || "")
+      setMetaDescription(initialBlog.metaDescription || "")
+      setContent(initialBlog.content || "")
+      setIsDraft(initialBlog.isDraft ?? false)
     }
-  }, [initialBlog, isEdit])
-
-
-
-  // FAQ Handlers
-  const handleAddFaq = () => {
-    setFaqs([
-      ...faqs,
-      {
-        id: `faq-${Date.now()}`,
-        question: "",
-        answer: "",
-        orderIndex: faqs.length,
-      },
-    ])
-  }
-
-  const handleUpdateFaq = (
-    index: number,
-    field: "question" | "answer",
-    value: string
-  ) => {
-    const updated = [...faqs]
-    updated[index][field] = value
-    setFaqs(updated)
-  }
-
-  const handleRemoveFaq = (index: number) => {
-    setFaqs(faqs.filter((_, i) => i !== index))
-  }
+  }, [initialBlog])
 
   const showToast = (msg: string) => {
     setToastMessage(msg)
     setTimeout(() => setToastMessage(null), 3000)
   }
 
-  // File Upload Handler (PC Upload)
-  const processUploadedFile = (file: File) => {
+  // Auto-slug generator from title
+  const handleGenerateSlug = (val: string) => {
+    const generated = val
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/[\s_-]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+    setSlug(generated)
+  }
+
+  // Process PC Image File Selection via Supabase Storage
+  const processUploadedFile = async (file: File) => {
     if (!file.type.startsWith("image/")) {
-      alert("Please upload a valid image file (PNG, JPG, WEBP, etc.)")
-      return
-    }
-    if (file.size > 15 * 1024 * 1024) {
-      alert("File size exceeds 15MB limit.")
+      alert("Please upload a valid image file (PNG, JPG, WEBP).")
       return
     }
 
-    const reader = new FileReader()
-    reader.onload = (e) => {
-      const result = e.target?.result as string
-      if (result) {
-        setMainBannerImage(result)
-        showToast(`Image "${file.name}" uploaded successfully!`)
-      }
+    const MAX_FILE_SIZE = 1 * 1024 * 1024 // 1 MB
+    if (file.size > MAX_FILE_SIZE) {
+      const currentMb = (file.size / (1024 * 1024)).toFixed(2)
+      alert(`Image size (${currentMb} MB) exceeds the 1 MB limit. Please select an image of 1 MB or smaller.`)
+      return
     }
-    reader.readAsDataURL(file)
+
+    setIsUploadingImage(true)
+    showToast("Uploading to Supabase Storage...")
+
+    try {
+      const res = await uploadBlogImage(file)
+      if (res.error || !res.path) {
+        alert(`Failed to upload to Supabase: ${res.error || "Unknown error"}`)
+      } else {
+        // Save clean relative path (e.g. "ronepower/blogs/1793013200363-mqittf.png")
+        setMainBannerImage(res.path)
+        showToast("Image uploaded to Supabase Storage successfully!")
+      }
+    } catch (err: unknown) {
+      console.error("Image upload exception:", err)
+      alert("Failed to upload image to Supabase Storage.")
+    } finally {
+      setIsUploadingImage(false)
+    }
   }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -172,8 +167,7 @@ export default function BlogForm({
     setIsDraggingOver(true)
   }
 
-  const handleDragLeave = (e: React.DragEvent) => {
-    e.preventDefault()
+  const handleDragLeave = () => {
     setIsDraggingOver(false)
   }
 
@@ -186,10 +180,8 @@ export default function BlogForm({
     }
   }
 
-
-
   // Form Submit Handler
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     if (!title.trim() || !slug.trim()) {
@@ -197,66 +189,84 @@ export default function BlogForm({
       return
     }
 
-    const blogId = initialBlog?.id || `blog-${Date.now()}`
-    const nowIso = new Date().toISOString()
-
-    const newBlogEntry: Blog = {
-      id: blogId,
-      title: title.trim(),
-      slug: slug.trim(),
-      categoryId,
-      publishDate,
-      mainBannerImage: mainBannerImage.trim(),
-      authorName: authorName.trim(),
-      metaTitle: metaTitle.trim() || null,
-      metaDescription: metaDescription.trim(),
-      content: content.trim(),
-      isDraft,
-      createdAt: initialBlog?.createdAt || nowIso,
-      updatedAt: nowIso,
+    if (!categoryId) {
+      alert("Please select a Category.")
+      return
     }
 
-    // Persist Blog to localStorage
-    const storedBlogs = localStorage.getItem("rone_admin_blogs")
-    let blogsList: Blog[] = storedBlogs ? JSON.parse(storedBlogs) : initialBlogs
+    setIsSubmitting(true)
 
-    if (isEdit) {
-      blogsList = blogsList.map((b) => (b.id === blogId ? newBlogEntry : b))
-    } else {
-      blogsList = [newBlogEntry, ...blogsList]
-    }
-    localStorage.setItem("rone_admin_blogs", JSON.stringify(blogsList))
-
-    // Persist FAQs to localStorage
-    const storedFaqs = localStorage.getItem("rone_admin_faqs")
-    let allFaqsList: BlogFaq[] = storedFaqs ? JSON.parse(storedFaqs) : initialFaqs
-    allFaqsList = allFaqsList.filter((f) => f.blogId !== blogId)
-    const formattedFaqs: BlogFaq[] = faqs
-      .filter((f) => f.question.trim())
-      .map((f, i) => ({
-        id: f.id || `faq-${Date.now()}-${i}`,
-        blogId,
-        question: f.question.trim(),
-        answer: f.answer.trim(),
-        orderIndex: i,
-        createdAt: nowIso,
-        updatedAt: nowIso,
-      }))
-    allFaqsList = [...allFaqsList, ...formattedFaqs]
-    localStorage.setItem("rone_admin_faqs", JSON.stringify(allFaqsList))
-
-    showToast(isEdit ? "Blog updated successfully!" : "Blog created successfully!")
-    setTimeout(() => {
-      if (onSaved) {
-        onSaved()
-      } else {
-        router.push("/admin/blogs")
+    try {
+      const payload = {
+        title: title.trim(),
+        slug: slug.trim(),
+        categoryId,
+        publishDate,
+        mainBannerImage: mainBannerImage.trim() || "/blog/featured-solar-industrial.jpg",
+        authorName: authorName.trim(),
+        metaTitle: metaTitle.trim() || null,
+        metaDescription: metaDescription.trim(),
+        content: content.trim(),
+        isDraft,
       }
-    }, 800)
+
+      if (isEdit && initialBlog?.id) {
+        const result = await updateBlog(initialBlog.id, payload)
+        if (!result.success) {
+          alert(result.error || "Failed to update blog")
+          setIsSubmitting(false)
+          return
+        }
+        setIsSubmitting(false)
+        setSuccessModal({
+          isOpen: true,
+          title: "Blog Updated Successfully!",
+          message: `"${title.trim()}" has been updated successfully.`,
+        })
+      } else {
+        const result = await createBlog(payload)
+        if (!result.success) {
+          alert(result.error || "Failed to create blog")
+          setIsSubmitting(false)
+          return
+        }
+        setIsSubmitting(false)
+        setSuccessModal({
+          isOpen: true,
+          title: "Blog Created Successfully!",
+          message: `"${title.trim()}" has been created and saved successfully.`,
+        })
+      }
+    } catch (err: unknown) {
+      console.error("Error saving blog:", err)
+      const msg = err instanceof Error ? err.message : "An unexpected error occurred."
+      alert(msg)
+      setIsSubmitting(false)
+    }
+  }
+
+  const handleCloseSuccessModal = () => {
+    setSuccessModal(null)
+    if (onSaved) {
+      onSaved()
+    } else {
+      router.push("/admin/blogs")
+    }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8 max-w-5xl mx-auto font-inter">
+    <form onSubmit={handleSubmit} className="space-y-8 max-w-6xl mx-auto font-inter">
+      {/* Middle Success Popup */}
+      {successModal && (
+        <SuccessModal
+          isOpen={successModal.isOpen}
+          title={successModal.title}
+          message={successModal.message}
+          buttonText="Go to Blogs List"
+          onClose={handleCloseSuccessModal}
+        />
+      )}
+
       {/* Toast */}
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-4 py-2.5 rounded-lg shadow-xl flex items-center gap-2 text-sm border border-slate-700 animate-in fade-in duration-200">
@@ -272,67 +282,70 @@ export default function BlogForm({
             <button
               type="button"
               onClick={onCancel}
-              className="p-2 text-slate-600 hover:text-slate-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
-              title="Back to list"
+              className="p-2 text-slate-500 hover:text-slate-800 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer"
             >
-              <IconArrowLeft size={18} />
+              <IconArrowLeft size={20} />
             </button>
           ) : (
             <Link
               href="/admin/blogs"
-              className="p-2 text-slate-600 hover:text-slate-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+              className="p-2 text-slate-500 hover:text-slate-800 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer"
             >
-              <IconArrowLeft size={18} />
+              <IconArrowLeft size={20} />
             </Link>
           )}
+
           <div>
-            <h1 className="text-xl sm:text-2xl font-black font-poppins text-slate-900">
-              {isEdit ? "Edit Blog Article" : "Create New Blog Article"}
-            </h1>
+            <h2 className="text-xl sm:text-2xl font-bold font-poppins text-slate-900">
+              {isEdit ? "Edit Article" : "Create New Article"}
+            </h2>
+            <p className="text-xs text-slate-500">
+              Manage content, author metadata, SEO tags, and publish settings.
+            </p>
           </div>
         </div>
 
         <div className="flex items-center gap-3">
-          {/* Draft Toggle Status Pill */}
-          <button
-            type="button"
-            onClick={() => setIsDraft(!isDraft)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold border transition-colors cursor-pointer flex items-center gap-1.5 ${
-              isDraft
-                ? "bg-amber-50 text-amber-700 border-amber-200"
-                : "bg-emerald-50 text-emerald-700 border-emerald-200"
-            }`}
-          >
-            <span
-              className={`h-2 w-2 rounded-full ${
-                isDraft ? "bg-amber-500" : "bg-emerald-500"
-              }`}
-            />
-            <span>{isDraft ? "Saving as Draft" : "Status: Published"}</span>
-          </button>
+          {onCancel && (
+            <button
+              type="button"
+              onClick={onCancel}
+              disabled={isSubmitting}
+              className="px-4 py-2 text-xs font-bold text-slate-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors cursor-pointer disabled:opacity-50"
+            >
+              Cancel
+            </button>
+          )}
 
-          {/* Submit Button */}
           <button
             type="submit"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs sm:text-sm font-bold text-white bg-[#1565C0] hover:bg-blue-600 shadow-md shadow-blue-500/20 transition-all active:scale-95 cursor-pointer"
+            disabled={isSubmitting}
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg text-xs font-bold text-white bg-[#1565C0] hover:bg-blue-700 shadow-md shadow-blue-500/20 transition-all active:scale-95 cursor-pointer disabled:opacity-50"
           >
-            <IconCheck size={18} />
-            <span>{isEdit ? "Update Blog" : "Save & Publish"}</span>
+            {isSubmitting ? (
+              <>
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                <span>Saving...</span>
+              </>
+            ) : (
+              <>
+                <IconCheck size={16} />
+                <span>{isEdit ? "Update Article" : "Save Article"}</span>
+              </>
+            )}
           </button>
         </div>
       </div>
 
-      {/* Main Grid: Left Form (8 cols) / Right Settings (4 cols) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        
-        {/* Left Form: Main Content & Body (Col 8) */}
+        {/* Main Content Area (Col 8) */}
         <div className="lg:col-span-8 space-y-6">
           
-          {/* Card: Core Blog Details */}
-          <div className="bg-white p-6 rounded-2xl border border-gray-200/80 shadow-2xs space-y-5">
-            <h3 className="text-sm font-bold font-poppins uppercase tracking-wider text-slate-400 flex items-center gap-2">
-              <IconFileText size={17} className="text-[#1565C0]" />
-              <span>Core Information</span>
+          {/* Card: Article Details */}
+          <div className="bg-white p-6 rounded-2xl border border-gray-200/80 shadow-2xs space-y-4">
+            <h3 className="text-xs font-bold font-poppins uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+              <IconFileText size={16} className="text-[#1565C0]" />
+              <span>Article Details</span>
             </h3>
 
             {/* Title */}
@@ -344,19 +357,33 @@ export default function BlogForm({
                 type="text"
                 required
                 value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={(e) => {
+                  setTitle(e.target.value)
+                  if (!isEdit && !slug) {
+                    handleGenerateSlug(e.target.value)
+                  }
+                }}
                 placeholder="e.g. How Industrial Solar Is Used Across Different Industries"
-                className="w-full px-4 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-[#1565C0] focus:bg-white text-slate-900 font-medium transition-all"
+                className="w-full px-4 py-2.5 text-sm font-semibold bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[#1565C0] focus:bg-white text-slate-900 transition-all"
               />
             </div>
 
-            {/* Slug without Generate Button */}
+            {/* Slug */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                Slug (URL) <span className="text-red-500">*</span>
-              </label>
-              <div className="flex items-center bg-gray-50 border border-gray-200 rounded-lg overflow-hidden focus-within:border-[#1565C0] focus-within:bg-white transition-all">
-                <span className="px-3 text-xs text-slate-400 bg-gray-100/80 border-r border-gray-200 select-none py-2.5 font-mono">
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                  Slug (URL Path) <span className="text-red-500">*</span>
+                </label>
+                <button
+                  type="button"
+                  onClick={() => handleGenerateSlug(title)}
+                  className="text-[11px] font-bold text-[#1565C0] hover:underline cursor-pointer"
+                >
+                  Generate from title
+                </button>
+              </div>
+              <div className="flex items-center rounded-xl bg-gray-50 border border-gray-200 focus-within:border-[#1565C0] focus-within:bg-white overflow-hidden transition-all">
+                <span className="px-3.5 text-xs text-slate-400 bg-gray-100/80 border-r border-gray-200 select-none py-2.5 font-mono">
                   /blog/
                 </span>
                 <input
@@ -364,8 +391,8 @@ export default function BlogForm({
                   required
                   value={slug}
                   onChange={(e) => setSlug(e.target.value)}
-                  placeholder="how-industrial-solar-powers-industry"
-                  className="w-full px-3 py-2.5 text-xs text-slate-800 font-mono bg-transparent focus:outline-none"
+                  placeholder="how-industrial-solar-is-used"
+                  className="w-full py-2.5 px-3 text-xs font-mono font-medium text-slate-800 bg-transparent focus:outline-none"
                 />
               </div>
             </div>
@@ -398,92 +425,9 @@ export default function BlogForm({
             />
           </div>
 
-          {/* Card: Blog FAQs */}
-          <div className="bg-white p-6 rounded-2xl border border-gray-200/80 shadow-2xs space-y-5">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="text-sm font-bold font-poppins uppercase tracking-wider text-slate-400 flex items-center gap-2">
-                  <IconHelpCircle size={17} className="text-[#1565C0]" />
-                  <span>Blog FAQs</span>
-                </h3>
-              </div>
-
-              <button
-                type="button"
-                onClick={handleAddFaq}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-[#1565C0] bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors cursor-pointer"
-              >
-                <IconPlus size={15} />
-                <span>Add FAQ</span>
-              </button>
-            </div>
-
-            {faqs.length === 0 ? (
-              <div className="py-8 text-center bg-gray-50/70 rounded-xl border border-dashed border-gray-200">
-                <IconHelpCircle size={28} className="mx-auto text-slate-300 mb-2" />
-                <p className="text-xs text-slate-500">
-                  No FAQs added for this article yet.
-                </p>
-                <button
-                  type="button"
-                  onClick={handleAddFaq}
-                  className="mt-2 text-xs font-bold text-[#1565C0] hover:underline"
-                >
-                  + Add First Question
-                </button>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {faqs.map((faq, index) => (
-                  <div
-                    key={faq.id || index}
-                    className="p-4 bg-gray-50 rounded-xl border border-gray-200 space-y-3 relative group"
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                        FAQ #{index + 1}
-                      </span>
-                      <button
-                        type="button"
-                        onClick={() => handleRemoveFaq(index)}
-                        className="text-red-400 hover:text-red-600 p-1 rounded-md hover:bg-red-50 transition-colors"
-                        title="Remove question"
-                      >
-                        <IconTrash size={15} />
-                      </button>
-                    </div>
-
-                    <div>
-                      <input
-                        type="text"
-                        value={faq.question}
-                        onChange={(e) =>
-                          handleUpdateFaq(index, "question", e.target.value)
-                        }
-                        placeholder="Question title..."
-                        className="w-full px-3 py-2 text-xs font-semibold bg-white border border-gray-200 rounded-lg focus:outline-none focus:border-[#1565C0] text-slate-800"
-                      />
-                    </div>
-
-                    <div>
-                      <textarea
-                        rows={2}
-                        value={faq.answer}
-                        onChange={(e) =>
-                          handleUpdateFaq(index, "answer", e.target.value)
-                        }
-                        placeholder="Answer details..."
-                        className="w-full px-3 py-2 text-xs bg-white border border-gray-200 rounded-lg focus:outline-none focus:border-[#1565C0] text-slate-700 leading-relaxed"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
         </div>
 
-        {/* Right Sidebar: Publishing Settings & PC Image Upload (Col 4) */}
+        {/* Right Sidebar (Col 4) */}
         <div className="lg:col-span-4 space-y-6">
           
           {/* Card: Publishing Settings */}
@@ -502,11 +446,15 @@ export default function BlogForm({
                 onChange={(e) => setCategoryId(e.target.value)}
                 className="w-full px-3.5 py-2.5 text-xs font-semibold bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-[#1565C0] text-slate-800"
               >
-                {categories.map((cat) => (
-                  <option key={cat.id} value={cat.id}>
-                    {cat.name}
-                  </option>
-                ))}
+                {categories.length === 0 ? (
+                  <option value="">No categories found</option>
+                ) : (
+                  categories.map((cat) => (
+                    <option key={cat.id} value={cat.id}>
+                      {cat.name}
+                    </option>
+                  ))
+                )}
               </select>
             </div>
 
@@ -556,12 +504,15 @@ export default function BlogForm({
             </div>
           </div>
 
-          {/* Card: Main Banner Image (PC File Upload System) */}
+          {/* Card: Main Banner Image (Supabase Storage Bucket System) */}
           <div className="bg-white p-6 rounded-2xl border border-gray-200/80 shadow-2xs space-y-4">
-            <h3 className="text-xs font-bold font-poppins uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-              <IconPhoto size={16} className="text-[#1565C0]" />
-              <span>Main Banner Image</span>
-            </h3>
+            <div className="flex items-center justify-between">
+              <h3 className="text-xs font-bold font-poppins uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                <IconPhoto size={16} className="text-[#1565C0]" />
+                <span>Main Banner Image</span>
+              </h3>
+           
+            </div>
 
             {/* Hidden native file input */}
             <input
@@ -572,12 +523,23 @@ export default function BlogForm({
               className="hidden"
             />
 
-            {/* Preview Box if image exists */}
-            {mainBannerImage ? (
+            {/* Loading Indicator */}
+            {isUploadingImage ? (
+              <div className="border-2 border-dashed border-[#1565C0] bg-blue-50/50 rounded-xl p-8 text-center space-y-2">
+                <div className="w-7 h-7 mx-auto border-3 border-slate-200 border-t-[#1565C0] rounded-full animate-spin" />
+                <p className="text-xs font-bold text-slate-700 font-poppins">
+                  Uploading to Supabase Storage...
+                </p>
+                <p className="text-[11px] text-slate-400">
+                  Saving file and generating public CDN link
+                </p>
+              </div>
+            ) : mainBannerImage ? (
+              /* Preview Box if image exists */
               <div className="space-y-3">
                 <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-slate-100 border border-gray-200 group">
                   <img
-                    src={mainBannerImage}
+                    src={getStorageImageUrl(mainBannerImage)}
                     alt="Banner preview"
                     className="w-full h-full object-cover"
                   />
@@ -587,14 +549,20 @@ export default function BlogForm({
                   <button
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
-                    className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-bold text-white bg-[#1565C0] hover:bg-blue-600 transition-colors cursor-pointer shadow-xs"
+                    className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-bold text-white bg-[#1565C0] hover:bg-blue-700 transition-colors cursor-pointer shadow-xs"
                   >
                     <IconUpload size={14} />
-                    <span>Upload from PC</span>
+                    <span>Upload New</span>
                   </button>
                   <button
                     type="button"
-                    onClick={() => setMainBannerImage("")}
+                    onClick={async () => {
+                      if (mainBannerImage && mainBannerImage.startsWith("ronepower/blogs/")) {
+                        await deleteBlogImageFromStorage(mainBannerImage)
+                      }
+                      setMainBannerImage("")
+                      showToast("Image removed from storage")
+                    }}
                     className="p-2 text-slate-400 hover:text-red-500 border border-gray-200 hover:border-red-200 rounded-lg transition-colors cursor-pointer"
                     title="Remove Image"
                   >
@@ -603,7 +571,7 @@ export default function BlogForm({
                 </div>
               </div>
             ) : (
-              /* Drag & Drop Upload Zone */
+              /* Drag & Drop Upload Zone (Teammate's rounded UI) */
               <div
                 onClick={() => fileInputRef.current?.click()}
                 onDragOver={handleDragOver}
@@ -622,19 +590,29 @@ export default function BlogForm({
                   Click to upload from PC
                 </p>
                 <p className="text-[11px] text-slate-400 mt-1">
-                  or drag and drop your image file here
+                  PNG, JPG or WEBP (Max 1MB) • Uploads to Bucket
                 </p>
-                <span className="inline-block mt-3 px-3 py-1 bg-white border border-gray-200 rounded-md text-[10px] font-semibold text-slate-500">
-                  PNG, JPG, WEBP (Max 15MB)
-                </span>
               </div>
             )}
+
+            {/* Storage path / URL input fallback */}
+            <div className="pt-1">
+              <label className="block text-[11px] font-semibold text-slate-500 mb-1">
+                Storage Path / URL:
+              </label>
+              <input
+                type="text"
+                value={mainBannerImage}
+                onChange={(e) => setMainBannerImage(e.target.value)}
+                placeholder="ronepower/blogs/... or /blog/solar.jpg"
+                className="w-full px-3 py-1.5 text-xs bg-gray-50 border border-gray-200 rounded-lg text-slate-800 focus:outline-none focus:border-[#1565C0] font-mono text-[11px]"
+              />
+            </div>
           </div>
 
-          {/* SEO Metadata */}
+          {/* Card: SEO Meta Tags (Teammate's layout) */}
           <div className="bg-white p-6 rounded-2xl border border-gray-200/80 shadow-2xs space-y-4">
             <h3 className="text-xs font-bold font-poppins uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-              <IconSeo size={16} className="text-[#1565C0]" />
               <span>SEO Meta Tags</span>
             </h3>
 
@@ -679,7 +657,6 @@ export default function BlogForm({
           </div>
 
         </div>
-
       </div>
     </form>
   )
