@@ -55,44 +55,45 @@ export default function AdminSidebar({
 
       {/* Sidebar Container */}
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-50 w-72 bg-[#1E88E5] text-white border-r border-blue-400/30 flex flex-col justify-between transition-transform duration-300 ease-in-out font-inter shadow-xl ${
+        className={`fixed top-0 bottom-0 left-0 z-50 w-72 bg-[#1565C0] text-white border-r border-blue-400/30 flex flex-col justify-between transition-transform duration-300 ease-in-out font-inter shadow-xl ${
           mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
       >
         <div>
-          {/* Logo & Header */}
-          <div className="h-16 px-6 border-b border-blue-400/30 flex items-center justify-between">
-            <Link href="/admin" className="flex items-center gap-3 group">
-              <div className="h-11 w-11 rounded-xl bg-white flex items-center justify-center p-1.5 shadow-sm shrink-0 transition-transform group-hover:scale-105">
-                <img
-                  src="/admin-logo-cropped.png"
-                  alt="R-One Power"
-                  className="h-full w-full object-contain"
-                />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-poppins font-bold text-white text-base tracking-tight leading-tight">
-                  R-one-power
-                </span>
-                <span className="text-xs text-blue-100 font-medium font-inter">
-                  Admin Panel
-                </span>
-              </div>
-            </Link>
-
+          {/* Logo & Header (Full edge-to-edge white header - Logo Only) */}
+          <div className="bg-white px-4 pt-0.5 pb-2 border-b border-gray-200 relative flex items-center justify-center">
             {/* Mobile Close Button */}
             {setMobileOpen && (
               <button
                 onClick={() => setMobileOpen(false)}
-                className="lg:hidden p-1.5 text-blue-100 hover:text-white rounded-lg hover:bg-white/10"
+                className="lg:hidden absolute top-1/2 -translate-y-1/2 right-2 p-1 text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-100 z-10 cursor-pointer"
+                title="Close sidebar"
               >
                 <IconX size={20} />
               </button>
             )}
+
+            <Link href="/admin" className="block group w-full">
+              {/* Full Width Edge-to-Edge Logo with slight bottom breathing room */}
+              <div className="flex items-center justify-center">
+                <img
+                  src="/admin-logo-clean.png"
+                  alt="R-One Power"
+                  className="h-13 w-auto max-w-[220px] object-contain transition-transform group-hover:scale-105"
+                />
+              </div>
+            </Link>
+          </div>
+
+          {/* Admin Panel text outside white box, on blue background */}
+          <div className="pt-3.5 pb-1 text-center">
+            <span className="text-xs font-bold text-white tracking-widest uppercase font-inter">
+              Admin Panel
+            </span>
           </div>
 
           {/* Nav List */}
-          <div className="px-4 py-6 space-y-2">
+          <div className="px-4 py-4 space-y-2">
             {navItems.map((item) => {
               const Icon = item.icon
               return (
@@ -102,11 +103,11 @@ export default function AdminSidebar({
                   onClick={() => setMobileOpen?.(false)}
                   className={`flex items-center gap-3.5 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${
                     item.active
-                      ? "bg-white text-[#1E88E5] shadow-md font-bold"
+                      ? "bg-white text-[#1565C0] shadow-md font-bold"
                       : "text-blue-100 hover:text-white hover:bg-white/10"
                   }`}
                 >
-                  <Icon size={19} className={item.active ? "text-[#1E88E5]" : "text-blue-200"} />
+                  <Icon size={19} className={item.active ? "text-[#1565C0]" : "text-blue-200"} />
                   <span>{item.name}</span>
                 </Link>
               )

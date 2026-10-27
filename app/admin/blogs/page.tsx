@@ -174,7 +174,7 @@ function AdminBlogsContent() {
 
         <button
           onClick={handleOpenCreate}
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-bold text-white bg-[#1E88E5] hover:bg-blue-600 shadow-sm shadow-blue-500/20 transition-all active:scale-95 shrink-0 cursor-pointer"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-bold text-white bg-[#1565C0] hover:bg-[#0D47A1] shadow-sm shadow-blue-500/20 transition-all active:scale-95 w-full sm:w-auto shrink-0 cursor-pointer"
         >
           <IconPlus size={18} />
           <span>Add New Blog</span>
@@ -182,9 +182,9 @@ function AdminBlogsContent() {
       </div>
 
       {/* Search & Filter Bar */}
-      <div className="bg-white p-4 rounded-xl border border-gray-200/80 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-3">
+      <div className="bg-white p-3.5 sm:p-4 rounded-xl border border-gray-200/80 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-3 overflow-hidden">
         {/* Search Input */}
-        <div className="relative flex-1 max-w-md">
+        <div className="relative flex-1 max-w-md w-full">
           <IconSearch
             size={18}
             className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
@@ -194,41 +194,43 @@ function AdminBlogsContent() {
             placeholder="Search by title, author, slug..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 text-xs sm:text-sm bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-[#1E88E5] focus:bg-white text-slate-800 transition-all font-medium"
+            className="w-full pl-10 pr-4 py-2 text-xs sm:text-sm bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-[#1565C0] focus:bg-white text-slate-800 transition-all font-medium"
           />
         </div>
 
-        {/* Filters */}
-        <div className="flex items-center gap-2.5">
-          <div className="flex items-center gap-1.5 text-xs text-slate-500 font-semibold">
+        {/* Filters - Responsive on mobile without overflow */}
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2 w-full md:w-auto">
+          <div className="flex items-center gap-1.5 text-xs text-slate-500 font-semibold shrink-0">
             <IconFilter size={16} />
             <span>Filter:</span>
           </div>
 
-          {/* Category Filter */}
-          <select
-            value={selectedCat}
-            onChange={(e) => setSelectedCat(e.target.value)}
-            className="text-xs bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-slate-700 font-semibold focus:outline-none focus:border-[#1E88E5]"
-          >
-            <option value="all">All Categories</option>
-            {categories.map((cat) => (
-              <option key={cat.id} value={cat.id}>
-                {cat.name}
-              </option>
-            ))}
-          </select>
+          <div className="grid grid-cols-2 sm:flex sm:items-center gap-2 w-full sm:w-auto">
+            {/* Category Filter */}
+            <select
+              value={selectedCat}
+              onChange={(e) => setSelectedCat(e.target.value)}
+              className="w-full sm:w-auto text-xs bg-gray-50 border border-gray-200 rounded-lg px-2.5 sm:px-3 py-2 text-slate-700 font-semibold focus:outline-none focus:border-[#1565C0] truncate"
+            >
+              <option value="all">All Categories</option>
+              {categories.map((cat) => (
+                <option key={cat.id} value={cat.id}>
+                  {cat.name}
+                </option>
+              ))}
+            </select>
 
-          {/* Status Filter */}
-          <select
-            value={selectedStatus}
-            onChange={(e) => setSelectedStatus(e.target.value)}
-            className="text-xs bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-slate-700 font-semibold focus:outline-none focus:border-[#1E88E5]"
-          >
-            <option value="all">All Statuses</option>
-            <option value="published">Published</option>
-            <option value="draft">Drafts</option>
-          </select>
+            {/* Status Filter */}
+            <select
+              value={selectedStatus}
+              onChange={(e) => setSelectedStatus(e.target.value)}
+              className="w-full sm:w-auto text-xs bg-gray-50 border border-gray-200 rounded-lg px-2.5 sm:px-3 py-2 text-slate-700 font-semibold focus:outline-none focus:border-[#1565C0] truncate"
+            >
+              <option value="all">All Statuses</option>
+              <option value="published">Published</option>
+              <option value="draft">Drafts</option>
+            </select>
+          </div>
         </div>
       </div>
 
@@ -274,7 +276,7 @@ function AdminBlogsContent() {
                           <button
                             type="button"
                             onClick={() => handleOpenEdit(blog)}
-                            className="font-bold text-slate-900 hover:text-[#1E88E5] transition-colors line-clamp-1 text-sm font-poppins text-left cursor-pointer"
+                            className="font-bold text-slate-900 hover:text-[#1565C0] transition-colors line-clamp-1 text-sm font-poppins text-left cursor-pointer"
                           >
                             {blog.title}
                           </button>
@@ -324,7 +326,7 @@ function AdminBlogsContent() {
                         <button
                           type="button"
                           onClick={() => handleOpenEdit(blog)}
-                          className="p-1.5 text-slate-600 hover:text-[#1E88E5] hover:bg-blue-50 rounded-lg transition-colors cursor-pointer"
+                          className="p-1.5 text-slate-600 hover:text-[#1565C0] hover:bg-blue-50 rounded-lg transition-colors cursor-pointer"
                           title="Edit Blog"
                         >
                           <IconEdit size={16} />
@@ -364,7 +366,7 @@ export default function AdminBlogsListPage() {
     <Suspense
       fallback={
         <div className="py-20 text-center font-inter text-slate-400">
-          <div className="w-8 h-8 mx-auto border-3 border-slate-300 border-t-[#1E88E5] rounded-full animate-spin mb-3" />
+          <div className="w-8 h-8 mx-auto border-3 border-slate-300 border-t-[#1565C0] rounded-full animate-spin mb-3" />
           <span>Loading blogs...</span>
         </div>
       }
