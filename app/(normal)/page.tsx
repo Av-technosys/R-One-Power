@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     title: 'Solar EPC Company in India | Energy Solutions | R-One Power',
     description:
       'R-One Power is an MNRE-empanelled solar EPC company based in Rajasthan, serving clients across India. Residential, commercial & industrial solar solutions.',
-    images: ['https://dg2suxnbcr839.cloudfront.net/main-logo.png'],
+    images: ['https://dg2suxnbcr839.cloudfront.net/public/rone001/website_media/main-logo.png'],
     locale: 'en_IN',
   },
   twitter: {
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     title: 'Solar EPC Company in India | Energy Solutions | R-One Power',
     description:
       'R-One Power is an MNRE-empanelled solar EPC company based in Rajasthan, serving clients across India. Residential, commercial & industrial solar solutions.',
-    images: ['https://dg2suxnbcr839.cloudfront.net/main-logo.png'],
+    images: ['https://dg2suxnbcr839.cloudfront.net/public/rone001/website_media/main-logo.png'],
   },
 }
 

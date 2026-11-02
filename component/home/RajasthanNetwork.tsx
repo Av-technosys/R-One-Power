@@ -62,7 +62,7 @@ export default function RajasthanNetwork() {
               className="relative w-full h-[300px] md:h-[350px]"
             >
               <Image
-                src="https://dg2suxnbcr839.cloudfront.net/rajasthan.png"
+                src="https://dg2suxnbcr839.cloudfront.net/public/rone001/website_media/rajasthan.png"
                 alt="Rajasthan Map"
                 fill
                 priority

@@ -5,16 +5,16 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 
 const brandLogos = [
-  { name: "Indian Oil", img: "https://dg2suxnbcr839.cloudfront.net/logo-1.png" },
-  { name: "Railway", img: "https://dg2suxnbcr839.cloudfront.net/logo-2.png"},
-  { name: "Refex", img: "https://dg2suxnbcr839.cloudfront.net/logo-3.png" },
-  { name: "HP", img: "https://dg2suxnbcr839.cloudfront.net/logo-4.png" },
-  { name: "Ecotec", img: "https://dg2suxnbcr839.cloudfront.net/logo-5.png" },
-  { name: "Solar91", img: "https://dg2suxnbcr839.cloudfront.net/logo-6.png" },
-  { name: "7 Greens", img: "https://dg2suxnbcr839.cloudfront.net/logo-7.png" },
-  { name: "Genus", img: "https://dg2suxnbcr839.cloudfront.net/logo-8.png" },
-  { name: "Penta", img: "https://dg2suxnbcr839.cloudfront.net/logo-9.png" },
-  { name: "Green", img: "https://dg2suxnbcr839.cloudfront.net/logo-10.png" },
+  { name: "Indian Oil", img: "https://dg2suxnbcr839.cloudfront.net/public/rone001/website_media/logo-1.png" },
+  { name: "Railway", img: "https://dg2suxnbcr839.cloudfront.net/public/rone001/website_media/logo-2.png"},
+  { name: "Refex", img: "https://dg2suxnbcr839.cloudfront.net/public/rone001/website_media/logo-3.png" },
+  { name: "HP", img: "https://dg2suxnbcr839.cloudfront.net/public/rone001/website_media/logo-4.png" },
+  { name: "Ecotec", img: "https://dg2suxnbcr839.cloudfront.net/public/rone001/website_media/logo-5.png" },
+  { name: "Solar91", img: "https://dg2suxnbcr839.cloudfront.net/public/rone001/website_media/logo-6.png" },
+  { name: "7 Greens", img: "https://dg2suxnbcr839.cloudfront.net/public/rone001/website_media/logo-7.png" },
+  { name: "Genus", img: "https://dg2suxnbcr839.cloudfront.net/public/rone001/website_media/logo-8.png" },
+  { name: "Penta", img: "https://dg2suxnbcr839.cloudfront.net/public/rone001/website_media/logo-9.png" },
+  { name: "Green", img: "https://dg2suxnbcr839.cloudfront.net/public/rone001/website_media/logo-10.png" },
 ]
 
 // Infinite loop ke liye duplicate
