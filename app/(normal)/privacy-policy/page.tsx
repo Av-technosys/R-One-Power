@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: 'Our Privacy Policy | R-One Power Solar EPC India',
     description:
       "Read R-One Power's privacy policy to learn how we collect, use, and protect your personal data when you request solar consultations or services.",
-    images: ['https://dg2suxnbcr839.cloudfront.net/main-logo.png'],
+    images: ['https://dg2suxnbcr839.cloudfront.net/public/rone001/website_media/main-logo.png'],
     locale: 'en_IN',
   },
   twitter: {
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     title: 'Our Privacy Policy | R-One Power Solar EPC India',
     description:
       "Read R-One Power's privacy policy to learn how we collect, use, and protect your personal data when you request solar consultations or services.",
-    images: ['https://dg2suxnbcr839.cloudfront.net/main-logo.png'],
+    images: ['https://dg2suxnbcr839.cloudfront.net/public/rone001/website_media/main-logo.png'],
   },
 }
 
